@@ -6,7 +6,7 @@
   <link href="http://www.deltamaya.top/atom.xml" rel="self"/>
   
   <link href="http://www.deltamaya.top/"/>
-  <updated>2023-03-27T13:56:17.557Z</updated>
+  <updated>2023-03-27T14:00:16.794Z</updated>
   <id>http://www.deltamaya.top/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://www.deltamaya.top/2023/03/27/IEEE%E6%A0%87%E5%87%86%E7%9A%84%E6%B5%AE%E7%82%B9%E6%95%B0%E8%A1%A8%E7%A4%BA/"/>
     <id>http://www.deltamaya.top/2023/03/27/IEEE%E6%A0%87%E5%87%86%E7%9A%84%E6%B5%AE%E7%82%B9%E6%95%B0%E8%A1%A8%E7%A4%BA/</id>
     <published>2023-03-27T09:24:02.443Z</published>
-    <updated>2023-03-27T13:56:17.557Z</updated>
+    <updated>2023-03-27T14:00:16.794Z</updated>
     
     <content type="html"><![CDATA[<h1 id="结构介绍"><a href="#结构介绍" class="headerlink" title="结构介绍"></a>结构介绍</h1><p>因为计算机中只能离散的保存数据，那么数据的最小位就决定了数据精度。<br>例如： </p><ul><li>表示整数(int)类型时，最小位是2^0&#x3D;1,因此精度就是1，int类型无法保存任何模1不等于0的数。</li></ul><p>而小数却不存在最小位（无穷小），因此IEEE协会制定了一种用于表示浮点数的存储方式。<br>已知：</p><blockquote><p>任何十进制的数都可以表示为n&#x3D;(-1)^s*M*10^E的形式</p></blockquote><p>其中s是符号位,n为负数时s为0，n为正数时s为1，m是一个尾数，位于1~10之间，e是幂次。例如：12345&#x3D;(-1)^0*1.2345*10^4.</p><p>同理：</p><blockquote><p>任何二进制数都可以表示为n&#x3D;(-1)^s*M*2^E的形式</p></blockquote><p>符号含义：</p><ul><li>s:符号(sign)</li><li>M:尾数(significand)</li><li>E:阶码(exponet)</li><li>同时，我们用m代表M中存储的值，e表示E中存储的值。</li></ul><p>所以，如果我们要存储2进制浮点数，只需要存储s、M、E的值即可。<br>由上述公式可知，m位于1~2之间，因此其最高位总是为1，我们将其省略。<br><br>此外，为了存储e为负数的浮点数，对于E有k位的浮点数，还存在一个<strong>偏置 Bias &#x3D; 2^k-1</strong>,E最终的值要加上偏置后再进行存储。至于为什么不使用负号来表示E，我们之后再展示。<br><br>以32位float为例：</p><p><img src="/../img/floatStructure.png" alt="float的具体结构"><br>这样，我们就有了表示浮点数的方法。</p><h1 id="值的表示"><a href="#值的表示" class="headerlink" title="值的表示"></a>值的表示</h1><p>这种表示浮点数的方式有三种情况：</p><ul><li><strong>规格化的值</strong><br>E中的位不全为0，也不全为1。<br>此时n可以由(-1)^s*(1+m)*2^(e-Bias)计算得出。</li><li><strong>非规格化的值</strong><br>因为我们假定M始终大于1，所以我们无法表示0.<br>而当<strong>阶码E全为0</strong>时，浮点数表示非规格化的值，它为我们提供了表示0的方法，此时<strong>e&#x3D;1-Bias</strong>。<br>例如：<br>0 00000000 0000000… 表示+0.0<br>1 00000000 0000000… 表示-0.0<br>根据IEEE的浮点格式，+0与-0在某些方面是不同的，而在其他方面是相同的。<br>非规格化数的另一种功能是表示非常接近于0的值。</li><li><strong>特殊值</strong><br>最后一类数值是当<strong>阶码E全为1</strong>是出现的。<br>当小数域全为0时，表示<strong>无穷</strong><br>当小数域不为0时，表示<strong>NaN</strong>（不是一个数）<br>例如当两个非常大的数相乘，或者除以0时，会产生无穷。<br>当一些运算不能是实数或者无穷时，返回NaN</li></ul>]]></content>
     
