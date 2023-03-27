@@ -24,7 +24,7 @@
 <li>同时，我们用m代表M中存储的值，e表示E中存储的值。</li>
 </ul>
 <p>所以，如果我们要存储2进制浮点数，只需要存储s、M、E的值即可。<br>由上述公式可知，m位于1~2之间，因此其最高位总是为1，我们将其省略。<br><br>此外，为了存储e为负数的浮点数，对于E有k位的浮点数，还存在一个<strong>偏置 Bias &#x3D; 2^k-1</strong>,E最终的值要加上偏置后再进行存储。至于为什么不使用负号来表示E，我们之后再展示。<br><br>以32位float为例：</p>
-<p><img src="/../images/float%E7%BB%93%E6%9E%84.png" alt="float的具体结构"><br>这样，我们就有了表示浮点数的方法。</p>
+<p><img src="/../img/floatStructure.png" alt="float的具体结构"><br>这样，我们就有了表示浮点数的方法。</p>
 <h1 id="值的表示"><a href="#值的表示" class="headerlink" title="值的表示"></a>值的表示</h1><p>这种表示浮点数的方式有三种情况：</p>
 <ul>
 <li><strong>规格化的值</strong><br>E中的位不全为0，也不全为1。<br>此时n可以由(-1)^s*(1+m)*2^(e-Bias)计算得出。</li>
