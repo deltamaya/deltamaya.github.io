@@ -6,7 +6,7 @@
   <link href="http://www.deltamaya.top/atom.xml" rel="self"/>
   
   <link href="http://www.deltamaya.top/"/>
-  <updated>2023-03-28T04:06:50.006Z</updated>
+  <updated>2023-03-30T09:16:43.623Z</updated>
   <id>http://www.deltamaya.top/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>二叉树</title>
+    <link href="http://www.deltamaya.top/2023/03/30/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    <id>http://www.deltamaya.top/2023/03/30/%E4%BA%8C%E5%8F%89%E6%A0%91/</id>
+    <published>2023-03-30T09:15:00.178Z</published>
+    <updated>2023-03-30T09:16:43.623Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="树的结构"><a href="#树的结构" class="headerlink" title="树的结构"></a>树的结构</h1><p>一棵二叉树又三个部分组成：</p><ul><li>根节点</li><li>左子树</li><li>右子树</li></ul><p>我们将树的结构定义如下：</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TreeNode</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"><span class="type">int</span> val;</span><br><span class="line">TreeNode*left;</span><br><span class="line">TreeNode*right;</span><br><span class="line"><span class="type">int</span> height;</span><br><span class="line"><span class="built_in">TreeNode</span>(<span class="type">int</span> x):<span class="built_in">val</span>(x),<span class="built_in">left</span>(<span class="literal">nullptr</span>),<span class="built_in">right</span>(<span class="literal">nullptr</span>),<span class="built_in">height</span>(<span class="number">1</span>)&#123;&#125;;</span><br><span class="line"><span class="built_in">TreeNode</span>(): <span class="built_in">TreeNode</span> (<span class="number">0</span>)&#123;&#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>因此当我们需要遍历一棵二叉树时，有四种遍历方法：</p><ul><li>前序遍历</li><li>中序遍历</li><li>后序遍历</li><li>层序遍历</li></ul><h2 id="前序遍历"><a href="#前序遍历" class="headerlink" title="前序遍历"></a>前序遍历</h2><p>遍历顺序：<strong>根节点-&gt;左子树-&gt;右子树</strong></p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">preOrder</span><span class="params">(TreeNode*root)</span></span>&#123;</span><br><span class="line"><span class="keyword">if</span>(!root)<span class="keyword">return</span>;</span><br><span class="line"><span class="built_in">Process</span>(root);</span><br><span class="line"><span class="built_in">preOrder</span>(root-&gt;left);</span><br><span class="line"><span class="built_in">preOrder</span>(root-&gt;right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h2><p>遍历顺序：<strong>左子树-&gt;根节点-&gt;右子树</strong></p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">inOrder</span><span class="params">(TreeNode*root)</span></span>&#123;</span><br><span class="line"><span class="keyword">if</span>(!root)<span class="keyword">return</span>;</span><br><span class="line"><span class="built_in">inOrder</span>(root-&gt;left);</span><br><span class="line"><span class="built_in">Process</span>(root);</span><br><span class="line"><span class="built_in">inOrder</span>(root-&gt;right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h2><p>遍历顺序：<strong>左子树-&gt;右子树-&gt;根节点</strong></p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">latOrder</span><span class="params">(TreeNode*root)</span></span>&#123;</span><br><span class="line"><span class="keyword">if</span>(!root)<span class="keyword">return</span>;</span><br><span class="line"><span class="built_in">latOrder</span>(root-&gt;left);</span><br><span class="line"><span class="built_in">latOrder</span>(root-&gt;right);</span><br><span class="line"><span class="built_in">Process</span>(root);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="层序遍历"><a href="#层序遍历" class="headerlink" title="层序遍历"></a>层序遍历</h2><p>遍历顺序：<strong>逐层</strong><br>层序遍历相对比较复杂，我们需要用一个队列来记录<strong>所有同层的节点</strong>然后依次遍历</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">layerOrder</span><span class="params">(TreeNode*root)</span></span>&#123;</span><br><span class="line"><span class="keyword">if</span>(!root)<span class="keyword">return</span>;</span><br><span class="line">queue&lt;TreeNode*&gt;q;</span><br><span class="line">q.<span class="built_in">push</span>(root);</span><br><span class="line"><span class="keyword">while</span>(!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">TreeNode *f = q.<span class="built_in">front</span> ();</span><br><span class="line"><span class="keyword">if</span> ( f-&gt;left )q.<span class="built_in">push</span> (f-&gt;left);</span><br><span class="line"><span class="keyword">if</span> ( f-&gt;right )q.<span class="built_in">push</span> (f-&gt;right);</span><br><span class="line"><span class="built_in">Process</span> (f);</span><br><span class="line">q.<span class="built_in">pop</span> ();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><em>我们不难发现，所谓的 X序遍历 就是根节点在顺序中的位置</em></p><p>二叉树本身就是递归的定义的，所以我们可以得知，二叉树算法中最重要的一点就是递归。</p><h1 id="树的性质"><a href="#树的性质" class="headerlink" title="树的性质"></a>树的性质</h1><h2 id="满二叉树"><a href="#满二叉树" class="headerlink" title="满二叉树"></a>满二叉树</h2><p>满二叉树指的是深度为n的树，n-1层全为满的并且第n层的子节点都是连续的。</p><h2 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h2><p>满二叉树是完全二叉树的一种特殊情形，指的是对于每个节点，左子树与右子树的高度之差绝对值不大于1.完全二叉树常常被用于二叉查找树，它可以在O(logn)的时间找到目标。</p><h2 id="一般二叉树"><a href="#一般二叉树" class="headerlink" title="一般二叉树"></a>一般二叉树</h2><p>对于深度为n的一棵二叉树，节点个数在$n$至$2^n-1$之间。<br>同理，对于节点个数为n的二叉树，深度在$log(n+1)$至$n$之间。</p>]]></content>
+    
+    
+    <summary type="html">简要介绍二叉树的结构、性质</summary>
+    
+    
+    
+    <category term="数据结构与算法" scheme="http://www.deltamaya.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="C++" scheme="http://www.deltamaya.top/tags/C/"/>
+    
+    <category term="数据结构" scheme="http://www.deltamaya.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="树" scheme="http://www.deltamaya.top/tags/%E6%A0%91/"/>
+    
+    <category term="二叉树" scheme="http://www.deltamaya.top/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    
+  </entry>
   
   <entry>
     <title>堆</title>
