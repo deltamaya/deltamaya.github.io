@@ -28,8 +28,9 @@
 <meta property="og:site_name" content="玛雅55369">
 <meta property="og:description" content="简要介绍二叉树的结构、性质">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.deltamaya.top/img/binary_tree_show.jpg">
 <meta property="article:published_time" content="2023-03-30T09:15:00.178Z">
-<meta property="article:modified_time" content="2023-03-30T09:21:00.126Z">
+<meta property="article:modified_time" content="2023-04-23T03:24:16.598Z">
 <meta property="article:author" content="deltamaya">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="C++">
@@ -37,6 +38,7 @@
 <meta property="article:tag" content="树">
 <meta property="article:tag" content="二叉树">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.deltamaya.top/img/binary_tree_show.jpg">
 
 
 <link rel="canonical" href="http://www.deltamaya.top/2023/03/30/%E4%BA%8C%E5%8F%89%E6%A0%91/">
@@ -148,7 +150,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%91%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">树的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">1.1.</span> <span class="nav-text">前序遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">1.2.</span> <span class="nav-text">中序遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">1.3.</span> <span class="nav-text">后序遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">1.4.</span> <span class="nav-text">层序遍历</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%91%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="nav-number">2.</span> <span class="nav-text">树的性质</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BB%A1%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">2.1.</span> <span class="nav-text">满二叉树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">2.2.</span> <span class="nav-text">完全二叉树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E8%88%AC%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">2.3.</span> <span class="nav-text">一般二叉树</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%91%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">树的概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">二叉树的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">2.1.</span> <span class="nav-text">前序遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">2.2.</span> <span class="nav-text">中序遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">2.3.</span> <span class="nav-text">后序遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">2.4.</span> <span class="nav-text">层序遍历</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="nav-number">3.</span> <span class="nav-text">二叉树的性质</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BB%A1%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">3.1.</span> <span class="nav-text">满二叉树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">3.2.</span> <span class="nav-text">完全二叉树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E8%88%AC%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">3.3.</span> <span class="nav-text">一般二叉树</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -265,9 +267,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-03-30 17:15:00 / 修改时间：17:21:00" itemprop="dateCreated datePublished" datetime="2023-03-30T17:15:00+08:00">2023-03-30</time>
+      <time title="创建时间：2023-03-30 17:15:00" itemprop="dateCreated datePublished" datetime="2023-03-30T17:15:00+08:00">2023-03-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-04-23 11:24:16" itemprop="dateModified" datetime="2023-04-23T11:24:16+08:00">2023-04-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -293,14 +301,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.3k</span>
+      <span>2.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -312,7 +320,23 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="树的结构"><a href="#树的结构" class="headerlink" title="树的结构"></a>树的结构</h1><p>一棵二叉树又三个部分组成：</p>
+        <h1 id="树的概念"><a href="#树的概念" class="headerlink" title="树的概念"></a>树的概念</h1><p><img src="/../img/binary_tree_show.jpg" alt="树"></p>
+<blockquote>
+<p><strong>结点的度</strong>：一个结点含有的子树的个数称为该结点的度； 如上图：A的为6</p>
+<p><strong>叶结点或终端结点</strong>：度为0的结点称为叶结点； 如上图：B、C、H、I…等结点为叶结点</p>
+<p><strong>非终端结点或分支结点</strong>：度不为0的结点；  如上图：D、E、F、G…等结点为分支结点</p>
+<p><strong>双亲结点或父结点</strong>：若一个结点含有子结点，则这个结点称为其子结点的父结点； 如上图：A是B的父结点</p>
+<p><strong>孩子结点或子结点</strong>：一个结点含有的子树的根结点称为该结点的子结点；  如上图：B是A的孩子结点</p>
+<p><strong>兄弟结点</strong>：具有相同父结点的结点互称为兄弟结点； 如上图：B、C是兄弟结点</p>
+<p><strong>树的度</strong>：一棵树中，最大的结点的度称为树的度； 如上图：树的度为6</p>
+<p><strong>结点的层次</strong>：从根开始定义起，根为第1层，根的子结点为第2层，以此类推； </p>
+<p><strong>树的高度或深度</strong>：树中结点的最大层次；  如上图：树的高度为4</p>
+<p><strong>堂兄弟结点</strong>：双亲在同一层的结点互为堂兄弟；如上图：H、I互为兄弟结点</p>
+<p><strong>结点的祖先</strong>：从根到该结点所经分支上的所有结点；如上图：A是所有结点的祖先</p>
+<p><strong>子孙</strong>：以某结点为根的子树中任一结点都称为该结点的子孙。如上图：所有结点都是A的子孙</p>
+<p><strong>森林</strong>：由m（m&gt;0）棵互不相交的树的集合称为森林；  </p>
+</blockquote>
+<h1 id="二叉树的结构"><a href="#二叉树的结构" class="headerlink" title="二叉树的结构"></a>二叉树的结构</h1><p>一棵二叉树又三个部分组成：</p>
 <ul>
 <li>根节点</li>
 <li>左子树</li>
@@ -321,7 +345,7 @@
 <p>我们将树的结构定义如下：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TreeNode</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="type">int</span> val;</span><br><span class="line">	TreeNode*left;</span><br><span class="line">	TreeNode*right;</span><br><span class="line">	<span class="type">int</span> height;</span><br><span class="line">	<span class="built_in">TreeNode</span>(<span class="type">int</span> x):<span class="built_in">val</span>(x),<span class="built_in">left</span>(<span class="literal">nullptr</span>),<span class="built_in">right</span>(<span class="literal">nullptr</span>),<span class="built_in">height</span>(<span class="number">1</span>)&#123;&#125;;</span><br><span class="line">	<span class="built_in">TreeNode</span>(): <span class="built_in">TreeNode</span> (<span class="number">0</span>)&#123;&#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>因此当我们需要遍历一棵二叉树时，有四种遍历方法：</p>
+<p>因此当我们需要遍历(Traversal)一棵二叉树时，有四种遍历方法：</p>
 <ul>
 <li>前序遍历</li>
 <li>中序遍历</li>
@@ -347,9 +371,23 @@
 
 <p><em>我们不难发现，所谓的 X序遍历 就是根节点在顺序中的位置</em></p>
 <p>二叉树本身就是递归的定义的，所以我们可以得知，二叉树算法中最重要的一点就是递归。</p>
-<h1 id="树的性质"><a href="#树的性质" class="headerlink" title="树的性质"></a>树的性质</h1><h2 id="满二叉树"><a href="#满二叉树" class="headerlink" title="满二叉树"></a>满二叉树</h2><p>满二叉树指的是深度为n的树，n-1层全为满的并且第n层的子节点都是连续的。</p>
-<h2 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h2><p>满二叉树是完全二叉树的一种特殊情形，指的是对于每个节点，左子树与右子树的高度之差绝对值不大于1.完全二叉树常常被用于二叉查找树，它可以在O(logn)的时间找到目标。</p>
+<h1 id="二叉树的性质"><a href="#二叉树的性质" class="headerlink" title="二叉树的性质"></a>二叉树的性质</h1><h2 id="满二叉树"><a href="#满二叉树" class="headerlink" title="满二叉树"></a>满二叉树</h2><p>一个二叉树，如果每一个层的结点数都达到最大值，则这个二叉树就是满二叉树。也就是说，如果一个二叉树的层数为K，且结点总数是$2^k -1$ ，则它就是满二叉树。</p>
+<h2 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h2><p>完全二叉树是效率很高的数据结构，完全二叉树是由满二叉树而引出来的。对于深度为K的，有n个结点的二叉树，当且仅当其每一个结点都与深度为K的满二叉树中编号从1至n的结点一一对应时称之为完全二叉树。 要注意的是满二叉树是一种特殊的完全二叉树。</p>
 <h2 id="一般二叉树"><a href="#一般二叉树" class="headerlink" title="一般二叉树"></a>一般二叉树</h2><p>对于深度为n的一棵二叉树，节点个数在n至2^n-1之间。<br>同理，对于节点个数为n的二叉树，深度在log(n+1)至n之间。</p>
+<blockquote>
+<ol>
+<li>若规定根结点的层数为1，则一棵非空二叉树的<strong>第i层上最多有2^(i-1)</strong> 个结点.</li>
+<li>若规定根结点的层数为1，则<strong>深度为h的二叉树的最大结点数是2^h-1</strong>.</li>
+<li>对任何一棵二叉树, <strong>如果度为0其叶结点个数为 n_0, 度为2的分支结点个数为 n_2,则有n_0＝n_2＋1</strong></li>
+<li>若规定根结点的层数为1，具有<strong>n个结点的满二叉树的深度</strong>，<strong>h&#x3D;log_2(n+1)</strong>.  (ps：log_2(n+1)是log以2为底，n+1为对数)</li>
+<li>对于具有n个结点的完全二叉树，如果按照从上至下从左至右的数组顺序对所有结点从0开始编号，则对于序号为i的结点有：<ol>
+<li><strong>若i&gt;0，i位置结点的双亲序号：(i-1)&#x2F;2</strong>；i&#x3D;0，i为根结点编号，无双亲结点</li>
+<li><strong>若2i+1&lt;n，左孩子序号：2i+1，2i+1&gt;&#x3D;n否则无左孩子</strong></li>
+<li><strong>若2i+2&lt;n，右孩子序号：2i+2，2i+2&gt;&#x3D;n否则无右孩子</strong></li>
+</ol>
+</li>
+</ol>
+</blockquote>
 
     </div>
 
@@ -478,13 +516,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">12k</span>
+    <span title="站点总字数">13k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">11 分钟</span>
+    <span title="站点阅读时长">12 分钟</span>
   </span>
 </div>
 <div class="busuanzi-count">
