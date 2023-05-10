@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>IEEE标准的浮点数表示</title>
+    <title>IEEE754标准的浮点数表示</title>
     <url>/2023/03/27/IEEE%E6%A0%87%E5%87%86%E7%9A%84%E6%B5%AE%E7%82%B9%E6%95%B0%E8%A1%A8%E7%A4%BA/</url>
-    <content><![CDATA[<h1 id="结构介绍"><a href="#结构介绍" class="headerlink" title="结构介绍"></a>结构介绍</h1><p>因为计算机中只能离散的保存数据，那么数据的最小位就决定了数据精度。<br>例如： </p>
+    <content><![CDATA[<h1 id="结构介绍"><a href="#结构介绍" class="headerlink" title="结构介绍"></a>结构介绍</h1><p>因为计算机中只能离散的保存数据，那么数据的最小位就决定了数据精度。<br>例如：</p>
 <ul>
 <li>表示整数(int)类型时，最小位是2^0&#x3D;1,因此精度就是1，int类型无法保存任何模1不等于0的数。</li>
 </ul>
 <p>而小数却不存在最小位（无穷小），因此IEEE协会制定了一种用于表示浮点数的存储方式。<br>已知：</p>
 <blockquote>
-<p>任何十进制的数都可以表示为n&#x3D;(-1)^s*M*10^E的形式</p>
+<p>任何十进制的数都可以表示为$n&#x3D;(-1)^s<em>M</em>10^E$的形式</p>
 </blockquote>
-<p>其中s是符号位,n为负数时s为0，n为正数时s为1，m是一个尾数，位于1~10之间，e是幂次。例如：12345&#x3D;(-1)^0*1.2345*10^4.</p>
+<p>其中s是符号位,n为负数时s为0，n为正数时s为1，m是一个尾数，位于1~10之间，e是幂次。例如：$12345&#x3D;(-1)^0<em>1.2345</em>10^4$.</p>
 <p>同理：</p>
 <blockquote>
-<p>任何二进制数都可以表示为n&#x3D;(-1)^s*M*2^E的形式</p>
+<p>任何二进制数都可以表示为$n&#x3D;(-1)^s<em>M</em>2^E$的形式</p>
 </blockquote>
 <p>符号含义：</p>
 <ul>
@@ -23,13 +23,20 @@
 <li>E:阶码(exponet)</li>
 <li>同时，我们用m代表M中存储的值，e表示E中存储的值。</li>
 </ul>
-<p>所以，如果我们要存储2进制浮点数，只需要存储s、M、E的值即可。<br>由上述公式可知，m位于1~2之间，因此其最高位总是为1，我们将其省略。<br><br>此外，为了存储e为负数的浮点数，对于E有k位的浮点数，还存在一个<strong>偏置 Bias &#x3D; 2^k-1</strong>,E最终的值要加上偏置后再进行存储。至于为什么不使用负号来表示E，我们之后再展示。<br><br>以32位float为例：</p>
+<p>所以，如果我们要存储2进制浮点数，只需要存储s、M、E的值即可。<br>由上述公式可知，m位于1~2之间，因此其最高位总是为1，我们将其省略。</p>
+<p>此外，为了存储e为负数的浮点数，对于E有k位的浮点数，还存在一个<strong>偏置</strong> $Bias &#x3D; 2^{k-1}$,E最终的值要加上偏置后再进行存储。</p>
+<p>以32位float为例：</p>
 <p><img src="/../img/floatStructure.png" alt="float的具体结构"><br>这样，我们就有了表示浮点数的方法。</p>
 <h1 id="值的表示"><a href="#值的表示" class="headerlink" title="值的表示"></a>值的表示</h1><p>这种表示浮点数的方式有三种情况：</p>
 <ul>
-<li><strong>规格化的值</strong><br>E中的位不全为0，也不全为1。<br>此时n可以由(-1)^s*(1+m)*2^(e-Bias)计算得出。</li>
-<li><strong>非规格化的值</strong><br>因为我们假定M始终大于1，所以我们无法表示0.<br>而当<strong>阶码E全为0</strong>时，浮点数表示非规格化的值，它为我们提供了表示0的方法，此时<strong>e&#x3D;1-Bias</strong>。<br>例如：<br>0 00000000 0000000… 表示+0.0<br>1 00000000 0000000… 表示-0.0<br>根据IEEE的浮点格式，+0与-0在某些方面是不同的，而在其他方面是相同的。<br>非规格化数的另一种功能是表示非常接近于0的值。</li>
-<li><strong>特殊值</strong><br>最后一类数值是当<strong>阶码E全为1</strong>是出现的。<br>当小数域全为0时，表示<strong>无穷</strong><br>当小数域不为0时，表示<strong>NaN</strong>（不是一个数）<br>例如当两个非常大的数相乘，或者除以0时，会产生无穷。<br>当一些运算不能是实数或者无穷时，返回NaN</li>
+<li><p><strong>规格化的值</strong><br>E中的位不全为0，也不全为1。<br>此时n可以由$(-1)^s*(1+m)*2^{e-Bias}$计算得出。</p>
+</li>
+<li><p><strong>非规格化的值</strong><br>因为我们假定M始终大于1，所以我们无法表示0.<br>而当<strong>阶码E全为0</strong>时，浮点数表示非规格化的值，它为我们提供了表示0的方法，此时<strong>阶数&#x3D;1-Bias</strong>。<br>例如：<br>0 00000000 0000000… 表示+0.0<br>1 00000000 0000000… 表示-0.0<br>根据IEEE的浮点格式，+0与-0在某些方面是不同的，而在其他方面是相同的。<br>非规格化数的另一种功能是表示非常接近于0的值。</p>
+</li>
+<li><p><strong>特殊值</strong><br>最后一类数值是当<strong>阶码E全为1</strong>是出现的。</p>
+<p>当小数域全为0时，表示<strong>无穷</strong><br>当小数域不为0时，表示<strong>NaN</strong>（Not a Number）</p>
+<p>例如当两个非常大的数相乘，或者除以0时，会产生无穷。<br>当一些运算不能是实数或者无穷时，例如无穷加无穷：返回NaN</p>
+</li>
 </ul>
 ]]></content>
       <categories>
@@ -171,29 +178,61 @@
       </tags>
   </entry>
   <entry>
-    <title>堆</title>
-    <url>/2023/03/28/%E5%A0%86md/</url>
-    <content><![CDATA[<h1 id="堆的结构"><a href="#堆的结构" class="headerlink" title="堆的结构"></a>堆的结构</h1><p>堆又称<strong>优先队列</strong>，其本质上就是一颗<strong>完全二叉树</strong>，并使用数组的方法实现。堆又分为<strong>大根堆与小根堆</strong>，大根堆就是对于每个节点，它的值比左孩子的值和右孩子的值都大，小根堆即对于每个节点，它的值比左孩子和右孩子的值都小。</p>
+    <title>KMP算法</title>
+    <url>/2023/04/23/KMP%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h1><p>KMP算法是一种字符串查找算法，他可以返回字串在原始字符串中第一次出现的位置。<br>时间复杂度是 O(M+N) 空间复杂度O(M)</p>
+<p>KMP算法核心逻辑：<strong>当字符不匹配时，从与前一个字符对应的最长相同前后缀的长度之后继续进行搜索</strong></p>
+<p>前缀：一定包含首字符但不包含尾字符的连续字串<br>后缀：一定包含尾字符但不包含首字符的连续子串</p>
+<p>通俗来讲，当你在某一个字符匹配不上的时候，此时前面所有字符组成的字符串中存在某一个前缀和后缀是相同的（ps：这里都是从前到后读，而<strong>不是</strong>前缀从前往后而，后缀从后往前），所以当你从这个后缀的首字符开始匹配时，一定可以完成这个前缀的匹配，所以我们就不用费力再做一遍了，于是我们直接跳转到这个前缀的后一个字符继续匹配。</p>
+<p>例如：text&#x3D;”ABAABABCA”  target&#x3D;”ABABC”<br>target最长相同前后缀的长度数组为：00120</p>
+<ol>
+<li>当搜索到下标为3时，A与B不匹配，此时从与B的前一个字符A匹配的最长相同前后缀的后面继续搜索，与A匹配的最长前后缀为A，长度为1，所以我们保持text中的指针不动，target中的指针移动到下标为1的位置，我们可以保证下标1之前的元素一定就在text指针的前面，因为我们用target的前缀替代了后缀</li>
+<li>同理，B与A然不匹配，此时target指针跳转到0位置，继续搜索</li>
+<li>然后不断向前匹配，知道target指针结束或者text指针结束</li>
+</ol>
+<hr>
+<p>实现如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">KMP</span><span class="params">(<span class="type">const</span> string&amp; str,<span class="type">const</span> string&amp; target)</span></span>&#123;</span><br><span class="line">	vector&lt;<span class="type">int</span>&gt;next;</span><br><span class="line">	<span class="comment">//next数组用于存放每个位置对应的最长相同前后缀的长度</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;target.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">		<span class="type">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">		<span class="type">int</span> len=<span class="number">1</span>;</span><br><span class="line">		<span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(j+len&lt;=i)&#123;</span><br><span class="line">			<span class="keyword">if</span>(target[j]==target[j+len])&#123;</span><br><span class="line">				++cnt;</span><br><span class="line">				++j;</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				++len;</span><br><span class="line">				cnt=<span class="number">0</span>;</span><br><span class="line">				j=<span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		next.<span class="built_in">push_back</span> (cnt);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="type">int</span> i=<span class="number">0</span>,f=<span class="number">0</span>,begin=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(i&lt;str.<span class="built_in">size</span>())&#123;</span><br><span class="line">		<span class="keyword">if</span>(str[i]!=target[f])&#123;</span><br><span class="line">			<span class="keyword">if</span>(f)f=next[f<span class="number">-1</span>];</span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				++i;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">while</span>(str[i]==target[f])&#123;</span><br><span class="line">			<span class="keyword">if</span>(f==target.<span class="built_in">size</span>()<span class="number">-1</span>)&#123;</span><br><span class="line">				<span class="keyword">return</span> i-f;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(i==str.<span class="built_in">size</span>()<span class="number">-1</span>)&#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			++i;++f;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(f)f=next[f<span class="number">-1</span>];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>C++</tag>
+        <tag>搜索</tag>
+        <tag>字符串</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>二叉堆</title>
+    <url>/2023/03/28/%E4%BA%8C%E5%8F%89%E5%A0%86/</url>
+    <content><![CDATA[<h1 id="二叉堆的结构"><a href="#二叉堆的结构" class="headerlink" title="二叉堆的结构"></a>二叉堆的结构</h1><p>二叉堆又称<strong>优先队列</strong>，其本质上就是一颗<strong>完全二叉树</strong>，并使用数组表示。<br>堆又分为<strong>大根堆与小根堆</strong>，<br>大根堆就是对于每个节点，它的值比左孩子的值和右孩子的值都大<br>小根堆即对于每个节点，它的值比左孩子和右孩子的值都小</p>
 <p>以大根堆为例，堆的结构如下：</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Heap</span>&#123;</span><br><span class="line">	vector&lt;<span class="type">int</span>&gt;heap;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="type">int</span> sz;</span><br><span class="line">	<span class="built_in">Heap</span>():<span class="built_in">heap</span>(),<span class="built_in">sz</span>(<span class="number">0</span>)&#123;&#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-
 <h1 id="堆的性质（大根堆）"><a href="#堆的性质（大根堆）" class="headerlink" title="堆的性质（大根堆）"></a>堆的性质（大根堆）</h1><p>大根堆的性质就是对于每个节点，它的值比左孩子的值和右孩子的值都大。<br>为了维护这个性质，在每次插入和删除元素之后我们都要调整堆的结构。</p>
 <h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><p>插入调整方式如图所示：<br><img src="/../img/heapPush.png" alt="堆插入"></p>
-<p><br>当子节点还存在父节点时，若子节点大于父节点，则调换两者位置，然后更新父节点与子节点的位置，知道条件不成立或者子节点没有父节点。<br>具体实现如下：</p>
+<p>当子节点还存在父节点时，若子节点大于父节点，则调换两者位置，然后更新父节点与子节点的位置，知道条件不成立或者子节点没有父节点。<br>具体实现如下：</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">push</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">	heap.<span class="built_in">push_back</span> (x);</span><br><span class="line"><span class="comment">//每个节点的父节点都可以由(n-1)/2求得</span></span><br><span class="line"><span class="comment">//向上调整</span></span><br><span class="line">	<span class="type">int</span> child=sz,father=(sz<span class="number">-1</span>)/<span class="number">2</span>;</span><br><span class="line">	<span class="keyword">while</span>(child&amp;&amp;heap[child]&gt;heap[father])&#123;</span><br><span class="line">		<span class="built_in">swap</span>(heap[child],heap[father]);</span><br><span class="line">		child=father;</span><br><span class="line">		father=(father<span class="number">-1</span>)/<span class="number">2</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	++sz;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><p>删除时，我们需要注意需要把最后一个元素与堆顶元素进行交换，然后将堆顶元素向下调整。<br><img src="/../img/heapPop.png" alt="堆弹出"><br>实现如下：</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">pop</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> ret=heap[<span class="number">0</span>];</span><br><span class="line">	--sz;</span><br><span class="line">	<span class="built_in">swap</span>(heap[<span class="number">0</span>],heap[sz]);</span><br><span class="line"><span class="comment">//向下调整</span></span><br><span class="line">	<span class="type">int</span> father=<span class="number">0</span>,child=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(child&lt;sz)&#123;</span><br><span class="line"><span class="comment">//选出子节点的最大值</span></span><br><span class="line">		<span class="keyword">if</span>(child+<span class="number">1</span>&lt;sz&amp;&amp;heap[child+<span class="number">1</span>]&gt;heap[child]) &#123;</span><br><span class="line">			++child;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(heap[child]&gt;heap[father])&#123;</span><br><span class="line">			<span class="built_in">swap</span>(heap[child],heap[father]);</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">		father=child;</span><br><span class="line">		child=child*<span class="number">2</span>+<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h1 id="堆的应用"><a href="#堆的应用" class="headerlink" title="堆的应用"></a>堆的应用</h1><p>堆的性质可以帮助我们选出一组数据中<strong>权最大的那个元素</strong>（在这个例子中是数值最大的元素），因此我们可以使用其性质进行排序。</p>
 <h2 id="堆排序："><a href="#堆排序：" class="headerlink" title="堆排序："></a>堆排序：</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">HeapSort</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; v)</span></span>&#123;</span><br><span class="line">	<span class="comment">//向上调整建堆</span></span><br><span class="line">	<span class="type">int</span> sz=v.<span class="built_in">size</span>();</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;sz;++i)&#123;</span><br><span class="line">		<span class="type">int</span> child=i,father=(child<span class="number">-1</span>)/<span class="number">2</span>;</span><br><span class="line">		<span class="keyword">while</span>(child&amp;&amp;v[child]&gt;v[father])&#123;</span><br><span class="line">			<span class="built_in">swap</span>(v[child],v[father]);</span><br><span class="line">			child=father;</span><br><span class="line">			father=(father<span class="number">-1</span>)/<span class="number">2</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//开始排序</span></span><br><span class="line">	<span class="keyword">while</span>(--sz)&#123;</span><br><span class="line">		<span class="built_in">swap</span>(v[<span class="number">0</span>],v[sz]);</span><br><span class="line">		<span class="type">int</span> child=<span class="number">1</span>,father=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(child&lt;sz)&#123;</span><br><span class="line">			<span class="keyword">if</span>(child+<span class="number">1</span>&lt;sz&amp;&amp;v[child+<span class="number">1</span>]&gt;v[child])&#123;</span><br><span class="line">				++child;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(v[child]&gt;v[father])&#123;</span><br><span class="line">				<span class="built_in">swap</span>(v[child],v[father]);</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">			father=child;</span><br><span class="line">			child=(child*<span class="number">2</span>)+<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><br>最容易想到的方法是对一个数组向上调整建堆，就像逐个插入一样，但是这样做的时间复杂度是<strong>O(nlogn)<strong>，其实我们有更快的方法，那就是</strong>向下调整建堆</strong>。</p>
+
+
+<p>最容易想到的方法是对一个数组向上调整建堆，就像逐个插入一样，但是这样做的时间复杂度是<strong>O(nlogn)<strong>，其实我们有更快的方法，那就是</strong>向下调整建堆</strong>。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">HeapSort</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; v)</span></span>&#123;</span><br><span class="line">	<span class="comment">//向下调整建堆</span></span><br><span class="line">	<span class="type">int</span> sz=v.<span class="built_in">size</span>();</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> tmp=(sz<span class="number">-1</span><span class="number">-1</span>)/<span class="number">2</span>;tmp&gt;<span class="number">0</span>;--tmp)&#123;</span><br><span class="line">		<span class="type">int</span> father=tmp,child=father*<span class="number">2</span>+<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">while</span>(child&lt;sz)&#123;</span><br><span class="line">			<span class="keyword">if</span>(child+<span class="number">1</span>&lt;sz&amp;&amp;v[child+<span class="number">1</span>]&gt;v[child])&#123;</span><br><span class="line">				++child;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(v[child]&gt;v[father])&#123;</span><br><span class="line">				<span class="built_in">swap</span>(v[child],v[father]);</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">			father=child;</span><br><span class="line">			child=(child*<span class="number">2</span>)+<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//开始排序</span></span><br><span class="line">	<span class="keyword">while</span>(--sz)&#123;</span><br><span class="line">		<span class="built_in">swap</span>(v[<span class="number">0</span>],v[sz]);</span><br><span class="line">		<span class="type">int</span> child=<span class="number">1</span>,father=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(child&lt;sz)&#123;</span><br><span class="line">			<span class="keyword">if</span>(child+<span class="number">1</span>&lt;sz&amp;&amp;v[child+<span class="number">1</span>]&gt;v[child])&#123;</span><br><span class="line">				++child;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(v[child]&gt;v[father])&#123;</span><br><span class="line">				<span class="built_in">swap</span>(v[child],v[father]);</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">			father=child;</span><br><span class="line">			child=(child*<span class="number">2</span>)+<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><br>我们可以从数学角度证明，向下调整建堆的时间复杂度是O(n)，优于向上建堆。<br>数学证明如下：<br><img src="/../img/upAdjustMath.png" alt="向上调整建堆"></p>
+
+
+<p>我们可以从数学角度证明，向下调整建堆的时间复杂度是O(n)，优于向上建堆。<br>数学证明如下：<br><img src="/../img/upAdjustMath.png" alt="向上调整建堆"></p>
 <p><img src="/../img/downAdjustMath.png" alt="向下调整建堆"></p>
 <p>此外，我们要注意，建堆并不是排序的过程，因此升序需要建大堆，降序要建小堆</p>
 <h2 id="TopK："><a href="#TopK：" class="headerlink" title="TopK："></a>TopK：</h2><p>由于二叉堆的性质，我们可以不断的选出一组数据中权最大数，这就是TopK问题：<br>例如：<br>我们可以通过小根堆选出100000个数中最大10个：</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">topK</span><span class="params">(ifstream&amp; fin,<span class="type">const</span> <span class="type">int</span>&amp; K)</span></span>&#123;</span><br><span class="line">	vector&lt;<span class="type">int</span>&gt;<span class="built_in">ret</span>(K);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;K;++i)&#123;</span><br><span class="line">		fin&gt;&gt;ret[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//向下调整建堆(小根堆）</span></span><br><span class="line">	<span class="type">int</span> sz=K;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> tmp=(sz<span class="number">-1</span><span class="number">-1</span>)/<span class="number">2</span>;tmp&gt;<span class="number">0</span>;--tmp)&#123;</span><br><span class="line">		<span class="type">int</span> father=tmp,child=father*<span class="number">2</span>+<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">while</span>(child&lt;sz)&#123;</span><br><span class="line">			<span class="keyword">if</span>(child+<span class="number">1</span>&lt;sz&amp;&amp;ret[child+<span class="number">1</span>]&lt;ret[child])&#123;</span><br><span class="line">				++child;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(ret[child]&lt;ret[father])&#123;</span><br><span class="line">				<span class="built_in">swap</span>(ret[child],ret[father]);</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">			father=child;</span><br><span class="line">			child=(child*<span class="number">2</span>)+<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="type">int</span> tmp;</span><br><span class="line">	<span class="keyword">while</span>(fin&gt;&gt;tmp)&#123;</span><br><span class="line">		<span class="comment">//比堆顶大就入堆</span></span><br><span class="line">		<span class="keyword">if</span>(tmp&gt;ret[<span class="number">0</span>])&#123;</span><br><span class="line">			ret[<span class="number">0</span>]=tmp;</span><br><span class="line">			<span class="type">int</span> father=<span class="number">0</span>,child=<span class="number">1</span>;</span><br><span class="line">			<span class="comment">//向下调整</span></span><br><span class="line">			<span class="keyword">while</span>(child&lt;K)&#123;</span><br><span class="line">				<span class="keyword">if</span>(child+<span class="number">1</span>&lt;sz&amp;&amp;ret[child+<span class="number">1</span>]&lt;ret[child])&#123;</span><br><span class="line">					++child;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span>(ret[child]&lt;ret[father])&#123;</span><br><span class="line">					<span class="built_in">swap</span>(ret[child],ret[father]);</span><br><span class="line">				&#125;<span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">				father=child;</span><br><span class="line">				child=(child*<span class="number">2</span>)+<span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>要注意的是，与堆排序不同，<strong>topK要把目标权最小的元素放在堆顶</strong>，例如这里要选出最大的，就要把目前所遇到的最小的元素放在堆顶，使用小根堆</p>
 ]]></content>
       <categories>
@@ -207,19 +246,55 @@
       </tags>
   </entry>
   <entry>
-    <title>KMP算法</title>
-    <url>/2023/04/23/KMP%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h1><hr>
-<h2 id="KMP算法是一种字符串查找算法，他可以返回字串在原始字符串中第一次出现的位置。时间复杂度是-O-M-N-空间复杂度O-M-KMP算法核心逻辑：当字符不匹配时，从与前一个字符对应的最长相同前后缀的长度之后继续进行搜索前缀：一定包含首字符但不包含尾字符的连续字串后缀：一定包含尾字符但不包含首字符的连续子串通俗来讲，当你在某一个字符匹配不上的时候，此时前面所有字符组成的字符串中存在某一个前缀和后缀是相同的（ps：这里都是从前到后读，而不是前缀从前往后而，后缀从后往前），所以当你从这个后缀的首字符开始匹配时，一定可以完成这个前缀的匹配，所以我们就不用费力再做一遍了，于是我们直接跳转到这个前缀的后一个字符继续匹配。例如：text-x3D-”ABAABABCA”-target-x3D-”ABABC”target最长相同前后缀的长度数组为：001201-当搜索到下标为3时，A与B不匹配，此时从与B的前一个字符A匹配的最长相同前后缀的后面继续搜索，与A匹配的最长前后缀为A，长度为1，所以我们保持text中的指针不动，target中的指针移动到下标为1的位置，我们可以保证下标1之前的元素一定就在text指针的前面，因为我们用target的前缀替代了后缀2-同理，B与A然不匹配，此时target指针跳转到0位置，继续搜索3-然后不断向前匹配，知道target指针结束或者text指针结束"><a href="#KMP算法是一种字符串查找算法，他可以返回字串在原始字符串中第一次出现的位置。时间复杂度是-O-M-N-空间复杂度O-M-KMP算法核心逻辑：当字符不匹配时，从与前一个字符对应的最长相同前后缀的长度之后继续进行搜索前缀：一定包含首字符但不包含尾字符的连续字串后缀：一定包含尾字符但不包含首字符的连续子串通俗来讲，当你在某一个字符匹配不上的时候，此时前面所有字符组成的字符串中存在某一个前缀和后缀是相同的（ps：这里都是从前到后读，而不是前缀从前往后而，后缀从后往前），所以当你从这个后缀的首字符开始匹配时，一定可以完成这个前缀的匹配，所以我们就不用费力再做一遍了，于是我们直接跳转到这个前缀的后一个字符继续匹配。例如：text-x3D-”ABAABABCA”-target-x3D-”ABABC”target最长相同前后缀的长度数组为：001201-当搜索到下标为3时，A与B不匹配，此时从与B的前一个字符A匹配的最长相同前后缀的后面继续搜索，与A匹配的最长前后缀为A，长度为1，所以我们保持text中的指针不动，target中的指针移动到下标为1的位置，我们可以保证下标1之前的元素一定就在text指针的前面，因为我们用target的前缀替代了后缀2-同理，B与A然不匹配，此时target指针跳转到0位置，继续搜索3-然后不断向前匹配，知道target指针结束或者text指针结束" class="headerlink" title="KMP算法是一种字符串查找算法，他可以返回字串在原始字符串中第一次出现的位置。时间复杂度是 O(M+N) 空间复杂度O(M)KMP算法核心逻辑：当字符不匹配时，从与前一个字符对应的最长相同前后缀的长度之后继续进行搜索前缀：一定包含首字符但不包含尾字符的连续字串后缀：一定包含尾字符但不包含首字符的连续子串通俗来讲，当你在某一个字符匹配不上的时候，此时前面所有字符组成的字符串中存在某一个前缀和后缀是相同的（ps：这里都是从前到后读，而不是前缀从前往后而，后缀从后往前），所以当你从这个后缀的首字符开始匹配时，一定可以完成这个前缀的匹配，所以我们就不用费力再做一遍了，于是我们直接跳转到这个前缀的后一个字符继续匹配。例如：text&#x3D;”ABAABABCA”  target&#x3D;”ABABC”target最长相同前后缀的长度数组为：001201. 当搜索到下标为3时，A与B不匹配，此时从与B的前一个字符A匹配的最长相同前后缀的后面继续搜索，与A匹配的最长前后缀为A，长度为1，所以我们保持text中的指针不动，target中的指针移动到下标为1的位置，我们可以保证下标1之前的元素一定就在text指针的前面，因为我们用target的前缀替代了后缀2. 同理，B与A然不匹配，此时target指针跳转到0位置，继续搜索3. 然后不断向前匹配，知道target指针结束或者text指针结束"></a>KMP算法是一种字符串查找算法，他可以返回字串在原始字符串中第一次出现的位置。<br>时间复杂度是 O(M+N) 空间复杂度O(M)<br>KMP算法核心逻辑：<strong>当字符不匹配时，从与前一个字符对应的最长相同前后缀的长度之后继续进行搜索</strong><br>前缀：一定包含首字符但不包含尾字符的连续字串<br>后缀：一定包含尾字符但不包含首字符的连续子串<br>通俗来讲，当你在某一个字符匹配不上的时候，此时前面所有字符组成的字符串中存在某一个前缀和后缀是相同的（ps：这里都是从前到后读，而<strong>不是</strong>前缀从前往后而，后缀从后往前），所以当你从这个后缀的首字符开始匹配时，一定可以完成这个前缀的匹配，所以我们就不用费力再做一遍了，于是我们直接跳转到这个前缀的后一个字符继续匹配。<br>例如：text&#x3D;”ABAABABCA”  target&#x3D;”ABABC”<br>target最长相同前后缀的长度数组为：00120<br>1. 当搜索到下标为3时，A与B不匹配，此时从与B的前一个字符A匹配的最长相同前后缀的后面继续搜索，与A匹配的最长前后缀为A，长度为1，所以我们保持text中的指针不动，target中的指针移动到下标为1的位置，我们可以保证下标1之前的元素一定就在text指针的前面，因为我们用target的前缀替代了后缀<br>2. 同理，B与A然不匹配，此时target指针跳转到0位置，继续搜索<br>3. 然后不断向前匹配，知道target指针结束或者text指针结束</h2><p>实现如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">KMP</span><span class="params">(<span class="type">const</span> string&amp; str,<span class="type">const</span> string&amp; target)</span></span>&#123;</span><br><span class="line">	vector&lt;<span class="type">int</span>&gt;next;</span><br><span class="line">	<span class="comment">//next数组用于存放每个位置对应的最长相同前后缀的长度</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;target.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">		<span class="type">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">		<span class="type">int</span> len=<span class="number">1</span>;</span><br><span class="line">		<span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(j+len&lt;=i)&#123;</span><br><span class="line">			<span class="keyword">if</span>(target[j]==target[j+len])&#123;</span><br><span class="line">				++cnt;</span><br><span class="line">				++j;</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				++len;</span><br><span class="line">				cnt=<span class="number">0</span>;</span><br><span class="line">				j=<span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		next.<span class="built_in">push_back</span> (cnt);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="type">int</span> i=<span class="number">0</span>,f=<span class="number">0</span>,begin=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(i&lt;str.<span class="built_in">size</span>())&#123;</span><br><span class="line">		<span class="keyword">if</span>(str[i]!=target[f])&#123;</span><br><span class="line">			<span class="keyword">if</span>(f)f=next[f<span class="number">-1</span>];</span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				++i;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">while</span>(str[i]==target[f])&#123;</span><br><span class="line">			<span class="keyword">if</span>(f==target.<span class="built_in">size</span>()<span class="number">-1</span>)&#123;</span><br><span class="line">				<span class="keyword">return</span> i-f;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(i==str.<span class="built_in">size</span>()<span class="number">-1</span>)&#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			++i;++f;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(f)f=next[f<span class="number">-1</span>];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    <title>布尔逻辑与逻辑门</title>
+    <url>/2023/05/10/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/</url>
+    <content><![CDATA[<h1 id="布尔逻辑"><a href="#布尔逻辑" class="headerlink" title="布尔逻辑"></a>布尔逻辑</h1><p>布尔逻辑中存在两个状态：true和false<br>刚好对应每一个bit的两个状态：1和0<br>存在三种运算与(AND)、或(OR)、非(NOT)<br>通过这三种布尔运算，我们就可以在计算机中进行运算</p>
+<h1 id="逻辑门"><a href="#逻辑门" class="headerlink" title="逻辑门"></a>逻辑门</h1><p>在计算机中，我们可以通过逻辑门实现这三种布尔运算逻辑：</p>
+<h2 id="晶体管"><a href="#晶体管" class="headerlink" title="晶体管"></a>晶体管</h2><p>对于布尔运算，我们有一种很好用的电子元件叫做<strong>晶体管</strong></p>
+<blockquote>
+<p>晶体管一般都有三个极，其中一极兼任输入及输出端子，(B)基极不能做输出，(C)集电极不能做输入之外，其余两个极组成输入及输出对。 晶体管之所以有如此多用途在于其信号放大能力，当微细信号加于其中的一对极时便能控制在另一对极较大的信号，这特性叫<a href="https://zh.wikipedia.org/wiki/%E5%A2%9E%E7%9B%8A" title="增益">增益</a>。</p>
+<p>–维基百科</p>
+</blockquote>
+<p><img src="/../img/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/1683685214282.png" alt="晶体管实体"><br><img src="/../img/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/1683685326237.png" alt="晶体管电路图"><br>我们可以将顶部的<strong>基极B作为输入</strong>，将底部的<strong>集电极C作为输出</strong>，那么当我们B输入高电平的时候C也会得到高电平，输入低电平的时候C也会得到低电平，这样我们就得到了一个真值表：true-&gt;true  false-&gt;false</p>
+<p><em>这看上去没什么意思，因为最基本的原理我们都懂。</em></p>
+<h2 id="非门"><a href="#非门" class="headerlink" title="非门"></a>非门</h2><p>但是在这个晶体管的基础上，我们稍加修改就可以实现<strong>NOT非门</strong>：</p>
+<p><img src="/../img/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/1683685734975.png" alt="非门"><br>依然将B作为输入，但是我们将输出改为上图的模式，C级接地</p>
+<p>那么当我们的B输入true的时候，上下导通，将E端的电流接地，导致输出端没有高电平，输出false<br>而当B输入false，地线不导通，直接流向输出端，此时输出false</p>
+<h2 id="与门"><a href="#与门" class="headerlink" title="与门"></a>与门</h2><p>将连个晶体管<strong>串联</strong>，我们就得到了<strong>AND与门</strong>：</p>
+<p><img src="/../img/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/1683686119690.png" alt="与门"></p>
+<p>当一个或者没有晶体管的B级接通时，电路无法导通<br>此时满足AND的真值表，构成与门</p>
+<h2 id="或门"><a href="#或门" class="headerlink" title="或门"></a>或门</h2><p>由 <em>与门</em> 我们自然可以得知 <em>或门</em> 的结构，<br>将两个晶体管<strong>并联</strong>，可以得到<strong>OR或门</strong>：<br><img src="/../img/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/1683686324190.png" alt="或门"></p>
+<p>当两个晶体管其中的一个导通时，输出端也导通<br>此时满足OR的真值表，构成或门</p>
+<h2 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h2><p>由于这几种门在电路中出现十分频繁，所以我们可以将它们简写成如下形式：</p>
+<p><img src="/../img/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/1683686573047.png" alt="符号"></p>
+<p>如图，我们在图纸上画出这些图形的时候，实际的晶体管和电线依然存在，但是我们将他们抽象封装成了一个符号，这可以让我们的图纸更加简介明了</p>
+<h2 id="异或门"><a href="#异或门" class="headerlink" title="异或门"></a>异或门</h2><p>我们可以根据以上三种门搭建出另一种常见的门，<strong>XOR异或门</strong>：</p>
+<p><img src="/../img/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/1683686816940.png" alt="异或门"></p>
+<p>下面是异或门的布尔逻辑表达式</p>
+<blockquote>
+<p>A  <em>xor</em>  B &#x3D; ( <em>not</em>( A <em>and</em> B )  <em>and</em>  ( A <em>or</em> B ) )</p>
+</blockquote>
+<p>也就是说，<em>A异或B</em>  就是 <em>A或B里有一个true 并且 A和B不能都为true</em></p>
+<p>我们也可以通过离散数学中的一个公式帮助理解：</p>
+<blockquote>
+<p>A  <em>xor</em>  B &#x3D; ( A  <em>and</em>  <em>not</em>B )  <em>or</em>  ( <em>not</em>A <em>and</em> B)</p>
+</blockquote>
+<p>当A与B相同时，or左右两侧值相同两侧一定都为false，得到的值也为false</p>
+<p>当A与B不同时，or左右两侧的值至少有一侧为true，输出true</p>
+<h1 id="抽象-1"><a href="#抽象-1" class="headerlink" title="抽象"></a>抽象</h1><p><img src="/../img/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/1683687474009.png" alt="基本符号"><br>上面是一些逻辑门的抽象符号</p>
+<blockquote>
+<p>在<a href="https://zh.wikipedia.org/wiki/%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8" title="计算机科学">计算机科学</a>中， <strong>抽象化</strong> （英语：Abstraction）是将资料与程序，以它的语义来呈现出它的外观，但是隐藏起它的实现细节。抽象化是用来减少程序的复杂度，使得程序员可以专注在处理少数重要的部分。一个电脑系统可以分割成几个<a href="https://zh.wikipedia.org/wiki/%E6%8A%BD%E8%B1%A1%E5%B1%A4" title="抽象层">抽象层</a>（Abstraction layer），使得程序员可以将它们分开处理。</p>
+<p>–维基百科</p>
+</blockquote>
+<p>在这里我们了解到了<strong>抽象</strong>的含义，我们将隐藏复杂组件中具体的实现细节，将精力放到自己要做的事情上。<br>例如：一个程序员不需要了解自己写的程序需要几个晶体管几个逻辑门，也不需要了解电子在电路中是怎么移动的，但是他依然可以写出可以运行的程序，这就是抽象的意义。</p>
+]]></content>
       <categories>
-        <category>数据结构与算法</category>
+        <category>计算机组成原理</category>
       </categories>
       <tags>
-        <tag>算法</tag>
-        <tag>C++</tag>
-        <tag>搜索</tag>
-        <tag>字符串</tag>
+        <tag>计算机组成</tag>
+        <tag>布尔逻辑</tag>
+        <tag>位运算</tag>
       </tags>
   </entry>
 </search>

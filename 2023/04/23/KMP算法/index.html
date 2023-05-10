@@ -29,7 +29,7 @@
 <meta property="og:description" content="简要介绍KMP算法基本原理与实现">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-04-23T11:18:37.592Z">
-<meta property="article:modified_time" content="2023-04-24T10:24:55.463Z">
+<meta property="article:modified_time" content="2023-05-10T03:42:27.735Z">
 <meta property="article:author" content="deltamaya">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="C++">
@@ -147,7 +147,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#KMP%E7%AE%97%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">KMP算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#KMP%E7%AE%97%E6%B3%95%E6%98%AF%E4%B8%80%E7%A7%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95%EF%BC%8C%E4%BB%96%E5%8F%AF%E4%BB%A5%E8%BF%94%E5%9B%9E%E5%AD%97%E4%B8%B2%E5%9C%A8%E5%8E%9F%E5%A7%8B%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%87%BA%E7%8E%B0%E7%9A%84%E4%BD%8D%E7%BD%AE%E3%80%82%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%98%AF-O-M-N-%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6O-M-KMP%E7%AE%97%E6%B3%95%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91%EF%BC%9A%E5%BD%93%E5%AD%97%E7%AC%A6%E4%B8%8D%E5%8C%B9%E9%85%8D%E6%97%B6%EF%BC%8C%E4%BB%8E%E4%B8%8E%E5%89%8D%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E5%AF%B9%E5%BA%94%E7%9A%84%E6%9C%80%E9%95%BF%E7%9B%B8%E5%90%8C%E5%89%8D%E5%90%8E%E7%BC%80%E7%9A%84%E9%95%BF%E5%BA%A6%E4%B9%8B%E5%90%8E%E7%BB%A7%E7%BB%AD%E8%BF%9B%E8%A1%8C%E6%90%9C%E7%B4%A2%E5%89%8D%E7%BC%80%EF%BC%9A%E4%B8%80%E5%AE%9A%E5%8C%85%E5%90%AB%E9%A6%96%E5%AD%97%E7%AC%A6%E4%BD%86%E4%B8%8D%E5%8C%85%E5%90%AB%E5%B0%BE%E5%AD%97%E7%AC%A6%E7%9A%84%E8%BF%9E%E7%BB%AD%E5%AD%97%E4%B8%B2%E5%90%8E%E7%BC%80%EF%BC%9A%E4%B8%80%E5%AE%9A%E5%8C%85%E5%90%AB%E5%B0%BE%E5%AD%97%E7%AC%A6%E4%BD%86%E4%B8%8D%E5%8C%85%E5%90%AB%E9%A6%96%E5%AD%97%E7%AC%A6%E7%9A%84%E8%BF%9E%E7%BB%AD%E5%AD%90%E4%B8%B2%E9%80%9A%E4%BF%97%E6%9D%A5%E8%AE%B2%EF%BC%8C%E5%BD%93%E4%BD%A0%E5%9C%A8%E6%9F%90%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E5%8C%B9%E9%85%8D%E4%B8%8D%E4%B8%8A%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8C%E6%AD%A4%E6%97%B6%E5%89%8D%E9%9D%A2%E6%89%80%E6%9C%89%E5%AD%97%E7%AC%A6%E7%BB%84%E6%88%90%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E5%AD%98%E5%9C%A8%E6%9F%90%E4%B8%80%E4%B8%AA%E5%89%8D%E7%BC%80%E5%92%8C%E5%90%8E%E7%BC%80%E6%98%AF%E7%9B%B8%E5%90%8C%E7%9A%84%EF%BC%88ps%EF%BC%9A%E8%BF%99%E9%87%8C%E9%83%BD%E6%98%AF%E4%BB%8E%E5%89%8D%E5%88%B0%E5%90%8E%E8%AF%BB%EF%BC%8C%E8%80%8C%E4%B8%8D%E6%98%AF%E5%89%8D%E7%BC%80%E4%BB%8E%E5%89%8D%E5%BE%80%E5%90%8E%E8%80%8C%EF%BC%8C%E5%90%8E%E7%BC%80%E4%BB%8E%E5%90%8E%E5%BE%80%E5%89%8D%EF%BC%89%EF%BC%8C%E6%89%80%E4%BB%A5%E5%BD%93%E4%BD%A0%E4%BB%8E%E8%BF%99%E4%B8%AA%E5%90%8E%E7%BC%80%E7%9A%84%E9%A6%96%E5%AD%97%E7%AC%A6%E5%BC%80%E5%A7%8B%E5%8C%B9%E9%85%8D%E6%97%B6%EF%BC%8C%E4%B8%80%E5%AE%9A%E5%8F%AF%E4%BB%A5%E5%AE%8C%E6%88%90%E8%BF%99%E4%B8%AA%E5%89%8D%E7%BC%80%E7%9A%84%E5%8C%B9%E9%85%8D%EF%BC%8C%E6%89%80%E4%BB%A5%E6%88%91%E4%BB%AC%E5%B0%B1%E4%B8%8D%E7%94%A8%E8%B4%B9%E5%8A%9B%E5%86%8D%E5%81%9A%E4%B8%80%E9%81%8D%E4%BA%86%EF%BC%8C%E4%BA%8E%E6%98%AF%E6%88%91%E4%BB%AC%E7%9B%B4%E6%8E%A5%E8%B7%B3%E8%BD%AC%E5%88%B0%E8%BF%99%E4%B8%AA%E5%89%8D%E7%BC%80%E7%9A%84%E5%90%8E%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E7%BB%A7%E7%BB%AD%E5%8C%B9%E9%85%8D%E3%80%82%E4%BE%8B%E5%A6%82%EF%BC%9Atext-x3D-%E2%80%9DABAABABCA%E2%80%9D-target-x3D-%E2%80%9DABABC%E2%80%9Dtarget%E6%9C%80%E9%95%BF%E7%9B%B8%E5%90%8C%E5%89%8D%E5%90%8E%E7%BC%80%E7%9A%84%E9%95%BF%E5%BA%A6%E6%95%B0%E7%BB%84%E4%B8%BA%EF%BC%9A001201-%E5%BD%93%E6%90%9C%E7%B4%A2%E5%88%B0%E4%B8%8B%E6%A0%87%E4%B8%BA3%E6%97%B6%EF%BC%8CA%E4%B8%8EB%E4%B8%8D%E5%8C%B9%E9%85%8D%EF%BC%8C%E6%AD%A4%E6%97%B6%E4%BB%8E%E4%B8%8EB%E7%9A%84%E5%89%8D%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6A%E5%8C%B9%E9%85%8D%E7%9A%84%E6%9C%80%E9%95%BF%E7%9B%B8%E5%90%8C%E5%89%8D%E5%90%8E%E7%BC%80%E7%9A%84%E5%90%8E%E9%9D%A2%E7%BB%A7%E7%BB%AD%E6%90%9C%E7%B4%A2%EF%BC%8C%E4%B8%8EA%E5%8C%B9%E9%85%8D%E7%9A%84%E6%9C%80%E9%95%BF%E5%89%8D%E5%90%8E%E7%BC%80%E4%B8%BAA%EF%BC%8C%E9%95%BF%E5%BA%A6%E4%B8%BA1%EF%BC%8C%E6%89%80%E4%BB%A5%E6%88%91%E4%BB%AC%E4%BF%9D%E6%8C%81text%E4%B8%AD%E7%9A%84%E6%8C%87%E9%92%88%E4%B8%8D%E5%8A%A8%EF%BC%8Ctarget%E4%B8%AD%E7%9A%84%E6%8C%87%E9%92%88%E7%A7%BB%E5%8A%A8%E5%88%B0%E4%B8%8B%E6%A0%87%E4%B8%BA1%E7%9A%84%E4%BD%8D%E7%BD%AE%EF%BC%8C%E6%88%91%E4%BB%AC%E5%8F%AF%E4%BB%A5%E4%BF%9D%E8%AF%81%E4%B8%8B%E6%A0%871%E4%B9%8B%E5%89%8D%E7%9A%84%E5%85%83%E7%B4%A0%E4%B8%80%E5%AE%9A%E5%B0%B1%E5%9C%A8text%E6%8C%87%E9%92%88%E7%9A%84%E5%89%8D%E9%9D%A2%EF%BC%8C%E5%9B%A0%E4%B8%BA%E6%88%91%E4%BB%AC%E7%94%A8target%E7%9A%84%E5%89%8D%E7%BC%80%E6%9B%BF%E4%BB%A3%E4%BA%86%E5%90%8E%E7%BC%802-%E5%90%8C%E7%90%86%EF%BC%8CB%E4%B8%8EA%E7%84%B6%E4%B8%8D%E5%8C%B9%E9%85%8D%EF%BC%8C%E6%AD%A4%E6%97%B6target%E6%8C%87%E9%92%88%E8%B7%B3%E8%BD%AC%E5%88%B00%E4%BD%8D%E7%BD%AE%EF%BC%8C%E7%BB%A7%E7%BB%AD%E6%90%9C%E7%B4%A23-%E7%84%B6%E5%90%8E%E4%B8%8D%E6%96%AD%E5%90%91%E5%89%8D%E5%8C%B9%E9%85%8D%EF%BC%8C%E7%9F%A5%E9%81%93target%E6%8C%87%E9%92%88%E7%BB%93%E6%9D%9F%E6%88%96%E8%80%85text%E6%8C%87%E9%92%88%E7%BB%93%E6%9D%9F"><span class="nav-number">1.1.</span> <span class="nav-text">KMP算法是一种字符串查找算法，他可以返回字串在原始字符串中第一次出现的位置。时间复杂度是 O(M+N) 空间复杂度O(M)KMP算法核心逻辑：当字符不匹配时，从与前一个字符对应的最长相同前后缀的长度之后继续进行搜索前缀：一定包含首字符但不包含尾字符的连续字串后缀：一定包含尾字符但不包含首字符的连续子串通俗来讲，当你在某一个字符匹配不上的时候，此时前面所有字符组成的字符串中存在某一个前缀和后缀是相同的（ps：这里都是从前到后读，而不是前缀从前往后而，后缀从后往前），所以当你从这个后缀的首字符开始匹配时，一定可以完成这个前缀的匹配，所以我们就不用费力再做一遍了，于是我们直接跳转到这个前缀的后一个字符继续匹配。例如：text&#x3D;”ABAABABCA”  target&#x3D;”ABABC”target最长相同前后缀的长度数组为：001201. 当搜索到下标为3时，A与B不匹配，此时从与B的前一个字符A匹配的最长相同前后缀的后面继续搜索，与A匹配的最长前后缀为A，长度为1，所以我们保持text中的指针不动，target中的指针移动到下标为1的位置，我们可以保证下标1之前的元素一定就在text指针的前面，因为我们用target的前缀替代了后缀2. 同理，B与A然不匹配，此时target指针跳转到0位置，继续搜索3. 然后不断向前匹配，知道target指针结束或者text指针结束</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#KMP%E7%AE%97%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">KMP算法</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -162,18 +162,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -272,7 +272,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-04-24 18:24:55" itemprop="dateModified" datetime="2023-04-24T18:24:55+08:00">2023-04-24</time>
+      <time title="修改时间：2023-05-10 11:42:27" itemprop="dateModified" datetime="2023-05-10T11:42:27+08:00">2023-05-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -317,9 +317,20 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h1><hr>
-<h2 id="KMP算法是一种字符串查找算法，他可以返回字串在原始字符串中第一次出现的位置。时间复杂度是-O-M-N-空间复杂度O-M-KMP算法核心逻辑：当字符不匹配时，从与前一个字符对应的最长相同前后缀的长度之后继续进行搜索前缀：一定包含首字符但不包含尾字符的连续字串后缀：一定包含尾字符但不包含首字符的连续子串通俗来讲，当你在某一个字符匹配不上的时候，此时前面所有字符组成的字符串中存在某一个前缀和后缀是相同的（ps：这里都是从前到后读，而不是前缀从前往后而，后缀从后往前），所以当你从这个后缀的首字符开始匹配时，一定可以完成这个前缀的匹配，所以我们就不用费力再做一遍了，于是我们直接跳转到这个前缀的后一个字符继续匹配。例如：text-x3D-”ABAABABCA”-target-x3D-”ABABC”target最长相同前后缀的长度数组为：001201-当搜索到下标为3时，A与B不匹配，此时从与B的前一个字符A匹配的最长相同前后缀的后面继续搜索，与A匹配的最长前后缀为A，长度为1，所以我们保持text中的指针不动，target中的指针移动到下标为1的位置，我们可以保证下标1之前的元素一定就在text指针的前面，因为我们用target的前缀替代了后缀2-同理，B与A然不匹配，此时target指针跳转到0位置，继续搜索3-然后不断向前匹配，知道target指针结束或者text指针结束"><a href="#KMP算法是一种字符串查找算法，他可以返回字串在原始字符串中第一次出现的位置。时间复杂度是-O-M-N-空间复杂度O-M-KMP算法核心逻辑：当字符不匹配时，从与前一个字符对应的最长相同前后缀的长度之后继续进行搜索前缀：一定包含首字符但不包含尾字符的连续字串后缀：一定包含尾字符但不包含首字符的连续子串通俗来讲，当你在某一个字符匹配不上的时候，此时前面所有字符组成的字符串中存在某一个前缀和后缀是相同的（ps：这里都是从前到后读，而不是前缀从前往后而，后缀从后往前），所以当你从这个后缀的首字符开始匹配时，一定可以完成这个前缀的匹配，所以我们就不用费力再做一遍了，于是我们直接跳转到这个前缀的后一个字符继续匹配。例如：text-x3D-”ABAABABCA”-target-x3D-”ABABC”target最长相同前后缀的长度数组为：001201-当搜索到下标为3时，A与B不匹配，此时从与B的前一个字符A匹配的最长相同前后缀的后面继续搜索，与A匹配的最长前后缀为A，长度为1，所以我们保持text中的指针不动，target中的指针移动到下标为1的位置，我们可以保证下标1之前的元素一定就在text指针的前面，因为我们用target的前缀替代了后缀2-同理，B与A然不匹配，此时target指针跳转到0位置，继续搜索3-然后不断向前匹配，知道target指针结束或者text指针结束" class="headerlink" title="KMP算法是一种字符串查找算法，他可以返回字串在原始字符串中第一次出现的位置。时间复杂度是 O(M+N) 空间复杂度O(M)KMP算法核心逻辑：当字符不匹配时，从与前一个字符对应的最长相同前后缀的长度之后继续进行搜索前缀：一定包含首字符但不包含尾字符的连续字串后缀：一定包含尾字符但不包含首字符的连续子串通俗来讲，当你在某一个字符匹配不上的时候，此时前面所有字符组成的字符串中存在某一个前缀和后缀是相同的（ps：这里都是从前到后读，而不是前缀从前往后而，后缀从后往前），所以当你从这个后缀的首字符开始匹配时，一定可以完成这个前缀的匹配，所以我们就不用费力再做一遍了，于是我们直接跳转到这个前缀的后一个字符继续匹配。例如：text&#x3D;”ABAABABCA”  target&#x3D;”ABABC”target最长相同前后缀的长度数组为：001201. 当搜索到下标为3时，A与B不匹配，此时从与B的前一个字符A匹配的最长相同前后缀的后面继续搜索，与A匹配的最长前后缀为A，长度为1，所以我们保持text中的指针不动，target中的指针移动到下标为1的位置，我们可以保证下标1之前的元素一定就在text指针的前面，因为我们用target的前缀替代了后缀2. 同理，B与A然不匹配，此时target指针跳转到0位置，继续搜索3. 然后不断向前匹配，知道target指针结束或者text指针结束"></a>KMP算法是一种字符串查找算法，他可以返回字串在原始字符串中第一次出现的位置。<br>时间复杂度是 O(M+N) 空间复杂度O(M)<br>KMP算法核心逻辑：<strong>当字符不匹配时，从与前一个字符对应的最长相同前后缀的长度之后继续进行搜索</strong><br>前缀：一定包含首字符但不包含尾字符的连续字串<br>后缀：一定包含尾字符但不包含首字符的连续子串<br>通俗来讲，当你在某一个字符匹配不上的时候，此时前面所有字符组成的字符串中存在某一个前缀和后缀是相同的（ps：这里都是从前到后读，而<strong>不是</strong>前缀从前往后而，后缀从后往前），所以当你从这个后缀的首字符开始匹配时，一定可以完成这个前缀的匹配，所以我们就不用费力再做一遍了，于是我们直接跳转到这个前缀的后一个字符继续匹配。<br>例如：text&#x3D;”ABAABABCA”  target&#x3D;”ABABC”<br>target最长相同前后缀的长度数组为：00120<br>1. 当搜索到下标为3时，A与B不匹配，此时从与B的前一个字符A匹配的最长相同前后缀的后面继续搜索，与A匹配的最长前后缀为A，长度为1，所以我们保持text中的指针不动，target中的指针移动到下标为1的位置，我们可以保证下标1之前的元素一定就在text指针的前面，因为我们用target的前缀替代了后缀<br>2. 同理，B与A然不匹配，此时target指针跳转到0位置，继续搜索<br>3. 然后不断向前匹配，知道target指针结束或者text指针结束</h2><p>实现如下：</p>
+        <h1 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h1><p>KMP算法是一种字符串查找算法，他可以返回字串在原始字符串中第一次出现的位置。<br>时间复杂度是 O(M+N) 空间复杂度O(M)</p>
+<p>KMP算法核心逻辑：<strong>当字符不匹配时，从与前一个字符对应的最长相同前后缀的长度之后继续进行搜索</strong></p>
+<p>前缀：一定包含首字符但不包含尾字符的连续字串<br>后缀：一定包含尾字符但不包含首字符的连续子串</p>
+<p>通俗来讲，当你在某一个字符匹配不上的时候，此时前面所有字符组成的字符串中存在某一个前缀和后缀是相同的（ps：这里都是从前到后读，而<strong>不是</strong>前缀从前往后而，后缀从后往前），所以当你从这个后缀的首字符开始匹配时，一定可以完成这个前缀的匹配，所以我们就不用费力再做一遍了，于是我们直接跳转到这个前缀的后一个字符继续匹配。</p>
+<p>例如：text&#x3D;”ABAABABCA”  target&#x3D;”ABABC”<br>target最长相同前后缀的长度数组为：00120</p>
+<ol>
+<li>当搜索到下标为3时，A与B不匹配，此时从与B的前一个字符A匹配的最长相同前后缀的后面继续搜索，与A匹配的最长前后缀为A，长度为1，所以我们保持text中的指针不动，target中的指针移动到下标为1的位置，我们可以保证下标1之前的元素一定就在text指针的前面，因为我们用target的前缀替代了后缀</li>
+<li>同理，B与A然不匹配，此时target指针跳转到0位置，继续搜索</li>
+<li>然后不断向前匹配，知道target指针结束或者text指针结束</li>
+</ol>
+<hr>
+<p>实现如下：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">KMP</span><span class="params">(<span class="type">const</span> string&amp; str,<span class="type">const</span> string&amp; target)</span></span>&#123;</span><br><span class="line">	vector&lt;<span class="type">int</span>&gt;next;</span><br><span class="line">	<span class="comment">//next数组用于存放每个位置对应的最长相同前后缀的长度</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;target.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">		<span class="type">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">		<span class="type">int</span> len=<span class="number">1</span>;</span><br><span class="line">		<span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(j+len&lt;=i)&#123;</span><br><span class="line">			<span class="keyword">if</span>(target[j]==target[j+len])&#123;</span><br><span class="line">				++cnt;</span><br><span class="line">				++j;</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				++len;</span><br><span class="line">				cnt=<span class="number">0</span>;</span><br><span class="line">				j=<span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		next.<span class="built_in">push_back</span> (cnt);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="type">int</span> i=<span class="number">0</span>,f=<span class="number">0</span>,begin=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(i&lt;str.<span class="built_in">size</span>())&#123;</span><br><span class="line">		<span class="keyword">if</span>(str[i]!=target[f])&#123;</span><br><span class="line">			<span class="keyword">if</span>(f)f=next[f<span class="number">-1</span>];</span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				++i;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">while</span>(str[i]==target[f])&#123;</span><br><span class="line">			<span class="keyword">if</span>(f==target.<span class="built_in">size</span>()<span class="number">-1</span>)&#123;</span><br><span class="line">				<span class="keyword">return</span> i-f;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(i==str.<span class="built_in">size</span>()<span class="number">-1</span>)&#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			++i;++f;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(f)f=next[f<span class="number">-1</span>];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
     </div>
 
     
@@ -411,6 +422,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2023/05/10/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/" rel="next" title="布尔逻辑与逻辑门">
+                  布尔逻辑与逻辑门 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -443,13 +457,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">15k</span>
+    <span title="站点总字数">16k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">14 分钟</span>
+    <span title="站点阅读时长">15 分钟</span>
   </span>
 </div>
 <div class="busuanzi-count">
