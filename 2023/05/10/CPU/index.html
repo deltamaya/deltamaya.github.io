@@ -24,7 +24,7 @@
     <meta name="description" content="简要介绍CPU基本原理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CPU结构和原理">
-<meta property="og:url" content="http://www.deltamaya.top/2023/05/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/index.html">
+<meta property="og:url" content="http://www.deltamaya.top/2023/05/10/CPU/index.html">
 <meta property="og:site_name" content="玛雅55369">
 <meta property="og:description" content="简要介绍CPU基本原理">
 <meta property="og:locale" content="zh_CN">
@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://www.deltamaya.top/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683719476635.png">
 <meta property="og:image" content="http://www.deltamaya.top/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683719503473.png">
 <meta property="article:published_time" content="2023-05-10T09:04:15.444Z">
-<meta property="article:modified_time" content="2023-05-10T12:20:27.699Z">
+<meta property="article:modified_time" content="2023-05-10T14:26:48.855Z">
 <meta property="article:author" content="deltamaya">
 <meta property="article:tag" content="计算机组成">
 <meta property="article:tag" content="CPU">
@@ -42,11 +42,11 @@
 <meta name="twitter:image" content="http://www.deltamaya.top/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683714535332.png">
 
 
-<link rel="canonical" href="http://www.deltamaya.top/2023/05/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/">
+<link rel="canonical" href="http://www.deltamaya.top/2023/05/10/CPU/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://www.deltamaya.top/2023/05/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/","path":"2023/05/10/计算机中的信息存储/","title":"CPU结构和原理"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://www.deltamaya.top/2023/05/10/CPU/","path":"2023/05/10/CPU/","title":"CPU结构和原理"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>CPU结构和原理 | 玛雅55369</title>
@@ -240,7 +240,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.deltamaya.top/2023/05/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/">
+    <link itemprop="mainEntityOfPage" href="http://www.deltamaya.top/2023/05/10/CPU/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -270,7 +270,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2023-05-10 17:04:15 / 修改时间：20:20:27" itemprop="dateCreated datePublished" datetime="2023-05-10T17:04:15+08:00">2023-05-10</time>
+      <time title="创建时间：2023-05-10 17:04:15 / 修改时间：22:26:48" itemprop="dateCreated datePublished" datetime="2023-05-10T17:04:15+08:00">2023-05-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -331,7 +331,7 @@
 <h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p>CPU是计算机用于执行指令的一个组件，指令就是计算机中的一个个操作，例如将一个值拷贝到一个地方、将两个值相加..</p>
 <p>因为CPU无法理解自然语言，所以如果要执行指令，我们就要对指令进行编码，为了简化模型，这里我们以8位的长度举例：<br><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683712829076.png" alt="指令编码"><br>这里对四条指令进行了编码，每个指令都有自己的操作码和操作数，<br>在这里一条指令的前四位是<strong>操作码</strong>，后四位是<strong>操作数</strong><br>操作码对应CPU要执行的操作，操作数对应CPU操作的对象<br>在需要执行指令时，CPU将会根据操作码和操作数进行具体的操作。</p>
 <blockquote>
-<p>计算机的指令需要存储在<strong>内存（RAM）</strong>中，如果你对此不太了解可以看这篇博客：<a href="">link</a></p>
+<p>计算机的指令需要存储在<strong>内存RAM</strong>中，如果你对此不太了解可以看这篇博客：<a href="">link</a></p>
 </blockquote>
 <h2 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h2><p>这里先以取数为例</p>
 <p><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683715030031.png" alt="取数的执行过程"></p>
@@ -362,8 +362,8 @@
 <p>缓存也可以存储一些临时值，用于复杂计算</p>
 <h3 id="脏位"><a href="#脏位" class="headerlink" title="脏位"></a>脏位</h3><p>当我们计算完一些值需要写到内存中时，我们可以将其<strong>暂存到缓存</strong>，如果后续还要接着算，这么做也会提高效率。</p>
 <p>当我们把一个数据存到缓存中，我们把这个缓存中的位置标记为<strong>脏位（Dirty bit）</strong><br><strong>同步</strong>一般会发生在缓存已经写满，但还需要从内存读取数据时<br>同步时CPU会<strong>把脏位中的数据先写到RAM</strong>，然后再从RAM进行读取</p>
-<h2 id="流水线"><a href="#流水线" class="headerlink" title="流水线"></a>流水线</h2><p><img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683719476635.png" alt="非流水线模式"><br>因为取指令、解码、执行分别用的CPU中不同的组件，在非流水线模式下CPU同一时刻只能用到某部分组件，效率低下</p>
-<p><img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683719503473.png" alt="流水线模式"><br>流水线模式下同时调动CPU中的全部组件，<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%90%9E%E5%90%90%E9%87%8F">吞吐量</a>*3</p>
+<h2 id="流水线"><a href="#流水线" class="headerlink" title="流水线"></a>流水线</h2><p><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683719476635.png" alt="非流水线模式"><br>因为取指令、解码、执行分别用的CPU中不同的组件，在非流水线模式下CPU同一时刻只能用到某部分组件，效率低下</p>
+<p><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683719503473.png" alt="流水线模式"><br>流水线模式下同时调动CPU中的全部组件，<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%90%9E%E5%90%90%E9%87%8F">吞吐量</a>*3</p>
 <h3 id="乱序执行"><a href="#乱序执行" class="headerlink" title="乱序执行"></a>乱序执行</h3><p>流水线并行执行下我们要注意指令间的依赖性，在必要的时候停止流水线，防止出现错误<br>在现代处理器中往往会对流水线进行优化，最小化停止时间，这叫做<strong>乱序执行</strong></p>
 <h3 id="预测执行"><a href="#预测执行" class="headerlink" title="预测执行"></a>预测执行</h3><p>最后，当程序出现条件控制时，原始的处理器会等待判断结果，然后再根据结果执行，效率低下</p>
 <p>现代处理器中，一般采用一些算法来预测程序接下来要执行的程序，这叫做<strong>分支预测</strong></p>
@@ -403,7 +403,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://www.deltamaya.top/2023/05/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/" title="CPU结构和原理">http://www.deltamaya.top/2023/05/10/计算机中的信息存储/</a>
+      <a href="http://www.deltamaya.top/2023/05/10/CPU/" title="CPU结构和原理">http://www.deltamaya.top/2023/05/10/CPU/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -586,7 +586,7 @@ setInterval("createtime()",250);
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"deltamaya","repo":"blogComments","client_id":"95730dfc2d8326ee8856","client_secret":"50558ab8fe856f5fc5fe6eefd3ef1b981ad279d2","admin_user":"deltamaya","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"a4ed0a5d8d18e6cdfa98b03e63158e24"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"deltamaya","repo":"blogComments","client_id":"95730dfc2d8326ee8856","client_secret":"50558ab8fe856f5fc5fe6eefd3ef1b981ad279d2","admin_user":"deltamaya","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"8aa470f296edf8c3cda387000e2aace4"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
 </body>

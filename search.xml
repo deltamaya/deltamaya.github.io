@@ -299,7 +299,7 @@
   </entry>
   <entry>
     <title>CPU结构和原理</title>
-    <url>/2023/05/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/</url>
+    <url>/2023/05/10/CPU/</url>
     <content><![CDATA[<h1 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h1><p>首先我们来看一下什么是CPU：</p>
 <blockquote>
 <p><strong>中央处理器</strong> （英语：<strong>C</strong>entral <strong>P</strong>rocessing <strong>U</strong>nit，缩写： <strong>CPU</strong> ）是<a href="https://zh.wikipedia.org/wiki/%E7%94%B5%E5%AD%90%E8%AE%A1%E7%AE%97%E6%9C%BA" title="电子计算机">计算机</a>的主要设备之一，功能主要是解释计算机<a href="https://zh.wikipedia.org/wiki/%E6%8C%87%E4%BB%A4" title="指令">指令</a>以及处理计算机<a href="https://zh.wikipedia.org/wiki/%E8%BD%AF%E4%BB%B6" title="软件">软件</a>中的<a href="https://zh.wikipedia.org/wiki/%E6%95%B0%E6%8D%AE" title="数据">数据</a>。</p>
@@ -316,7 +316,7 @@
 <h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p>CPU是计算机用于执行指令的一个组件，指令就是计算机中的一个个操作，例如将一个值拷贝到一个地方、将两个值相加..</p>
 <p>因为CPU无法理解自然语言，所以如果要执行指令，我们就要对指令进行编码，为了简化模型，这里我们以8位的长度举例：<br><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683712829076.png" alt="指令编码"><br>这里对四条指令进行了编码，每个指令都有自己的操作码和操作数，<br>在这里一条指令的前四位是<strong>操作码</strong>，后四位是<strong>操作数</strong><br>操作码对应CPU要执行的操作，操作数对应CPU操作的对象<br>在需要执行指令时，CPU将会根据操作码和操作数进行具体的操作。</p>
 <blockquote>
-<p>计算机的指令需要存储在<strong>内存（RAM）</strong>中，如果你对此不太了解可以看这篇博客：<a href="">link</a></p>
+<p>计算机的指令需要存储在<strong>内存RAM</strong>中，如果你对此不太了解可以看这篇博客：<a href="">link</a></p>
 </blockquote>
 <h2 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h2><p>这里先以取数为例</p>
 <p><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683715030031.png" alt="取数的执行过程"></p>
@@ -347,8 +347,8 @@
 <p>缓存也可以存储一些临时值，用于复杂计算</p>
 <h3 id="脏位"><a href="#脏位" class="headerlink" title="脏位"></a>脏位</h3><p>当我们计算完一些值需要写到内存中时，我们可以将其<strong>暂存到缓存</strong>，如果后续还要接着算，这么做也会提高效率。</p>
 <p>当我们把一个数据存到缓存中，我们把这个缓存中的位置标记为<strong>脏位（Dirty bit）</strong><br><strong>同步</strong>一般会发生在缓存已经写满，但还需要从内存读取数据时<br>同步时CPU会<strong>把脏位中的数据先写到RAM</strong>，然后再从RAM进行读取</p>
-<h2 id="流水线"><a href="#流水线" class="headerlink" title="流水线"></a>流水线</h2><p><img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683719476635.png" alt="非流水线模式"><br>因为取指令、解码、执行分别用的CPU中不同的组件，在非流水线模式下CPU同一时刻只能用到某部分组件，效率低下</p>
-<p><img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683719503473.png" alt="流水线模式"><br>流水线模式下同时调动CPU中的全部组件，<a href="https://zh.wikipedia.org/wiki/%E5%90%9E%E5%90%90%E9%87%8F">吞吐量</a>*3</p>
+<h2 id="流水线"><a href="#流水线" class="headerlink" title="流水线"></a>流水线</h2><p><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683719476635.png" alt="非流水线模式"><br>因为取指令、解码、执行分别用的CPU中不同的组件，在非流水线模式下CPU同一时刻只能用到某部分组件，效率低下</p>
+<p><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683719503473.png" alt="流水线模式"><br>流水线模式下同时调动CPU中的全部组件，<a href="https://zh.wikipedia.org/wiki/%E5%90%9E%E5%90%90%E9%87%8F">吞吐量</a>*3</p>
 <h3 id="乱序执行"><a href="#乱序执行" class="headerlink" title="乱序执行"></a>乱序执行</h3><p>流水线并行执行下我们要注意指令间的依赖性，在必要的时候停止流水线，防止出现错误<br>在现代处理器中往往会对流水线进行优化，最小化停止时间，这叫做<strong>乱序执行</strong></p>
 <h3 id="预测执行"><a href="#预测执行" class="headerlink" title="预测执行"></a>预测执行</h3><p>最后，当程序出现条件控制时，原始的处理器会等待判断结果，然后再根据结果执行，效率低下</p>
 <p>现代处理器中，一般采用一些算法来预测程序接下来要执行的程序，这叫做<strong>分支预测</strong></p>
