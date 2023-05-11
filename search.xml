@@ -366,4 +366,57 @@
         <tag>CPU</tag>
       </tags>
   </entry>
+  <entry>
+    <title>ALU结构和原理</title>
+    <url>/2023/05/11/ALU/</url>
+    <content><![CDATA[<h1 id="ALU"><a href="#ALU" class="headerlink" title="ALU"></a>ALU</h1><p>先来看看维基百科是怎么说的</p>
+<blockquote>
+<p><strong>算术逻辑单元</strong> （英语：Arithmetic logic unit，<a href="https://zh.wikipedia.org/wiki/%E7%B8%AE%E5%AF%AB" title="缩写">缩写</a>： <strong>ALU</strong> ）是一种可对<a href="https://zh.wikipedia.org/wiki/%E4%BA%8C%E8%BF%9B%E5%88%B6" title="二进制">二进制</a><a href="https://zh.wikipedia.org/wiki/%E6%95%B4%E6%95%B0" title="整数">整数</a>执行<a href="https://zh.wikipedia.org/wiki/%E7%AE%97%E6%9C%AF" title="算术">算术运算</a>或<a href="https://zh.wikipedia.org/wiki/%E4%BD%8D%E6%93%8D%E4%BD%9C" title="位操作">位运算</a>的<a href="https://zh.wikipedia.org/wiki/%E7%BB%84%E5%90%88%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF" title="组合逻辑电路">组合逻辑</a><a href="https://zh.wikipedia.org/wiki/%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF" title="数字电路">数字电路</a>。ALU 与<a href="https://zh.wikipedia.org/wiki/%E6%B5%AE%E7%82%B9%E8%BF%90%E7%AE%97%E5%99%A8" title="浮点运算器">浮点数运算单元</a>（FPU）不同，后者仅对<a href="https://zh.wikipedia.org/wiki/%E6%B5%AE%E7%82%B9%E8%BF%90%E7%AE%97%E5%99%A8" title="浮点运算器">浮点数</a>进行操作。ALU 是许多类型的计算电路的基本部件，这些计算电路包括计算机的<a href="https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%A4%AE%E5%A4%84%E7%90%86%E5%99%A8" title="中央处理器">中央处理单元</a>（CPU）、<a href="https://zh.wikipedia.org/wiki/%E6%B5%AE%E7%82%B9%E8%BF%90%E7%AE%97%E5%99%A8" title="浮点运算器">浮点处理单元</a>（FPU）和<a href="https://zh.wikipedia.org/wiki/%E5%9C%96%E5%BD%A2%E8%99%95%E7%90%86%E5%99%A8" title="图形处理器">图形处理单元</a>（GPU）。单个CPU、FPU 或 GPU 可能包含多个 ALU。</p>
+<p>–维基百科</p>
+</blockquote>
+<p>ALU就是计算机中用来进行算数逻辑运算的核心单元，我们可以用它来进行加减乘除等操作</p>
+<h2 id="半加器"><a href="#半加器" class="headerlink" title="半加器"></a>半加器</h2><p>为了实现最基本的加法功能，我们可以使用逻辑门搭建一个半加器，在这里：<a href="https://deltamaya.top/2023/05/10/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/">逻辑门</a>，我介绍了如何用晶体管搭建逻辑门。</p>
+<p>先来看看结构：<br><img src="/../image/ALU/1683766407298.png" alt="半加器"></p>
+<p>我们使用异或门对A和B进行运算，但是这样无法判定进位，所以我们又加入了一个与门来判定是否进位<br>其中A和B就是要执行操作的两个bit，sum就是求和之后的低位，carry是进位。</p>
+<h2 id="全加器"><a href="#全加器" class="headerlink" title="全加器"></a>全加器</h2><p>但是，如果我们需要进行超过1+1的运算，就需要使用全加器<br><img src="/../image/ALU/1683766572913.png" alt="全加器"><br>这里我们就可以对进位也进行运算了，A和B就是要进行运算的两个位，C是低位运算进上来的位，我们可以通过全加器对三个位进行运算，同样输出结果sum和进位carry</p>
+<h2 id="加法器"><a href="#加法器" class="headerlink" title="加法器"></a>加法器</h2><p>万事俱备，这样我们就可以使用半加器和全加器对任意两个二进制数进行运算了，低位使用半加器，后面的每一位使用全加器即可，如图：<br><img src="/../image/ALU/1683767140631.png" alt="加法器"><br>A和B是两个8位的二级制数，后面跟的数字代表是第几位，这里我们注意到，最后一个全加器依然输出了一个carry，如果两个数的运算让这个carry是1，说明这两个数相加太大，超过了8位可以表示的范围，叫做溢出</p>
+<blockquote>
+<p>尽管每个进位消耗的时间很少，但是在计算机每秒数十亿次的计算中，这种消耗也是很难以接受的，所以现代处理器中一般使用<strong>超前进位加法器</strong>，结构与这里略有不同</p>
+</blockquote>
+<h2 id="其他运算器"><a href="#其他运算器" class="headerlink" title="其他运算器"></a>其他运算器</h2><p><img src="/../image/ALU/1683767512270.png" alt="其他运算"><br>这是ALU中可以进行的一部分其他操作，就像加法器，它们也是使用一个个逻辑门搭建出来的</p>
+<h2 id="标志位"><a href="#标志位" class="headerlink" title="标志位"></a>标志位</h2><p><img src="/../image/ALU/1683767778314.png" alt="ALU"><br>可以看到，ALU在接受A和B两个输入进行运算时，还会产生3个标志位，比如overflow会在结果溢出时置为1，zero会在结果为0时置为一<br>高级ALU有更多的标志位，但这三种是最普遍的</p>
+]]></content>
+      <categories>
+        <category>计算机组成原理</category>
+      </categories>
+      <tags>
+        <tag>计算机组成</tag>
+        <tag>CPU</tag>
+        <tag>ALU</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>寄存器与内存</title>
+    <url>/2023/05/11/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/</url>
+    <content><![CDATA[<h1 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h1><h2 id="锁存器"><a href="#锁存器" class="headerlink" title="锁存器"></a>锁存器</h2><p>在了解寄存器之前，我们要了解数据是如何存储的<br><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683771275654.png" alt="锁存器"><br>我们通过几个逻辑门的组合实现了一个锁存器，上面的输入线叫做输入，下面的输入先叫做复位线，当输入1时，and门总是输出1，这样我们就成功的存储了一位bit，知道我们输入复位，将and门的输入清空</p>
+<h2 id="门锁"><a href="#门锁" class="headerlink" title="门锁"></a>门锁</h2><p>但是这样通过锁存器存储还是太麻烦了，我们希望可以有一条线用于输入，一条线用于启动内存，于是设计出了门锁：<br><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683771522942.png" alt="门锁"></p>
+<p>多个门锁排列在一起，就组成了寄存器<br><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683771783576.png" alt="寄存器"></p>
+<h1 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h1><p><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772174357.png" alt="内存中的锁存"><br>内存就是由无数个锁存组成的，我们可以将锁存排列成一个矩阵，然后通过控制行和列来找到特定锁存并激活它<br>因为我们每次只激活一个锁存，所以我们可以只用一根数据线、一根允许写入和一根允许读取，因为当锁存没有被激活时，它会忽略所有的信息</p>
+<h2 id="多路复用器"><a href="#多路复用器" class="headerlink" title="多路复用器"></a>多路复用器</h2><p>想要通过这种结构存储大量数据，就需要用到多路复用器，一个多路复用器控制行，一个多路复用器控制列，我们就可以轻松找到矩阵中的某一个锁存，可以读写它的值<br><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772049711.png" alt="多路复用器"></p>
+<h2 id="内存单元"><a href="#内存单元" class="headerlink" title="内存单元"></a>内存单元</h2><p>我们对上面的模型进行简单的抽象，一个256位的内存可以由8条地址线来确定一个特定的锁存，一条数据线用于读和写，一条写入，一条读取线，如图：</p>
+<p><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772090587.png" alt="256位内存单元"></p>
+<h2 id="物理内存"><a href="#物理内存" class="headerlink" title="物理内存"></a>物理内存</h2><p>将多个这样的内存单元并排，我们就可以得到一个内存，地址线传入一个地址，然后每个单元都找到自己对应的锁存，将其从自己的数据线传出，就得到了一个数据</p>
+<p><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772618137.png" alt="内存"></p>
+<h2 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h2><p>对上面的物理内存进行抽象，就得到了可以通过一个地址直接寻址的虚拟内存：<br><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772785273.png" alt="虚拟内存"></p>
+]]></content>
+      <categories>
+        <category>计算机组成原理</category>
+      </categories>
+      <tags>
+        <tag>计算机组成</tag>
+        <tag>CPU</tag>
+        <tag>寄存器</tag>
+        <tag>内存</tag>
+      </tags>
+  </entry>
 </search>
