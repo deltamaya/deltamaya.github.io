@@ -6,7 +6,7 @@
   <link href="http://www.deltamaya.top/atom.xml" rel="self"/>
   
   <link href="http://www.deltamaya.top/"/>
-  <updated>2023-05-30T00:07:16.734Z</updated>
+  <updated>2023-06-14T05:43:24.919Z</updated>
   <id>http://www.deltamaya.top/</id>
   
   <author>
@@ -15,6 +15,42 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>gdb的基本使用</title>
+    <link href="http://www.deltamaya.top/2023/06/14/gdb/"/>
+    <id>http://www.deltamaya.top/2023/06/14/gdb/</id>
+    <published>2023-06-14T04:23:24.276Z</published>
+    <updated>2023-06-14T05:43:24.919Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="gdb的基本使用"><a href="#gdb的基本使用" class="headerlink" title="gdb的基本使用"></a>gdb的基本使用</h1><p> 使用gdb启动程序</p><p>   <code>gdb ./your_program</code></p><h2 id="展示代码"><a href="#展示代码" class="headerlink" title="展示代码"></a>展示代码</h2><ol><li>打印当前往下十行<br><code>list</code></li><li>展示源代码TUI<br><code>layout src</code></li><li>展示反汇编TUI<br><code>layout asm</code></li></ol><h2 id="设置断点-括号内是可选内容"><a href="#设置断点-括号内是可选内容" class="headerlink" title="设置断点(括号内是可选内容)"></a>设置断点(括号内是可选内容)</h2><ol><li>在（某一文件）某一行设置断点<br><code>break (file_name:)line_number</code></li><li>在（某一文件）某一函数设置断点<br><code>break (file_name:)function_name</code></li></ol><h2 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h2><ol><li>运行程序<br><code>run</code></li><li>执行一行<br><code>next</code></li><li>执行一步<br><code>step</code></li><li>执行至下个断点<br><code>continue</code></li></ol><h2 id="打印值"><a href="#打印值" class="headerlink" title="打印值"></a>打印值</h2><ol><li>打印表达式exp，单个变量也是一种表达式<br><code>print exp</code></li><li>在每次执行停止的时候都打印exp的值<br><code>display exp</code></li><li>解除打印<br><code>undisplay number</code></li></ol><blockquote><p>tips: 使用 <code>/x</code>打印16进制，<code>/d</code>打印10进制，<code>/t</code>打印2进制<br>寄存器使用 <code>$</code>符号+寄存器名字 表示，e.g.  <code>$rax</code></p></blockquote><h2 id="查看调用栈"><a href="#查看调用栈" class="headerlink" title="查看调用栈"></a>查看调用栈</h2><p>使用 <code>traceback</code> 查看程序的调用栈</p><h2 id="查看程序信息"><a href="#查看程序信息" class="headerlink" title="查看程序信息"></a>查看程序信息</h2><p>使用 <code>info</code>查看程序的状态信息，例如寄存器 <code>info registers</code>，函数 <code>info function</code></p><h2 id="退出"><a href="#退出" class="headerlink" title="退出"></a>退出</h2><p>输入 <code>quit</code>退出gdb并杀死子进程</p>]]></content>
+    
+    
+    <summary type="html">简要介绍gdb基本使用</summary>
+    
+    
+    
+    <category term="gdb" scheme="http://www.deltamaya.top/categories/gdb/"/>
+    
+    
+    <category term="gdb" scheme="http://www.deltamaya.top/tags/gdb/"/>
+    
+    <category term="调试" scheme="http://www.deltamaya.top/tags/%E8%B0%83%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://www.deltamaya.top/2023/06/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/"/>
+    <id>http://www.deltamaya.top/2023/06/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/</id>
+    <published>2023-06-05T08:38:05.998Z</published>
+    <updated>2023-06-05T08:38:05.998Z</updated>
+    
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>为什么使用要右值引用</title>
@@ -179,9 +215,9 @@
     <category term="数据结构与算法" scheme="http://www.deltamaya.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-    <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
-    
     <category term="C++" scheme="http://www.deltamaya.top/tags/C/"/>
+    
+    <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
     
     <category term="搜索" scheme="http://www.deltamaya.top/tags/%E6%90%9C%E7%B4%A2/"/>
     
@@ -206,9 +242,9 @@
     <category term="数据结构与算法" scheme="http://www.deltamaya.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-    <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
-    
     <category term="C++" scheme="http://www.deltamaya.top/tags/C/"/>
+    
+    <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
     
     <category term="排序" scheme="http://www.deltamaya.top/tags/%E6%8E%92%E5%BA%8F/"/>
     
@@ -233,11 +269,11 @@
     <category term="数据结构与算法" scheme="http://www.deltamaya.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-    <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
-    
     <category term="C++" scheme="http://www.deltamaya.top/tags/C/"/>
     
     <category term="数据结构" scheme="http://www.deltamaya.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
     
     <category term="树" scheme="http://www.deltamaya.top/tags/%E6%A0%91/"/>
     
@@ -262,11 +298,11 @@
     <category term="数据结构与算法" scheme="http://www.deltamaya.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-    <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
-    
     <category term="C++" scheme="http://www.deltamaya.top/tags/C/"/>
     
     <category term="数据结构" scheme="http://www.deltamaya.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
     
     <category term="堆" scheme="http://www.deltamaya.top/tags/%E5%A0%86/"/>
     
@@ -277,9 +313,9 @@
     <link href="http://www.deltamaya.top/2023/03/27/IEEE%E6%A0%87%E5%87%86%E7%9A%84%E6%B5%AE%E7%82%B9%E6%95%B0%E8%A1%A8%E7%A4%BA/"/>
     <id>http://www.deltamaya.top/2023/03/27/IEEE%E6%A0%87%E5%87%86%E7%9A%84%E6%B5%AE%E7%82%B9%E6%95%B0%E8%A1%A8%E7%A4%BA/</id>
     <published>2023-03-27T09:24:02.443Z</published>
-    <updated>2023-05-10T03:33:47.960Z</updated>
+    <updated>2023-06-02T09:12:46.046Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="结构介绍"><a href="#结构介绍" class="headerlink" title="结构介绍"></a>结构介绍</h1><p>因为计算机中只能离散的保存数据，那么数据的最小位就决定了数据精度。<br>例如：</p><ul><li>表示整数(int)类型时，最小位是2^0&#x3D;1,因此精度就是1，int类型无法保存任何模1不等于0的数。</li></ul><p>而小数却不存在最小位（无穷小），因此IEEE协会制定了一种用于表示浮点数的存储方式。<br>已知：</p><blockquote><p>任何十进制的数都可以表示为$n&#x3D;(-1)^s<em>M</em>10^E$的形式</p></blockquote><p>其中s是符号位,n为负数时s为0，n为正数时s为1，m是一个尾数，位于1~10之间，e是幂次。例如：$12345&#x3D;(-1)^0<em>1.2345</em>10^4$.</p><p>同理：</p><blockquote><p>任何二进制数都可以表示为$n&#x3D;(-1)^s<em>M</em>2^E$的形式</p></blockquote><p>符号含义：</p><ul><li>s:符号(sign)</li><li>M:尾数(significand)</li><li>E:阶码(exponet)</li><li>同时，我们用m代表M中存储的值，e表示E中存储的值。</li></ul><p>所以，如果我们要存储2进制浮点数，只需要存储s、M、E的值即可。<br>由上述公式可知，m位于1~2之间，因此其最高位总是为1，我们将其省略。</p><p>此外，为了存储e为负数的浮点数，对于E有k位的浮点数，还存在一个<strong>偏置</strong> $Bias &#x3D; 2^{k-1}$,E最终的值要加上偏置后再进行存储。</p><p>以32位float为例：</p><p><img src="/../img/floatStructure.png" alt="float的具体结构"><br>这样，我们就有了表示浮点数的方法。</p><h1 id="值的表示"><a href="#值的表示" class="headerlink" title="值的表示"></a>值的表示</h1><p>这种表示浮点数的方式有三种情况：</p><ul><li><p><strong>规格化的值</strong><br>E中的位不全为0，也不全为1。<br>此时n可以由$(-1)^s*(1+m)*2^{e-Bias}$计算得出。</p></li><li><p><strong>非规格化的值</strong><br>因为我们假定M始终大于1，所以我们无法表示0.<br>而当<strong>阶码E全为0</strong>时，浮点数表示非规格化的值，它为我们提供了表示0的方法，此时<strong>阶数&#x3D;1-Bias</strong>。<br>例如：<br>0 00000000 0000000… 表示+0.0<br>1 00000000 0000000… 表示-0.0<br>根据IEEE的浮点格式，+0与-0在某些方面是不同的，而在其他方面是相同的。<br>非规格化数的另一种功能是表示非常接近于0的值。</p></li><li><p><strong>特殊值</strong><br>最后一类数值是当<strong>阶码E全为1</strong>是出现的。</p><p>当小数域全为0时，表示<strong>无穷</strong><br>当小数域不为0时，表示<strong>NaN</strong>（Not a Number）</p><p>例如当两个非常大的数相乘，或者除以0时，会产生无穷。<br>当一些运算不能是实数或者无穷时，例如无穷加无穷：返回NaN</p></li></ul>]]></content>
+    <content type="html"><![CDATA[<h1 id="结构介绍"><a href="#结构介绍" class="headerlink" title="结构介绍"></a>结构介绍</h1><p>因为计算机中只能离散的保存数据，那么数据的最小位就决定了数据精度。<br>例如：</p><ul><li>表示整数(int)类型时，最小位是2^0&#x3D;1,因此精度就是1，int类型无法保存任何模1不等于0的数。</li></ul><p>而小数却不存在最小位（无穷小），因此IEEE协会制定了一种用于表示浮点数的存储方式。<br>已知：</p><blockquote><p>任何十进制的数都可以表示为$n&#x3D;(-1)^s<em>M</em>10^E$的形式</p></blockquote><p>其中s是符号位,n为负数时s为0，n为正数时s为1，m是一个尾数，位于1~10之间，e是幂次。例如：$12345&#x3D;(-1)^0<em>1.2345</em>10^4$.</p><p>同理：</p><blockquote><p>任何二进制数都可以表示为$n&#x3D;(-1)^s<em>M</em>2^E$的形式</p></blockquote><p>符号含义：</p><ul><li>s:符号(sign)</li><li>M:尾数(significand)</li><li>E:阶码(exponet)</li><li>同时，我们用m代表M中存储的值，e表示E中存储的值。</li></ul><p>所以，如果我们要存储2进制浮点数，只需要存储s、M、E的值即可。<br>由上述公式可知，m位于1~2之间，因此其最高位总是为1，我们将其省略。</p><p>此外，为了存储e为负数的浮点数，对于E有k位的浮点数，还存在一个<strong>偏置</strong> $Bias &#x3D; 2^{k-1}-1$,E最终的值要加上偏置后再进行存储。</p><p>以32位float为例：</p><p><img src="/../img/floatStructure.png" alt="float的具体结构"><br>这样，我们就有了表示浮点数的方法。</p><h1 id="值的表示"><a href="#值的表示" class="headerlink" title="值的表示"></a>值的表示</h1><p>这种表示浮点数的方式有三种情况：</p><ul><li><p><strong>规格化的值</strong><br>E中的位不全为0，也不全为1。<br>此时n可以由$(-1)^s*(1+m)*2^{e-Bias}$计算得出。</p></li><li><p><strong>非规格化的值</strong><br>因为我们假定M始终大于1，所以我们无法表示0.<br>而当<strong>阶码E全为0</strong>时，浮点数表示非规格化的值，它为我们提供了表示0的方法，此时<strong>阶数&#x3D;1-Bias</strong>。<br>例如：<br>0 00000000 0000000… 表示+0.0<br>1 00000000 0000000… 表示-0.0<br>根据IEEE的浮点格式，+0与-0在某些方面是不同的，而在其他方面是相同的。<br>非规格化数的另一种功能是表示非常接近于0的值。</p></li><li><p><strong>特殊值</strong><br>最后一类数值是当<strong>阶码E全为1</strong>是出现的。</p><p>当小数域全为0时，表示<strong>无穷</strong><br>当小数域不为0时，表示<strong>NaN</strong>（Not a Number）</p><p>例如当两个非常大的数相乘，或者除以0时，会产生无穷。<br>当一些运算不能是实数或者无穷时，例如无穷加无穷：返回NaN</p></li></ul>]]></content>
     
     
     <summary type="html">简要介绍IEEE754标准下的浮点数结构与表示</summary>
