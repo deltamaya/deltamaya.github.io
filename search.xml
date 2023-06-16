@@ -44,7 +44,7 @@
 <h2 id="优化电路"><a href="#优化电路" class="headerlink" title="优化电路"></a>优化电路</h2><p>早期的CPU进行除法时要调用多次减法，这样会花费很多个时钟周期，在操作很大或者很多的数的时候效率十分低下，所以厂商们研发出了直接用于除法的ALU电路，解决了这个问题，提高了运行速度</p>
 <p>随着计算机的发展，CPU中也加入了更多可以快速执行原先需要很多时钟周期才能完成的指令的电路</p>
 <h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>很高的主频则会带来另一个问题，CPU从内存读取指令的速度一般需要几个时钟周期，远跟不上CPU执行指令的速度，这会让CPU处于等待状态，效率低下</p>
-<p>所以我们在CPU中加入了<strong>Cache缓存</strong>（kB或MB级），在读取指令时CPU可以一次性从内存<strong>读取多条指令暂存到缓存</strong>中，这是很实用的，因为计算机中大多是时候指令都是顺序执行</p>
+<p>所以我们在CPU中加入了<strong>Cache缓存</strong>（KB或MB级），在读取指令时CPU可以一次性从内存<strong>读取多条指令暂存到缓存</strong>中，这是很实用的，因为计算机中大多是时候指令都是顺序执行</p>
 <p>在CPU执行完一条指令之后可以马上从缓存读取下一条指令而无需等待内存</p>
 <p>当想要的内容在缓存中时叫做缓存命中<strong>cache hit</strong><br>不在缓存中则成为缓存未命中<strong>cache miss</strong></p>
 <p>缓存也可以存储一些临时值，用于复杂计算</p>
@@ -52,7 +52,7 @@
 <p>当我们把一个数据存到缓存中，我们把这个缓存中的位置标记为<strong>脏位（Dirty bit）</strong><br><strong>同步</strong>一般会发生在缓存已经写满，但还需要从内存读取数据时<br>同步时CPU会<strong>把脏位中的数据先写到RAM</strong>，然后再从RAM进行读取</p>
 <h2 id="流水线"><a href="#流水线" class="headerlink" title="流水线"></a>流水线</h2><p><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683719476635.png" alt="非流水线模式"><br>因为取指令、解码、执行分别用的CPU中不同的组件，在非流水线模式下CPU同一时刻只能用到某部分组件，效率低下</p>
 <p><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683719503473.png" alt="流水线模式"><br>流水线模式下同时调动CPU中的全部组件，<a href="https://zh.wikipedia.org/wiki/%E5%90%9E%E5%90%90%E9%87%8F">吞吐量</a>*3</p>
-<h3 id="乱序执行"><a href="#乱序执行" class="headerlink" title="乱序执行"></a>乱序执行</h3><p>流水线并行执行下我们要注意指令间的依赖性，在必要的时候停止流水线，防止出现错误</p>
+<h3 id="乱序执行"><a href="#乱序执行" class="headerlink" title="乱序执行"></a>乱序执行</h3><p>流水线并行执行下处理器会根据指令间的关系进行拓扑排序，得到没有影响的执行顺序，但是有时候这样做会带来并发问题，所以我们要注意指令间的依赖性，或者在代码中加入<strong>内存屏障</strong>在必要的时候停止流水线，防止出现错误</p>
 <p>在现代处理器中往往会对流水线进行优化，当出现cache miss时，与其花费大量时间等待从内存中取出目标指令时，cpu可以选择先执行这条指令后面cache hit的指令，这叫做<strong>乱序执行</strong></p>
 <h3 id="预测执行"><a href="#预测执行" class="headerlink" title="预测执行"></a>预测执行</h3><p>最后，当程序出现条件控制时，原始的处理器会等待判断结果，然后再根据结果执行，效率低下</p>
 <p>现代处理器中，一般采用一些算法来预测程序接下来要执行的程序，这叫做<strong>分支预测</strong></p>
@@ -71,11 +71,40 @@
       </tags>
   </entry>
   <entry>
+    <title>ALU结构和原理</title>
+    <url>/2023/05/11/ALU/</url>
+    <content><![CDATA[<h1 id="ALU"><a href="#ALU" class="headerlink" title="ALU"></a>ALU</h1><p>先来看看维基百科是怎么说的</p>
+<blockquote>
+<p><strong>算术逻辑单元</strong> （英语：Arithmetic logic unit，<a href="https://zh.wikipedia.org/wiki/%E7%B8%AE%E5%AF%AB" title="缩写">缩写</a>： <strong>ALU</strong> ）是一种可对<a href="https://zh.wikipedia.org/wiki/%E4%BA%8C%E8%BF%9B%E5%88%B6" title="二进制">二进制</a><a href="https://zh.wikipedia.org/wiki/%E6%95%B4%E6%95%B0" title="整数">整数</a>执行<a href="https://zh.wikipedia.org/wiki/%E7%AE%97%E6%9C%AF" title="算术">算术运算</a>或<a href="https://zh.wikipedia.org/wiki/%E4%BD%8D%E6%93%8D%E4%BD%9C" title="位操作">位运算</a>的<a href="https://zh.wikipedia.org/wiki/%E7%BB%84%E5%90%88%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF" title="组合逻辑电路">组合逻辑</a><a href="https://zh.wikipedia.org/wiki/%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF" title="数字电路">数字电路</a>。ALU 与<a href="https://zh.wikipedia.org/wiki/%E6%B5%AE%E7%82%B9%E8%BF%90%E7%AE%97%E5%99%A8" title="浮点运算器">浮点数运算单元</a>（FPU）不同，后者仅对<a href="https://zh.wikipedia.org/wiki/%E6%B5%AE%E7%82%B9%E8%BF%90%E7%AE%97%E5%99%A8" title="浮点运算器">浮点数</a>进行操作。ALU 是许多类型的计算电路的基本部件，这些计算电路包括计算机的<a href="https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%A4%AE%E5%A4%84%E7%90%86%E5%99%A8" title="中央处理器">中央处理单元</a>（CPU）、<a href="https://zh.wikipedia.org/wiki/%E6%B5%AE%E7%82%B9%E8%BF%90%E7%AE%97%E5%99%A8" title="浮点运算器">浮点处理单元</a>（FPU）和<a href="https://zh.wikipedia.org/wiki/%E5%9C%96%E5%BD%A2%E8%99%95%E7%90%86%E5%99%A8" title="图形处理器">图形处理单元</a>（GPU）。单个CPU、FPU 或 GPU 可能包含多个 ALU。</p>
+<p>–维基百科</p>
+</blockquote>
+<p>ALU就是计算机中用来进行算数逻辑运算的核心单元，我们可以用它来进行加减乘除等操作</p>
+<h2 id="半加器"><a href="#半加器" class="headerlink" title="半加器"></a>半加器</h2><p>为了实现最基本的加法功能，我们可以使用逻辑门搭建一个半加器，在这里：<a href="https://deltamaya.top/2023/05/10/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/">逻辑门</a>，我介绍了如何用晶体管搭建逻辑门。</p>
+<p>先来看看结构：<br><img src="/../image/ALU/1683766407298.png" alt="半加器"></p>
+<p>我们使用异或门对A和B进行运算，但是这样无法判定进位，所以我们又加入了一个与门来判定是否进位<br>其中A和B就是要执行操作的两个bit，sum就是求和之后的低位，carry是进位。</p>
+<h2 id="全加器"><a href="#全加器" class="headerlink" title="全加器"></a>全加器</h2><p>但是，如果我们需要进行超过1+1的运算，就需要使用全加器<br><img src="/../image/ALU/1683766572913.png" alt="全加器"><br>这里我们就可以对进位也进行运算了，A和B就是要进行运算的两个位，C是低位运算进上来的位，我们可以通过全加器对三个位进行运算，同样输出结果sum和进位carry</p>
+<h2 id="加法器"><a href="#加法器" class="headerlink" title="加法器"></a>加法器</h2><p>万事俱备，这样我们就可以使用半加器和全加器对任意两个二进制数进行运算了，低位使用半加器，后面的每一位使用全加器即可，如图：<br><img src="/../image/ALU/1683767140631.png" alt="加法器"><br>A和B是两个8位的二级制数，后面跟的数字代表是第几位，这里我们注意到，最后一个全加器依然输出了一个carry，如果两个数的运算让这个carry是1，说明这两个数相加太大，超过了8位可以表示的范围，叫做溢出</p>
+<blockquote>
+<p>尽管每个进位消耗的时间很少，但是在计算机每秒数十亿次的计算中，这种消耗也是很难以接受的，所以现代处理器中一般使用<strong>超前进位加法器</strong>，结构与这里略有不同</p>
+</blockquote>
+<h2 id="其他运算器"><a href="#其他运算器" class="headerlink" title="其他运算器"></a>其他运算器</h2><p><img src="/../image/ALU/1683767512270.png" alt="其他运算"><br>这是ALU中可以进行的一部分其他操作，就像加法器，它们也是使用一个个逻辑门搭建出来的</p>
+<h2 id="标志位"><a href="#标志位" class="headerlink" title="标志位"></a>标志位</h2><p><img src="/../image/ALU/1683767778314.png" alt="ALU"><br>可以看到，ALU在接受A和B两个输入进行运算时，还会产生3个标志位，比如overflow会在结果溢出时置为1，zero会在结果为0时置为一<br>高级ALU有更多的标志位，但这三种是最普遍的</p>
+]]></content>
+      <categories>
+        <category>计算机组成原理</category>
+      </categories>
+      <tags>
+        <tag>CPU</tag>
+        <tag>计算机组成</tag>
+        <tag>ALU</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>IEEE754标准的浮点数表示</title>
     <url>/2023/03/27/IEEE%E6%A0%87%E5%87%86%E7%9A%84%E6%B5%AE%E7%82%B9%E6%95%B0%E8%A1%A8%E7%A4%BA/</url>
     <content><![CDATA[<h1 id="结构介绍"><a href="#结构介绍" class="headerlink" title="结构介绍"></a>结构介绍</h1><p>因为计算机中只能离散的保存数据，那么数据的最小位就决定了数据精度。<br>例如：</p>
 <ul>
-<li>表示整数(int)类型时，最小位是2^0&#x3D;1,因此精度就是1，int类型无法保存任何模1不等于0的数。</li>
+<li>表示整数(int)类型时，最小位是$2^0&#x3D;1$,因此精度就是1，int类型无法保存任何模1不等于0的数。</li>
 </ul>
 <p>而小数却不存在最小位（无穷小），因此IEEE协会制定了一种用于表示浮点数的存储方式。<br>已知：</p>
 <blockquote>
@@ -119,6 +148,39 @@
       </tags>
   </entry>
   <entry>
+    <title>位运算的奇技淫巧</title>
+    <url>/2023/06/15/bit_optricks/</url>
+    <content><![CDATA[<h1 id="计算加法"><a href="#计算加法" class="headerlink" title="计算加法"></a>计算加法</h1><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">string <span class="title">addBinary</span><span class="params">(string a, string b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(a==<span class="string">&quot;0&quot;</span>)<span class="keyword">return</span> b;</span><br><span class="line">	<span class="keyword">if</span>(b==<span class="string">&quot;0&quot;</span>)<span class="keyword">return</span> a;</span><br><span class="line">	string ret;</span><br><span class="line">	<span class="type">bool</span> carry=<span class="literal">false</span>;</span><br><span class="line">	std::<span class="built_in">reverse</span>(a.<span class="built_in">begin</span>(), a.<span class="built_in">end</span>());</span><br><span class="line">	std::<span class="built_in">reverse</span>(b.<span class="built_in">begin</span>(), b.<span class="built_in">end</span>());</span><br><span class="line">	<span class="type">int</span> i=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="built_in">min</span>(a.<span class="built_in">size</span>(),b.<span class="built_in">size</span>());++i)&#123;</span><br><span class="line">		ret.<span class="built_in">push_back</span>(<span class="string">&#x27;0&#x27;</span>+((a[i]==<span class="string">&#x27;1&#x27;</span>)^(b[i]==<span class="string">&#x27;1&#x27;</span>)^carry));</span><br><span class="line">		carry=((a[i]==<span class="string">&#x27;1&#x27;</span>)+(b[i]==<span class="string">&#x27;1&#x27;</span>)+<span class="built_in">int</span>(carry))&gt;<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span>(i&lt;a.<span class="built_in">size</span>())&#123;</span><br><span class="line">		ret.<span class="built_in">push_back</span>(<span class="string">&#x27;0&#x27;</span>+((a[i]==<span class="string">&#x27;1&#x27;</span>)^carry));</span><br><span class="line">		carry=((a[i]==<span class="string">&#x27;1&#x27;</span>)+<span class="built_in">int</span>(carry))&gt;<span class="number">1</span>;</span><br><span class="line">		++i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span>(i&lt;b.<span class="built_in">size</span>())&#123;</span><br><span class="line">		ret.<span class="built_in">push_back</span>(<span class="string">&#x27;0&#x27;</span>+((b[i]==<span class="string">&#x27;1&#x27;</span>)^carry));</span><br><span class="line">		carry=((b[i]==<span class="string">&#x27;1&#x27;</span>)+<span class="built_in">int</span>(carry))&gt;<span class="number">1</span>;</span><br><span class="line">		++i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(carry)ret.<span class="built_in">push_back</span>(<span class="string">&#x27;1&#x27;</span>);</span><br><span class="line">	std::<span class="built_in">reverse</span>(ret.<span class="built_in">begin</span>(), ret.<span class="built_in">end</span>());</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="计算乘法"><a href="#计算乘法" class="headerlink" title="计算乘法"></a>计算乘法</h1><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span>  <span class="title">multiply</span><span class="params">(<span class="type">int</span> a,<span class="type">int</span> b)</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> temp=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(b&gt;<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>(b&amp;<span class="number">1</span>)&#123;</span><br><span class="line">			temp+=a;</span><br><span class="line">			b-=<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			a&lt;&lt;=<span class="number">1</span>;</span><br><span class="line">			b&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> a+temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="计算除法"><a href="#计算除法" class="headerlink" title="计算除法"></a>计算除法</h1><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">divide</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">assert</span>(b != <span class="number">0</span>); <span class="comment">// 断言除数不能为0 否则下面while会死循环</span></span><br><span class="line">	<span class="type">bool</span> flag = !((a&gt;&gt;<span class="number">31</span>)^(b&gt;&gt;<span class="number">31</span>)); <span class="comment">// flag为true表示最终答案为正</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 把a b先转为无符号整数 负数位移会计算错</span></span><br><span class="line">	<span class="type">unsigned</span> _a = a &lt; <span class="number">0</span> ? ~a + <span class="number">1U</span> : a; <span class="comment">// 负数是补码形式 取反+1得到相反数</span></span><br><span class="line">	<span class="type">unsigned</span> _b = b &lt; <span class="number">0</span> ? ~b + <span class="number">1U</span> : b;</span><br><span class="line">	<span class="type">unsigned</span> ret = <span class="number">0U</span>;</span><br><span class="line">	<span class="type">int</span> pos = <span class="number">31</span>; <span class="comment">// b不能为0 a右移32位必定为0 必定小于b 所以pos初始为31</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 该循环执行位运算乘法的逆运算</span></span><br><span class="line">	<span class="keyword">while</span> (_a &gt;= _b) &#123;</span><br><span class="line">		<span class="keyword">while</span> ((_a &gt;&gt; pos) &lt; _b) pos--;</span><br><span class="line">		_a -= (_b &lt;&lt; pos);</span><br><span class="line">		ret |= (<span class="number">1U</span> &lt;&lt; pos);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 判断是否溢出</span></span><br><span class="line">	<span class="keyword">if</span> (ret &gt; INT_MAX) &#123;</span><br><span class="line">		<span class="keyword">return</span> flag ? INT_MAX : INT_MIN;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> flag ? (<span class="type">int</span>)ret : -(<span class="type">int</span>)ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="统计整数中1的位数"><a href="#统计整数中1的位数" class="headerlink" title="统计整数中1的位数"></a>统计整数中1的位数</h1><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">count</span><span class="params">(<span class="type">int</span> a)</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(a)&#123;</span><br><span class="line">		++cnt;</span><br><span class="line">		a=a&amp;(a<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> cnt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="统计前n个数中1的位数"><a href="#统计前n个数中1的位数" class="headerlink" title="统计前n个数中1的位数"></a>统计前n个数中1的位数</h1><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt;&amp;&amp; <span class="title">countBits</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">	<span class="type">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">	<span class="type">int</span> meet=<span class="number">1</span>;</span><br><span class="line">	vector&lt;<span class="type">int</span>&gt;<span class="built_in">ret</span>(n+<span class="number">1</span>);</span><br><span class="line">	ret[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i)&#123;</span><br><span class="line">		ret[i]=ret[i-meet]+<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(++cnt==meet)&#123;</span><br><span class="line">			cnt=<span class="number">0</span>;</span><br><span class="line">			meet*=<span class="number">2</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> std::<span class="built_in">move</span>(ret);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>位运算</tag>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>操作系统相关概念简要介绍</title>
+    <url>/2023/06/15/OS_concepts/</url>
+    <content><![CDATA[<h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><p>操作系统就是计算机硬件与软件交互的媒介，软件通过操作系统执行<strong>系统调用</strong>，操作系统根据设备的驱动程序操作底层硬件。</p>
+<h1 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h1><p>进程就是一个程序在内存中的副本，当用户打开某个程序时，该程序的代码和数据被<strong>加载</strong>到内存或者<strong>虚存</strong>中</p>
+<h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><p>线程就是轻量级的进程，不会分配内存资源，只会分配计算资源，一个进程可以有多个线程</p>
+]]></content>
+      <categories>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>操作系统</tag>
+        <tag>OS</tag>
+        <tag>进程</tag>
+        <tag>线程</tag>
+        <tag>并发</tag>
+        <tag>虚拟内存</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>gdb的基本使用</title>
     <url>/2023/06/14/gdb/</url>
     <content><![CDATA[<h1 id="gdb的基本使用"><a href="#gdb的基本使用" class="headerlink" title="gdb的基本使用"></a>gdb的基本使用</h1><p> 使用gdb启动程序</p>
@@ -136,6 +198,7 @@
 <li>运行程序<br><code>run</code></li>
 <li>执行一行<br><code>next</code></li>
 <li>执行一步<br><code>step</code></li>
+<li>执行一句指令<br><code>stepi</code></li>
 <li>执行至下个断点<br><code>continue</code></li>
 </ol>
 <h2 id="打印值"><a href="#打印值" class="headerlink" title="打印值"></a>打印值</h2><ol>
@@ -159,32 +222,189 @@
       </tags>
   </entry>
   <entry>
-    <title>ALU结构和原理</title>
-    <url>/2023/05/11/ALU/</url>
-    <content><![CDATA[<h1 id="ALU"><a href="#ALU" class="headerlink" title="ALU"></a>ALU</h1><p>先来看看维基百科是怎么说的</p>
-<blockquote>
-<p><strong>算术逻辑单元</strong> （英语：Arithmetic logic unit，<a href="https://zh.wikipedia.org/wiki/%E7%B8%AE%E5%AF%AB" title="缩写">缩写</a>： <strong>ALU</strong> ）是一种可对<a href="https://zh.wikipedia.org/wiki/%E4%BA%8C%E8%BF%9B%E5%88%B6" title="二进制">二进制</a><a href="https://zh.wikipedia.org/wiki/%E6%95%B4%E6%95%B0" title="整数">整数</a>执行<a href="https://zh.wikipedia.org/wiki/%E7%AE%97%E6%9C%AF" title="算术">算术运算</a>或<a href="https://zh.wikipedia.org/wiki/%E4%BD%8D%E6%93%8D%E4%BD%9C" title="位操作">位运算</a>的<a href="https://zh.wikipedia.org/wiki/%E7%BB%84%E5%90%88%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF" title="组合逻辑电路">组合逻辑</a><a href="https://zh.wikipedia.org/wiki/%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF" title="数字电路">数字电路</a>。ALU 与<a href="https://zh.wikipedia.org/wiki/%E6%B5%AE%E7%82%B9%E8%BF%90%E7%AE%97%E5%99%A8" title="浮点运算器">浮点数运算单元</a>（FPU）不同，后者仅对<a href="https://zh.wikipedia.org/wiki/%E6%B5%AE%E7%82%B9%E8%BF%90%E7%AE%97%E5%99%A8" title="浮点运算器">浮点数</a>进行操作。ALU 是许多类型的计算电路的基本部件，这些计算电路包括计算机的<a href="https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%A4%AE%E5%A4%84%E7%90%86%E5%99%A8" title="中央处理器">中央处理单元</a>（CPU）、<a href="https://zh.wikipedia.org/wiki/%E6%B5%AE%E7%82%B9%E8%BF%90%E7%AE%97%E5%99%A8" title="浮点运算器">浮点处理单元</a>（FPU）和<a href="https://zh.wikipedia.org/wiki/%E5%9C%96%E5%BD%A2%E8%99%95%E7%90%86%E5%99%A8" title="图形处理器">图形处理单元</a>（GPU）。单个CPU、FPU 或 GPU 可能包含多个 ALU。</p>
-<p>–维基百科</p>
-</blockquote>
-<p>ALU就是计算机中用来进行算数逻辑运算的核心单元，我们可以用它来进行加减乘除等操作</p>
-<h2 id="半加器"><a href="#半加器" class="headerlink" title="半加器"></a>半加器</h2><p>为了实现最基本的加法功能，我们可以使用逻辑门搭建一个半加器，在这里：<a href="https://deltamaya.top/2023/05/10/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/">逻辑门</a>，我介绍了如何用晶体管搭建逻辑门。</p>
-<p>先来看看结构：<br><img src="/../image/ALU/1683766407298.png" alt="半加器"></p>
-<p>我们使用异或门对A和B进行运算，但是这样无法判定进位，所以我们又加入了一个与门来判定是否进位<br>其中A和B就是要执行操作的两个bit，sum就是求和之后的低位，carry是进位。</p>
-<h2 id="全加器"><a href="#全加器" class="headerlink" title="全加器"></a>全加器</h2><p>但是，如果我们需要进行超过1+1的运算，就需要使用全加器<br><img src="/../image/ALU/1683766572913.png" alt="全加器"><br>这里我们就可以对进位也进行运算了，A和B就是要进行运算的两个位，C是低位运算进上来的位，我们可以通过全加器对三个位进行运算，同样输出结果sum和进位carry</p>
-<h2 id="加法器"><a href="#加法器" class="headerlink" title="加法器"></a>加法器</h2><p>万事俱备，这样我们就可以使用半加器和全加器对任意两个二进制数进行运算了，低位使用半加器，后面的每一位使用全加器即可，如图：<br><img src="/../image/ALU/1683767140631.png" alt="加法器"><br>A和B是两个8位的二级制数，后面跟的数字代表是第几位，这里我们注意到，最后一个全加器依然输出了一个carry，如果两个数的运算让这个carry是1，说明这两个数相加太大，超过了8位可以表示的范围，叫做溢出</p>
-<blockquote>
-<p>尽管每个进位消耗的时间很少，但是在计算机每秒数十亿次的计算中，这种消耗也是很难以接受的，所以现代处理器中一般使用<strong>超前进位加法器</strong>，结构与这里略有不同</p>
-</blockquote>
-<h2 id="其他运算器"><a href="#其他运算器" class="headerlink" title="其他运算器"></a>其他运算器</h2><p><img src="/../image/ALU/1683767512270.png" alt="其他运算"><br>这是ALU中可以进行的一部分其他操作，就像加法器，它们也是使用一个个逻辑门搭建出来的</p>
-<h2 id="标志位"><a href="#标志位" class="headerlink" title="标志位"></a>标志位</h2><p><img src="/../image/ALU/1683767778314.png" alt="ALU"><br>可以看到，ALU在接受A和B两个输入进行运算时，还会产生3个标志位，比如overflow会在结果溢出时置为1，zero会在结果为0时置为一<br>高级ALU有更多的标志位，但这三种是最普遍的</p>
+    <title>KMP算法</title>
+    <url>/2023/04/23/KMP%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h1><p>KMP算法是一种字符串查找算法，他可以返回字串在原始字符串中第一次出现的位置。<br>时间复杂度是 O(M+N) 空间复杂度O(M)</p>
+<p>KMP算法核心逻辑：<strong>当字符不匹配时，从与前一个字符对应的最长相同前后缀的长度之后继续进行搜索</strong></p>
+<p>前缀：一定包含首字符但不包含尾字符的连续字串<br>后缀：一定包含尾字符但不包含首字符的连续子串</p>
+<p>通俗来讲，当你在某一个字符匹配不上的时候，此时前面所有字符组成的字符串中存在某一个前缀和后缀是相同的（ps：这里都是从前到后读，而<strong>不是</strong>前缀从前往后而，后缀从后往前），所以当你从这个后缀的首字符开始匹配时，一定可以完成这个前缀的匹配，所以我们就不用费力再做一遍了，于是我们直接跳转到这个前缀的后一个字符继续匹配。</p>
+<p>例如：text&#x3D;”ABAABABCA”  target&#x3D;”ABABC”<br>target最长相同前后缀的长度数组为：00120</p>
+<ol>
+<li>当搜索到下标为3时，A与B不匹配，此时从与B的前一个字符A匹配的最长相同前后缀的后面继续搜索，与A匹配的最长前后缀为A，长度为1，所以我们保持text中的指针不动，target中的指针移动到下标为1的位置，我们可以保证下标1之前的元素一定就在text指针的前面，因为我们用target的前缀替代了后缀</li>
+<li>同理，B与A然不匹配，此时target指针跳转到0位置，继续搜索</li>
+<li>然后不断向前匹配，知道target指针结束或者text指针结束</li>
+</ol>
+<hr>
+<p>实现如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">KMP</span><span class="params">(<span class="type">const</span> string&amp; str,<span class="type">const</span> string&amp; target)</span></span>&#123;</span><br><span class="line">	vector&lt;<span class="type">int</span>&gt;next;</span><br><span class="line">	<span class="comment">//next数组用于存放每个位置对应的最长相同前后缀的长度</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;target.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">		<span class="type">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">		<span class="type">int</span> len=<span class="number">1</span>;</span><br><span class="line">		<span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(j+len&lt;=i)&#123;</span><br><span class="line">			<span class="keyword">if</span>(target[j]==target[j+len])&#123;</span><br><span class="line">				++cnt;</span><br><span class="line">				++j;</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				++len;</span><br><span class="line">				cnt=<span class="number">0</span>;</span><br><span class="line">				j=<span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		next.<span class="built_in">push_back</span> (cnt);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="type">int</span> i=<span class="number">0</span>,f=<span class="number">0</span>,begin=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(i&lt;str.<span class="built_in">size</span>())&#123;</span><br><span class="line">		<span class="keyword">if</span>(str[i]!=target[f])&#123;</span><br><span class="line">			<span class="keyword">if</span>(f)f=next[f<span class="number">-1</span>];</span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				++i;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">while</span>(str[i]==target[f])&#123;</span><br><span class="line">			<span class="keyword">if</span>(f==target.<span class="built_in">size</span>()<span class="number">-1</span>)&#123;</span><br><span class="line">				<span class="keyword">return</span> i-f;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(i==str.<span class="built_in">size</span>()<span class="number">-1</span>)&#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			++i;++f;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(f)f=next[f<span class="number">-1</span>];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>计算机组成原理</category>
+        <category>数据结构与算法</category>
       </categories>
       <tags>
-        <tag>CPU</tag>
-        <tag>计算机组成</tag>
-        <tag>ALU</tag>
+        <tag>C++</tag>
+        <tag>算法</tag>
+        <tag>搜索</tag>
+        <tag>字符串</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>为什么使用要右值引用</title>
+    <url>/2023/05/29/rvalue_reference/</url>
+    <content><![CDATA[<h1 id="左值和右值"><a href="#左值和右值" class="headerlink" title="左值和右值"></a>左值和右值</h1><p>需要搞明白右值引用，必须先明白左值和右值的定义。</p>
+<p>所谓左值大致可以理解为有名字，可以取地址，位于赋值符号左侧的值</p>
+<p>相反，右值一般没有名字，不可以取地址，位于赋值符号右侧，一般是一些临时变量。</p>
+<h1 id="为什么要引用右值引用"><a href="#为什么要引用右值引用" class="headerlink" title="为什么要引用右值引用"></a>为什么要引用右值引用</h1><h2 id="移动语义"><a href="#移动语义" class="headerlink" title="移动语义"></a>移动语义</h2><p>如果使用你使用一个指针指向一个动态开辟的空间的类，并且这个类实现了深拷贝，那么在进行传参的时候就会进行额外的拷贝开销，降低性能。<br>所以我们可以使用const reference技术解决上面这个问题，但是这样同样也带来了另一个问题。</p>
+<p>首先const reference可以绑定到任何东西上面，有时候这会带来意想不到的问题，例如不经意间将一个变量隐式类型转换为了一个临时变量，然后reference绑定到了这个临时变量上面，这个临时变量的值有时候不是我们所期望的。</p>
+<p>其次，const reference无法修改绑定到的变量上面，如果我们希望将一个string移动到一个vector中（类似所有权的转移），此时如果使用const reference，就需要重新构造一个string，然后将原来的string进行析构，降低了效率（被rust所有权薄纱），所以我们引入了移动语义（使用右值引用），其用法与所有权类似。将这个string的所有权转给vector，只需要简单的修改指针即可，效率大大提高。</p>
+<p>引入右值引用后，我们可以使用移动语义将右值引用绑定到一个临时对象，然后可以将其资源（例如堆内存、文件句柄等）有效地转移到新对象中，而无需进行资源拷贝。这通过使用移动构造函数和移动赋值运算符来实现。</p>
+<h2 id="完美转发"><a href="#完美转发" class="headerlink" title="完美转发"></a>完美转发</h2><p>所谓完美转发，就是在函数之间传递参数时总是可以保证参数的类型，例如&amp;&amp;多次转发之后还是&amp;&amp;，&amp;多次转发后还是&amp;</p>
+<p>对于const引用，它可以接受任何类型的参数，包括左值和右值。但在转发参数时，它无法保留参数的值类别信息，无法实现完美转发。<br>考虑下面这些函数：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">overloadedFunction</span><span class="params">(<span class="type">int</span> &amp;a)</span></span>&#123;</span><br><span class="line">	std::cout&lt;&lt;<span class="string">&quot;left value ref\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">overloadedFunction</span><span class="params">(<span class="type">int</span>&amp;&amp; a)</span></span>&#123;</span><br><span class="line">	std::cout&lt;&lt;<span class="string">&quot;right value ref\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">caller</span><span class="params">(T&amp;&amp;a)</span></span>&#123;</span><br><span class="line">	std::cout&lt;&lt;std::is_rvalue_reference_v&lt;<span class="keyword">decltype</span>(a)&gt;&lt;&lt;std::endl;</span><br><span class="line">	<span class="built_in">overloadedFunction</span>(std::forward&lt;T&gt;(a));</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> a=<span class="number">0</span>;</span><br><span class="line">	<span class="built_in">caller</span>(<span class="number">0</span>);</span><br><span class="line">	<span class="built_in">caller</span>(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<blockquote>
+<p>1<br>right value ref<br>0<br>left value ref</p>
+</blockquote>
+<p>根据<strong>引用坍缩</strong>，模板参数中的T&amp;&amp;不一定是右值引用，当传入左值时，此函数的引用会被推导为左值。<br>也就是当只有形参实参都为r-ref的时候，才会调用传递之后才是r-ref。</p>
+<p>对于右值引用，它可以接受临时对象（右值），并且在转发参数时可以保留参数的值类别信息，可以实现完美转发。右值引用在模板编程中非常有用，可以保留传递参数的值类别，避免不必要的拷贝或移动操作。</p>
+<p>在此处我们使用的 <code>std::forward()</code>可以避免额外的拷贝和移动，还可以保持参数的constness，从而达成完美转发</p>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>二叉树</title>
+    <url>/2023/03/30/%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
+    <content><![CDATA[<h1 id="树的概念"><a href="#树的概念" class="headerlink" title="树的概念"></a>树的概念</h1><p><img src="/../img/binary_tree_show.jpg" alt="树"></p>
+<blockquote>
+<p><strong>结点的度</strong>：一个结点含有的子树的个数称为该结点的度； 如上图：A的为6</p>
+<p><strong>叶结点或终端结点</strong>：度为0的结点称为叶结点； 如上图：B、C、H、I…等结点为叶结点</p>
+<p><strong>非终端结点或分支结点</strong>：度不为0的结点；  如上图：D、E、F、G…等结点为分支结点</p>
+<p><strong>双亲结点或父结点</strong>：若一个结点含有子结点，则这个结点称为其子结点的父结点； 如上图：A是B的父结点</p>
+<p><strong>孩子结点或子结点</strong>：一个结点含有的子树的根结点称为该结点的子结点；  如上图：B是A的孩子结点</p>
+<p><strong>兄弟结点</strong>：具有相同父结点的结点互称为兄弟结点； 如上图：B、C是兄弟结点</p>
+<p><strong>树的度</strong>：一棵树中，最大的结点的度称为树的度； 如上图：树的度为6</p>
+<p><strong>结点的层次</strong>：从根开始定义起，根为第1层，根的子结点为第2层，以此类推； </p>
+<p><strong>树的高度或深度</strong>：树中结点的最大层次；  如上图：树的高度为4</p>
+<p><strong>堂兄弟结点</strong>：双亲在同一层的结点互为堂兄弟；如上图：H、I互为兄弟结点</p>
+<p><strong>结点的祖先</strong>：从根到该结点所经分支上的所有结点；如上图：A是所有结点的祖先</p>
+<p><strong>子孙</strong>：以某结点为根的子树中任一结点都称为该结点的子孙。如上图：所有结点都是A的子孙</p>
+<p><strong>森林</strong>：由m（m&gt;0）棵互不相交的树的集合称为森林；  </p>
+</blockquote>
+<h1 id="二叉树的结构"><a href="#二叉树的结构" class="headerlink" title="二叉树的结构"></a>二叉树的结构</h1><p>一棵二叉树又三个部分组成：</p>
+<ul>
+<li>根节点</li>
+<li>左子树</li>
+<li>右子树</li>
+</ul>
+<p>我们将树的结构定义如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TreeNode</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="type">int</span> val;</span><br><span class="line">	TreeNode*left;</span><br><span class="line">	TreeNode*right;</span><br><span class="line">	<span class="type">int</span> height;</span><br><span class="line">	<span class="built_in">TreeNode</span>(<span class="type">int</span> x):<span class="built_in">val</span>(x),<span class="built_in">left</span>(<span class="literal">nullptr</span>),<span class="built_in">right</span>(<span class="literal">nullptr</span>),<span class="built_in">height</span>(<span class="number">1</span>)&#123;&#125;;</span><br><span class="line">	<span class="built_in">TreeNode</span>(): <span class="built_in">TreeNode</span> (<span class="number">0</span>)&#123;&#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>因此当我们需要遍历(Traversal)一棵二叉树时，有四种遍历方法：</p>
+<ul>
+<li>前序遍历</li>
+<li>中序遍历</li>
+<li>后序遍历</li>
+<li>层序遍历</li>
+</ul>
+<h2 id="前序遍历"><a href="#前序遍历" class="headerlink" title="前序遍历"></a>前序遍历</h2><p>遍历顺序：<strong>根节点-&gt;左子树-&gt;右子树</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">preOrder</span><span class="params">(TreeNode*root)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!root)<span class="keyword">return</span>;</span><br><span class="line">	<span class="built_in">Process</span>(root);</span><br><span class="line">	<span class="built_in">preOrder</span>(root-&gt;left);</span><br><span class="line">	<span class="built_in">preOrder</span>(root-&gt;right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h2><p>遍历顺序：<strong>左子树-&gt;根节点-&gt;右子树</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">inOrder</span><span class="params">(TreeNode*root)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!root)<span class="keyword">return</span>;</span><br><span class="line">	<span class="built_in">inOrder</span>(root-&gt;left);</span><br><span class="line">	<span class="built_in">Process</span>(root);</span><br><span class="line">	<span class="built_in">inOrder</span>(root-&gt;right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h2><p>遍历顺序：<strong>左子树-&gt;右子树-&gt;根节点</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">latOrder</span><span class="params">(TreeNode*root)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!root)<span class="keyword">return</span>;</span><br><span class="line">	<span class="built_in">latOrder</span>(root-&gt;left);</span><br><span class="line">	<span class="built_in">latOrder</span>(root-&gt;right);</span><br><span class="line">	<span class="built_in">Process</span>(root);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="层序遍历"><a href="#层序遍历" class="headerlink" title="层序遍历"></a>层序遍历</h2><p>遍历顺序：<strong>逐层</strong><br>层序遍历相对比较复杂，我们需要用一个队列来记录<strong>所有同层的节点</strong>然后依次遍历</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">layerOrder</span><span class="params">(TreeNode*root)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!root)<span class="keyword">return</span>;</span><br><span class="line">	queue&lt;TreeNode*&gt;q;</span><br><span class="line">	q.<span class="built_in">push</span>(root);</span><br><span class="line">	<span class="keyword">while</span>(!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">		TreeNode *f = q.<span class="built_in">front</span> ();</span><br><span class="line">		<span class="keyword">if</span> ( f-&gt;left )q.<span class="built_in">push</span> (f-&gt;left);</span><br><span class="line">		<span class="keyword">if</span> ( f-&gt;right )q.<span class="built_in">push</span> (f-&gt;right);</span><br><span class="line">		<span class="built_in">Process</span> (f);</span><br><span class="line">		q.<span class="built_in">pop</span> ();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><em>我们不难发现，所谓的 X序遍历 就是根节点在顺序中的位置</em></p>
+<p>二叉树本身就是递归的定义的，所以我们可以得知，二叉树算法中最重要的一点就是递归。</p>
+<h1 id="二叉树的性质"><a href="#二叉树的性质" class="headerlink" title="二叉树的性质"></a>二叉树的性质</h1><h2 id="满二叉树"><a href="#满二叉树" class="headerlink" title="满二叉树"></a>满二叉树</h2><p>一个二叉树，如果每一个层的结点数都达到最大值，则这个二叉树就是满二叉树。也就是说，如果一个二叉树的层数为K，且结点总数是$2^k -1$ ，则它就是满二叉树。</p>
+<h2 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h2><p>完全二叉树是效率很高的数据结构，完全二叉树是由满二叉树而引出来的。对于深度为K的，有n个结点的二叉树，当且仅当其每一个结点都与深度为K的满二叉树中编号从1至n的结点一一对应时称之为完全二叉树。 要注意的是满二叉树是一种特殊的完全二叉树。</p>
+<h2 id="一般二叉树"><a href="#一般二叉树" class="headerlink" title="一般二叉树"></a>一般二叉树</h2><p>对于深度为n的一棵二叉树，节点个数在n至2^n-1之间。<br>同理，对于节点个数为n的二叉树，深度在log(n+1)至n之间。</p>
+<blockquote>
+<ol>
+<li>若规定根结点的层数为1，则一棵非空二叉树的<strong>第i层上最多有2^(i-1)</strong> 个结点.</li>
+<li>若规定根结点的层数为1，则<strong>深度为h的二叉树的最大结点数是2^h-1</strong>.</li>
+<li>对任何一棵二叉树, <strong>如果度为0其叶结点个数为 n_0, 度为2的分支结点个数为 n_2,则有n_0＝n_2＋1</strong></li>
+<li>若规定根结点的层数为1，具有<strong>n个结点的满二叉树的深度</strong>，<strong>h&#x3D;log_2(n+1)</strong>.  (ps：log_2(n+1)是log以2为底，n+1为对数)</li>
+<li>对于具有n个结点的完全二叉树，如果按照从上至下从左至右的数组顺序对所有结点从0开始编号，则对于序号为i的结点有：<ol>
+<li><strong>若i&gt;0，i位置结点的双亲序号：(i-1)&#x2F;2</strong>；i&#x3D;0，i为根结点编号，无双亲结点</li>
+<li><strong>若2i+1&lt;n，左孩子序号：2i+1，2i+1&gt;&#x3D;n否则无左孩子</strong></li>
+<li><strong>若2i+2&lt;n，右孩子序号：2i+2，2i+2&gt;&#x3D;n否则无右孩子</strong></li>
+</ol>
+</li>
+</ol>
+</blockquote>
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>算法</tag>
+        <tag>数据结构</tag>
+        <tag>树</tag>
+        <tag>二叉树</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>csapp bomb lab答案与解析</title>
+    <url>/2023/06/15/csapp_bomb/</url>
+    <content><![CDATA[<h1 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h1><p>首先看一下炸弹的源码，大概就是需要我们通过调试和逆向工程解开炸弹的六个密码，才可以拆除炸弹。<br>于是我们通过 <code>objdump -d bomb &gt; dasm.s</code>将bomb的反汇编代码重定向进入 <code>dasm.s</code>文件，<br>然后通过 <code>xxd bomb &gt; bomb.hex</code>将bomb可执行程序二进制文件转为十六进制，重定向进入 <code>bomb.hex</code>进行查看</p>
+<h1 id="Phase1"><a href="#Phase1" class="headerlink" title="Phase1"></a>Phase1</h1><p>如下是phase1的代码片段，他获取我们的输入，然后进入phase1函数进行比较，如果成功就会调用defuse。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* Hmm...  Six phases must be more secure than one phase! */</span></span><br><span class="line">input = read_line();             <span class="comment">/* Get input                   */</span></span><br><span class="line">phase_1(input);                  <span class="comment">/* Run the phase               */</span></span><br><span class="line">phase_defused();                 <span class="comment">/* Drat!  They figured it out!</span></span><br><span class="line"><span class="comment">      * Let me know how they did it. */</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;Phase 1 defused. How about the next one?\n&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>打开dasm文件，找到phase1函数的反汇编代码，可以看到：</p>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line">0000000000400ee0 &lt;phase_1&gt;:</span><br><span class="line">  400ee0:	<span class="number">48</span> <span class="number">83</span> ec <span class="number">08</span>          	<span class="keyword">sub</span>    <span class="number">$0</span>x8,%rsp</span><br><span class="line">  400ee4:	be <span class="number">00</span> <span class="number">24</span> <span class="number">40</span> <span class="number">00</span>       	<span class="keyword">mov</span>    <span class="number">$0</span>x402400,%esi</span><br><span class="line">  400ee9:	e8 4a <span class="number">04</span> <span class="number">00</span> <span class="number">00</span>       	callq  <span class="number">401338</span> &lt;strings_not_equal&gt;</span><br><span class="line">  400eee:	<span class="number">85</span> c0                	<span class="keyword">test</span>   %eax,%eax</span><br><span class="line">  400ef0:	<span class="number">74</span> <span class="number">05</span>                	<span class="keyword">je</span>     400ef7 &lt;phase_1+<span class="number">0x17</span>&gt;</span><br><span class="line">  400ef2:	e8 <span class="number">43</span> <span class="number">05</span> <span class="number">00</span> <span class="number">00</span>       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">  400ef7:	<span class="number">48</span> <span class="number">83</span> c4 <span class="number">08</span>          	<span class="keyword">add</span>    <span class="number">$0</span>x8,%rsp</span><br><span class="line">  400efb:	c3                   	retq   </span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里需要掌握一个知识：函数调用时前6个参数分别放在寄存器：<code>%rdi</code>,<code>%rsi</code>,<code>%rdx</code>,<code>%rcx</code>,<code>%r8</code>,<code>%r9</code>中，<br>返回值放在寄存器:<code>%rax</code></p>
+</blockquote>
+<p> 因为前面我们知道将input传入了phase1，那么 <code>%rdi</code>中存放的就是input，接下来 <code>mov    $0x402400,%esi</code>将一个地址放入了 <code>%rsi</code>作为第二个参数，然后去调用了 <code>strings_not_equal</code>函数</p>
+<p> 如果这个函数的名字没有说谎（我们可以通过调试和反汇编来辨别，这里函数名并没有说谎，所以跳过此步骤），那么他就是用来判断我们的输入和 <code>0x402400</code>指向的字符串是否相等，如果相等，会在 <code>%rax</code>返回 <code>0</code></p>
+<p> 接着 <code>je     400ef7 &lt;phase_1+0x17&gt;</code>就会跳转，跳过 <code>callq  40143a &lt;explode_bomb&gt;</code>，然后顺利通过phase1</p>
+<p>于是我们在地址空间中搜索地址 <code>0x402400</code>，找到了以 <code>6f 72 64</code>开头的字符串，去十六进制文件中搜索这个数字，就会发现：<br><img src="/image/csapp_bomb/1686790412428.png" alt="1686790412428"></p>
+<p>显而易见，答案就是： <code>Border relations with Canada have never been better.</code></p>
+<p>输入答案，顺利通过phase1!</p>
+<h1 id="Phase2"><a href="#Phase2" class="headerlink" title="Phase2"></a>Phase2</h1><p>如下是phase2的c源码：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* The second phase is harder.  No one will ever figure out</span></span><br><span class="line"><span class="comment"> * how to defuse this... */</span></span><br><span class="line">input = read_line();</span><br><span class="line">phase_2(input);</span><br><span class="line">phase_defused();</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;That&#x27;s number 2.  Keep going!\n&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line">0000000000400efc &lt;phase_2&gt;:</span><br><span class="line">  400efc:	<span class="number">55</span>                   	<span class="keyword">push</span>   %rbp</span><br><span class="line">  400efd:	<span class="number">53</span>                   	<span class="keyword">push</span>   %rbx</span><br><span class="line">  400efe:	<span class="number">48</span> <span class="number">83</span> ec <span class="number">28</span>          	<span class="keyword">sub</span>    <span class="number">$0</span>x28,%rsp</span><br><span class="line">  400f02:	<span class="number">48</span> <span class="number">89</span> e6             	<span class="keyword">mov</span>    %rsp,%rsi</span><br><span class="line">  400f05:	e8 <span class="number">52</span> <span class="number">05</span> <span class="number">00</span> <span class="number">00</span>       	callq  40145c &lt;read_six_numbers&gt;</span><br><span class="line">  400f0a:	<span class="number">83</span> 3c <span class="number">24</span> <span class="number">01</span>          	cmpl   <span class="number">$0</span>x1,(%rsp)</span><br><span class="line">  400f0e:	<span class="number">74</span> <span class="number">20</span>                	<span class="keyword">je</span>     400f30 &lt;phase_2+<span class="number">0x34</span>&gt;</span><br><span class="line">  400f10:	e8 <span class="number">25</span> <span class="number">05</span> <span class="number">00</span> <span class="number">00</span>       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">  400f15:	eb <span class="number">19</span>                	<span class="keyword">jmp</span>    400f30 &lt;phase_2+<span class="number">0x34</span>&gt;</span><br><span class="line"> </span><br><span class="line">  400f17:	8b <span class="number">43</span> fc             	<span class="keyword">mov</span>    -<span class="number">0x4</span>(%rbx),%eax</span><br><span class="line">  400f1a:	<span class="number">01</span> c0                	<span class="keyword">add</span>    %eax,%eax</span><br><span class="line">  400f1c:	<span class="number">39</span> <span class="number">03</span>                	<span class="keyword">cmp</span>    %eax,(%rbx)</span><br><span class="line">  400f1e:	<span class="number">74</span> <span class="number">05</span>                	<span class="keyword">je</span>     400f25 &lt;phase_2+<span class="number">0x29</span>&gt;</span><br><span class="line">  400f20:	e8 <span class="number">15</span> <span class="number">05</span> <span class="number">00</span> <span class="number">00</span>       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line"> </span><br><span class="line">  400f25:	<span class="number">48</span> <span class="number">83</span> c3 <span class="number">04</span>          	<span class="keyword">add</span>    <span class="number">$0</span>x4,%rbx</span><br><span class="line">  400f29:	<span class="number">48</span> <span class="number">39</span> eb             	<span class="keyword">cmp</span>    %rbp,%rbx</span><br><span class="line">  400f2c:	<span class="number">75</span> e9                	<span class="keyword">jne</span>    400f17 &lt;phase_2+<span class="number">0x1b</span>&gt;</span><br><span class="line">  400f2e:	eb 0c                	<span class="keyword">jmp</span>    400f3c &lt;phase_2+<span class="number">0x40</span>&gt;</span><br><span class="line"> </span><br><span class="line">  400f30:	<span class="number">48</span> <span class="number">8d</span> 5c <span class="number">24</span> <span class="number">04</span>       	<span class="keyword">lea</span>    <span class="number">0x4</span>(%rsp),%rbx</span><br><span class="line">  400f35:	<span class="number">48</span> <span class="number">8d</span> 6c <span class="number">24</span> <span class="number">18</span>       	<span class="keyword">lea</span>    <span class="number">0x18</span>(%rsp),%rbp</span><br><span class="line">  400f3a:	eb <span class="built_in">db</span>                	<span class="keyword">jmp</span>    400f17 &lt;phase_2+<span class="number">0x1b</span>&gt;</span><br><span class="line"> </span><br><span class="line">  400f3c:	<span class="number">48</span> <span class="number">83</span> c4 <span class="number">28</span>          	<span class="keyword">add</span>    <span class="number">$0</span>x28,%rsp</span><br><span class="line">  400f40:	5b                   	<span class="keyword">pop</span>    %rbx</span><br><span class="line">  400f41:	<span class="number">5d</span>                   	<span class="keyword">pop</span>    %rbp</span><br><span class="line">  400f42:	c3                   	retq   </span><br></pre></td></tr></table></figure>
+
+<p>上面是phase2的反汇编，我们看到这个函数调用了 <code>read_six_number</code>，读取六个数字，如下是反汇编：</p>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line">000000000040145c &lt;read_six_numbers&gt;:</span><br><span class="line">  40145c:	<span class="number">48</span> <span class="number">83</span> ec <span class="number">18</span>          	<span class="keyword">sub</span>    <span class="number">$0</span>x18,%rsp</span><br><span class="line">  <span class="number">401460</span>:	<span class="number">48</span> <span class="number">89</span> f2             	<span class="keyword">mov</span>    %rsi,%rdx</span><br><span class="line">  <span class="number">401463</span>:	<span class="number">48</span> <span class="number">8d</span> 4e <span class="number">04</span>          	<span class="keyword">lea</span>    <span class="number">0x4</span>(%rsi),%rcx</span><br><span class="line">  <span class="number">401467</span>:	<span class="number">48</span> <span class="number">8d</span> <span class="number">46</span> <span class="number">14</span>          	<span class="keyword">lea</span>    <span class="number">0x14</span>(%rsi),%rax</span><br><span class="line">  40146b:	<span class="number">48</span> <span class="number">89</span> <span class="number">44</span> <span class="number">24</span> <span class="number">08</span>       	<span class="keyword">mov</span>    %rax,<span class="number">0x8</span>(%rsp)</span><br><span class="line">  <span class="number">401470</span>:	<span class="number">48</span> <span class="number">8d</span> <span class="number">46</span> <span class="number">10</span>          	<span class="keyword">lea</span>    <span class="number">0x10</span>(%rsi),%rax</span><br><span class="line">  <span class="number">401474</span>:	<span class="number">48</span> <span class="number">89</span> <span class="number">04</span> <span class="number">24</span>          	<span class="keyword">mov</span>    %rax,(%rsp)</span><br><span class="line">  <span class="number">401478</span>:	4c <span class="number">8d</span> 4e 0c          	<span class="keyword">lea</span>    <span class="number">0xc</span>(%rsi),%r9</span><br><span class="line">  40147c:	4c <span class="number">8d</span> <span class="number">46</span> <span class="number">08</span>          	<span class="keyword">lea</span>    <span class="number">0x8</span>(%rsi),%r8</span><br><span class="line">  <span class="number">401480</span>:	be c3 <span class="number">25</span> <span class="number">40</span> <span class="number">00</span>       	<span class="keyword">mov</span>    <span class="number">$0</span>x4025c3,%esi</span><br><span class="line">  <span class="number">401485</span>:	b8 <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>       	<span class="keyword">mov</span>    <span class="number">$0</span>x0,%eax</span><br><span class="line">  40148a:	e8 <span class="number">61</span> f7 ff ff       	callq  400bf0 &lt;__isoc99_sscanf@plt&gt;</span><br><span class="line">  40148f:	<span class="number">83</span> f8 <span class="number">05</span>             	<span class="keyword">cmp</span>    <span class="number">$0</span>x5,%eax</span><br><span class="line">  <span class="number">401492</span>:	7f <span class="number">05</span>                	<span class="keyword">jg</span>     <span class="number">401499</span> &lt;read_six_numbers+<span class="number">0x3d</span>&gt;</span><br><span class="line">  <span class="number">401494</span>:	e8 a1 ff ff ff       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">  <span class="number">401499</span>:	<span class="number">48</span> <span class="number">83</span> c4 <span class="number">18</span>          	<span class="keyword">add</span>    <span class="number">$0</span>x18,%rsp</span><br><span class="line">  <span class="number">40149d</span>:	c3                   	retq  </span><br></pre></td></tr></table></figure>
+
+<p> 我们对调用过程进行分析：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">phase_2</span><span class="params">()</span>&#123;</span><br><span class="line">    rsi=rsp;</span><br><span class="line">    rsp-=<span class="number">24</span>;</span><br><span class="line">    rdx=rsi;</span><br><span class="line">    rcx=rsi+<span class="number">4</span>;</span><br><span class="line">    rax=rsi+<span class="number">20</span>;</span><br><span class="line">    *(rsp+<span class="number">8</span>)=rax;</span><br><span class="line">    rax=rsi+<span class="number">16</span>;</span><br><span class="line">    *(rsp)=rax;</span><br><span class="line">    r9=rsi+<span class="number">12</span>;</span><br><span class="line">    r8=rsi+<span class="number">8</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 也就是rdx,rdx+4,rdx+8.rdx+12,rdx+16(放在rsp指向的地址),rdx+20(放在rsp+8的地址)分别作为scanf使用的六个int的地址。</p>
+<p><img src="/image/csapp_bomb/1686792639904.png" alt="1686792639904"></p>
+<p>最后以这样的上下文去调用scanf，而通过rsi中的地址我们得到字符串 <code>%d %d %d %d %d %d</code>，也就是输入6个int，<br>c语言描述：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span>  <span class="title function_">phase_2</span><span class="params">(<span class="type">char</span>*input)</span>&#123;</span><br><span class="line">    <span class="type">int</span> arr[<span class="number">6</span>];</span><br><span class="line">    <span class="type">int</span> ret=<span class="built_in">scanf</span>(<span class="string">&quot;%d %d %d %d %d %d&quot;</span>,&amp;arr[<span class="number">0</span>],&amp;arr[<span class="number">1</span>],&amp;arr[<span class="number">2</span>],&amp;arr[<span class="number">3</span>],&amp;arr[<span class="number">4</span>],&amp;arr[<span class="number">5</span>]);</span><br><span class="line">    <span class="keyword">if</span>(ret&lt;<span class="number">5</span>)explode_bomb();</span><br><span class="line">    <span class="keyword">if</span>(arr[<span class="number">0</span>]!=<span class="number">1</span>)explode_bomb();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;<span class="number">6</span>;++i)&#123;</span><br><span class="line">        <span class="keyword">if</span>(arr[i]!=<span class="number">2</span>*arr[i<span class="number">-1</span>])&#123;</span><br><span class="line">            explode_bomb();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所以我们只需要保证输入的第一个数字是1，后续的每个数字都是前面一个数字的两倍即可，也就是 <code>1 2 4 8 16 32</code></p>
+]]></content>
+      <categories>
+        <category>CSAPP</category>
+      </categories>
+      <tags>
+        <tag>gdb</tag>
+        <tag>调试</tag>
+        <tag>逆向工程</tag>
+        <tag>汇编</tag>
       </tags>
   </entry>
   <entry>
@@ -223,9 +443,33 @@
       </categories>
       <tags>
         <tag>C++</tag>
-        <tag>数据结构</tag>
         <tag>算法</tag>
+        <tag>数据结构</tag>
         <tag>堆</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>寄存器与内存</title>
+    <url>/2023/05/11/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/</url>
+    <content><![CDATA[<h1 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h1><h2 id="锁存器"><a href="#锁存器" class="headerlink" title="锁存器"></a>锁存器</h2><p>在了解寄存器之前，我们要了解数据是如何存储的<br><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683771275654.png" alt="锁存器"><br>我们通过几个逻辑门的组合实现了一个锁存器，上面的输入线叫做输入，下面的输入先叫做复位线，当输入1时，and门总是输出1，这样我们就成功的存储了一位bit，知道我们输入复位，将and门的输入清空</p>
+<h2 id="门锁"><a href="#门锁" class="headerlink" title="门锁"></a>门锁</h2><p>但是这样通过锁存器存储还是太麻烦了，我们希望可以有一条线用于输入，一条线用于启动内存，于是设计出了门锁：<br><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683771522942.png" alt="门锁"></p>
+<p>多个门锁排列在一起，就组成了寄存器<br><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683771783576.png" alt="寄存器"></p>
+<h1 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h1><p><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772174357.png" alt="内存中的锁存"><br>内存就是由无数个锁存组成的，我们可以将锁存排列成一个矩阵，然后通过控制行和列来找到特定锁存并激活它<br>因为我们每次只激活一个锁存，所以我们可以只用一根数据线、一根允许写入和一根允许读取，因为当锁存没有被激活时，它会忽略所有的信息</p>
+<h2 id="多路复用器"><a href="#多路复用器" class="headerlink" title="多路复用器"></a>多路复用器</h2><p>想要通过这种结构存储大量数据，就需要用到多路复用器，一个多路复用器控制行，一个多路复用器控制列，我们就可以轻松找到矩阵中的某一个锁存，可以读写它的值<br><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772049711.png" alt="多路复用器"></p>
+<h2 id="内存单元"><a href="#内存单元" class="headerlink" title="内存单元"></a>内存单元</h2><p>我们对上面的模型进行简单的抽象，一个256位的内存可以由8条地址线来确定一个特定的锁存，一条数据线用于读和写，一条写入，一条读取线，如图：</p>
+<p><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772090587.png" alt="256位内存单元"></p>
+<h2 id="物理内存"><a href="#物理内存" class="headerlink" title="物理内存"></a>物理内存</h2><p>将多个这样的内存单元并排，我们就可以得到一个内存，地址线传入一个地址，然后每个单元都找到自己对应的锁存，将其从自己的数据线传出，就得到了一个数据</p>
+<p><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772618137.png" alt="内存"></p>
+<h2 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h2><p>对上面的物理内存进行抽象，就得到了可以通过一个地址直接寻址的虚拟内存：<br><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772785273.png" alt="虚拟内存"></p>
+]]></content>
+      <categories>
+        <category>计算机组成原理</category>
+      </categories>
+      <tags>
+        <tag>CPU</tag>
+        <tag>计算机组成</tag>
+        <tag>寄存器</tag>
+        <tag>内存</tag>
       </tags>
   </entry>
   <entry>
@@ -276,41 +520,9 @@
       </categories>
       <tags>
         <tag>计算机组成</tag>
-        <tag>布尔逻辑</tag>
         <tag>位运算</tag>
+        <tag>布尔逻辑</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>KMP算法</title>
-    <url>/2023/04/23/KMP%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h1><p>KMP算法是一种字符串查找算法，他可以返回字串在原始字符串中第一次出现的位置。<br>时间复杂度是 O(M+N) 空间复杂度O(M)</p>
-<p>KMP算法核心逻辑：<strong>当字符不匹配时，从与前一个字符对应的最长相同前后缀的长度之后继续进行搜索</strong></p>
-<p>前缀：一定包含首字符但不包含尾字符的连续字串<br>后缀：一定包含尾字符但不包含首字符的连续子串</p>
-<p>通俗来讲，当你在某一个字符匹配不上的时候，此时前面所有字符组成的字符串中存在某一个前缀和后缀是相同的（ps：这里都是从前到后读，而<strong>不是</strong>前缀从前往后而，后缀从后往前），所以当你从这个后缀的首字符开始匹配时，一定可以完成这个前缀的匹配，所以我们就不用费力再做一遍了，于是我们直接跳转到这个前缀的后一个字符继续匹配。</p>
-<p>例如：text&#x3D;”ABAABABCA”  target&#x3D;”ABABC”<br>target最长相同前后缀的长度数组为：00120</p>
-<ol>
-<li>当搜索到下标为3时，A与B不匹配，此时从与B的前一个字符A匹配的最长相同前后缀的后面继续搜索，与A匹配的最长前后缀为A，长度为1，所以我们保持text中的指针不动，target中的指针移动到下标为1的位置，我们可以保证下标1之前的元素一定就在text指针的前面，因为我们用target的前缀替代了后缀</li>
-<li>同理，B与A然不匹配，此时target指针跳转到0位置，继续搜索</li>
-<li>然后不断向前匹配，知道target指针结束或者text指针结束</li>
-</ol>
-<hr>
-<p>实现如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">KMP</span><span class="params">(<span class="type">const</span> string&amp; str,<span class="type">const</span> string&amp; target)</span></span>&#123;</span><br><span class="line">	vector&lt;<span class="type">int</span>&gt;next;</span><br><span class="line">	<span class="comment">//next数组用于存放每个位置对应的最长相同前后缀的长度</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;target.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">		<span class="type">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">		<span class="type">int</span> len=<span class="number">1</span>;</span><br><span class="line">		<span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(j+len&lt;=i)&#123;</span><br><span class="line">			<span class="keyword">if</span>(target[j]==target[j+len])&#123;</span><br><span class="line">				++cnt;</span><br><span class="line">				++j;</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				++len;</span><br><span class="line">				cnt=<span class="number">0</span>;</span><br><span class="line">				j=<span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		next.<span class="built_in">push_back</span> (cnt);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="type">int</span> i=<span class="number">0</span>,f=<span class="number">0</span>,begin=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(i&lt;str.<span class="built_in">size</span>())&#123;</span><br><span class="line">		<span class="keyword">if</span>(str[i]!=target[f])&#123;</span><br><span class="line">			<span class="keyword">if</span>(f)f=next[f<span class="number">-1</span>];</span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				++i;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">while</span>(str[i]==target[f])&#123;</span><br><span class="line">			<span class="keyword">if</span>(f==target.<span class="built_in">size</span>()<span class="number">-1</span>)&#123;</span><br><span class="line">				<span class="keyword">return</span> i-f;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(i==str.<span class="built_in">size</span>()<span class="number">-1</span>)&#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			++i;++f;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(f)f=next[f<span class="number">-1</span>];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>数据结构与算法</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>算法</tag>
-        <tag>搜索</tag>
-        <tag>字符串</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/2023/06/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/</url>
-    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>并发控制</title>
@@ -430,117 +642,6 @@
       </tags>
   </entry>
   <entry>
-    <title>二叉树</title>
-    <url>/2023/03/30/%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
-    <content><![CDATA[<h1 id="树的概念"><a href="#树的概念" class="headerlink" title="树的概念"></a>树的概念</h1><p><img src="/../img/binary_tree_show.jpg" alt="树"></p>
-<blockquote>
-<p><strong>结点的度</strong>：一个结点含有的子树的个数称为该结点的度； 如上图：A的为6</p>
-<p><strong>叶结点或终端结点</strong>：度为0的结点称为叶结点； 如上图：B、C、H、I…等结点为叶结点</p>
-<p><strong>非终端结点或分支结点</strong>：度不为0的结点；  如上图：D、E、F、G…等结点为分支结点</p>
-<p><strong>双亲结点或父结点</strong>：若一个结点含有子结点，则这个结点称为其子结点的父结点； 如上图：A是B的父结点</p>
-<p><strong>孩子结点或子结点</strong>：一个结点含有的子树的根结点称为该结点的子结点；  如上图：B是A的孩子结点</p>
-<p><strong>兄弟结点</strong>：具有相同父结点的结点互称为兄弟结点； 如上图：B、C是兄弟结点</p>
-<p><strong>树的度</strong>：一棵树中，最大的结点的度称为树的度； 如上图：树的度为6</p>
-<p><strong>结点的层次</strong>：从根开始定义起，根为第1层，根的子结点为第2层，以此类推； </p>
-<p><strong>树的高度或深度</strong>：树中结点的最大层次；  如上图：树的高度为4</p>
-<p><strong>堂兄弟结点</strong>：双亲在同一层的结点互为堂兄弟；如上图：H、I互为兄弟结点</p>
-<p><strong>结点的祖先</strong>：从根到该结点所经分支上的所有结点；如上图：A是所有结点的祖先</p>
-<p><strong>子孙</strong>：以某结点为根的子树中任一结点都称为该结点的子孙。如上图：所有结点都是A的子孙</p>
-<p><strong>森林</strong>：由m（m&gt;0）棵互不相交的树的集合称为森林；  </p>
-</blockquote>
-<h1 id="二叉树的结构"><a href="#二叉树的结构" class="headerlink" title="二叉树的结构"></a>二叉树的结构</h1><p>一棵二叉树又三个部分组成：</p>
-<ul>
-<li>根节点</li>
-<li>左子树</li>
-<li>右子树</li>
-</ul>
-<p>我们将树的结构定义如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TreeNode</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="type">int</span> val;</span><br><span class="line">	TreeNode*left;</span><br><span class="line">	TreeNode*right;</span><br><span class="line">	<span class="type">int</span> height;</span><br><span class="line">	<span class="built_in">TreeNode</span>(<span class="type">int</span> x):<span class="built_in">val</span>(x),<span class="built_in">left</span>(<span class="literal">nullptr</span>),<span class="built_in">right</span>(<span class="literal">nullptr</span>),<span class="built_in">height</span>(<span class="number">1</span>)&#123;&#125;;</span><br><span class="line">	<span class="built_in">TreeNode</span>(): <span class="built_in">TreeNode</span> (<span class="number">0</span>)&#123;&#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>因此当我们需要遍历(Traversal)一棵二叉树时，有四种遍历方法：</p>
-<ul>
-<li>前序遍历</li>
-<li>中序遍历</li>
-<li>后序遍历</li>
-<li>层序遍历</li>
-</ul>
-<h2 id="前序遍历"><a href="#前序遍历" class="headerlink" title="前序遍历"></a>前序遍历</h2><p>遍历顺序：<strong>根节点-&gt;左子树-&gt;右子树</strong></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">preOrder</span><span class="params">(TreeNode*root)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!root)<span class="keyword">return</span>;</span><br><span class="line">	<span class="built_in">Process</span>(root);</span><br><span class="line">	<span class="built_in">preOrder</span>(root-&gt;left);</span><br><span class="line">	<span class="built_in">preOrder</span>(root-&gt;right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h2><p>遍历顺序：<strong>左子树-&gt;根节点-&gt;右子树</strong></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">inOrder</span><span class="params">(TreeNode*root)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!root)<span class="keyword">return</span>;</span><br><span class="line">	<span class="built_in">inOrder</span>(root-&gt;left);</span><br><span class="line">	<span class="built_in">Process</span>(root);</span><br><span class="line">	<span class="built_in">inOrder</span>(root-&gt;right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h2><p>遍历顺序：<strong>左子树-&gt;右子树-&gt;根节点</strong></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">latOrder</span><span class="params">(TreeNode*root)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!root)<span class="keyword">return</span>;</span><br><span class="line">	<span class="built_in">latOrder</span>(root-&gt;left);</span><br><span class="line">	<span class="built_in">latOrder</span>(root-&gt;right);</span><br><span class="line">	<span class="built_in">Process</span>(root);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="层序遍历"><a href="#层序遍历" class="headerlink" title="层序遍历"></a>层序遍历</h2><p>遍历顺序：<strong>逐层</strong><br>层序遍历相对比较复杂，我们需要用一个队列来记录<strong>所有同层的节点</strong>然后依次遍历</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">layerOrder</span><span class="params">(TreeNode*root)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!root)<span class="keyword">return</span>;</span><br><span class="line">	queue&lt;TreeNode*&gt;q;</span><br><span class="line">	q.<span class="built_in">push</span>(root);</span><br><span class="line">	<span class="keyword">while</span>(!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">		TreeNode *f = q.<span class="built_in">front</span> ();</span><br><span class="line">		<span class="keyword">if</span> ( f-&gt;left )q.<span class="built_in">push</span> (f-&gt;left);</span><br><span class="line">		<span class="keyword">if</span> ( f-&gt;right )q.<span class="built_in">push</span> (f-&gt;right);</span><br><span class="line">		<span class="built_in">Process</span> (f);</span><br><span class="line">		q.<span class="built_in">pop</span> ();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<p><em>我们不难发现，所谓的 X序遍历 就是根节点在顺序中的位置</em></p>
-<p>二叉树本身就是递归的定义的，所以我们可以得知，二叉树算法中最重要的一点就是递归。</p>
-<h1 id="二叉树的性质"><a href="#二叉树的性质" class="headerlink" title="二叉树的性质"></a>二叉树的性质</h1><h2 id="满二叉树"><a href="#满二叉树" class="headerlink" title="满二叉树"></a>满二叉树</h2><p>一个二叉树，如果每一个层的结点数都达到最大值，则这个二叉树就是满二叉树。也就是说，如果一个二叉树的层数为K，且结点总数是$2^k -1$ ，则它就是满二叉树。</p>
-<h2 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h2><p>完全二叉树是效率很高的数据结构，完全二叉树是由满二叉树而引出来的。对于深度为K的，有n个结点的二叉树，当且仅当其每一个结点都与深度为K的满二叉树中编号从1至n的结点一一对应时称之为完全二叉树。 要注意的是满二叉树是一种特殊的完全二叉树。</p>
-<h2 id="一般二叉树"><a href="#一般二叉树" class="headerlink" title="一般二叉树"></a>一般二叉树</h2><p>对于深度为n的一棵二叉树，节点个数在n至2^n-1之间。<br>同理，对于节点个数为n的二叉树，深度在log(n+1)至n之间。</p>
-<blockquote>
-<ol>
-<li>若规定根结点的层数为1，则一棵非空二叉树的<strong>第i层上最多有2^(i-1)</strong> 个结点.</li>
-<li>若规定根结点的层数为1，则<strong>深度为h的二叉树的最大结点数是2^h-1</strong>.</li>
-<li>对任何一棵二叉树, <strong>如果度为0其叶结点个数为 n_0, 度为2的分支结点个数为 n_2,则有n_0＝n_2＋1</strong></li>
-<li>若规定根结点的层数为1，具有<strong>n个结点的满二叉树的深度</strong>，<strong>h&#x3D;log_2(n+1)</strong>.  (ps：log_2(n+1)是log以2为底，n+1为对数)</li>
-<li>对于具有n个结点的完全二叉树，如果按照从上至下从左至右的数组顺序对所有结点从0开始编号，则对于序号为i的结点有：<ol>
-<li><strong>若i&gt;0，i位置结点的双亲序号：(i-1)&#x2F;2</strong>；i&#x3D;0，i为根结点编号，无双亲结点</li>
-<li><strong>若2i+1&lt;n，左孩子序号：2i+1，2i+1&gt;&#x3D;n否则无左孩子</strong></li>
-<li><strong>若2i+2&lt;n，右孩子序号：2i+2，2i+2&gt;&#x3D;n否则无右孩子</strong></li>
-</ol>
-</li>
-</ol>
-</blockquote>
-]]></content>
-      <categories>
-        <category>数据结构与算法</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>数据结构</tag>
-        <tag>算法</tag>
-        <tag>树</tag>
-        <tag>二叉树</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>为什么使用要右值引用</title>
-    <url>/2023/05/29/rvalue_reference/</url>
-    <content><![CDATA[<h1 id="左值和右值"><a href="#左值和右值" class="headerlink" title="左值和右值"></a>左值和右值</h1><p>需要搞明白右值引用，必须先明白左值和右值的定义。</p>
-<p>所谓左值大致可以理解为有名字，可以取地址，位于赋值符号左侧的值</p>
-<p>相反，右值一般没有名字，不可以取地址，位于赋值符号右侧，一般是一些临时变量。</p>
-<h1 id="为什么要引用右值引用"><a href="#为什么要引用右值引用" class="headerlink" title="为什么要引用右值引用"></a>为什么要引用右值引用</h1><h2 id="移动语义"><a href="#移动语义" class="headerlink" title="移动语义"></a>移动语义</h2><p>如果使用你使用一个指针指向一个动态开辟的空间的类，并且这个类实现了深拷贝，那么在进行传参的时候就会进行额外的拷贝开销，降低性能。<br>所以我们可以使用const reference技术解决上面这个问题，但是这样同样也带来了另一个问题。</p>
-<p>首先const reference可以绑定到任何东西上面，有时候这会带来意想不到的问题，例如不经意间将一个变量隐式类型转换为了一个临时变量，然后reference绑定到了这个临时变量上面，这个临时变量的值有时候不是我们所期望的。</p>
-<p>其次，const reference无法修改绑定到的变量上面，如果我们希望将一个string移动到一个vector中（类似所有权的转移），此时如果使用const reference，就需要重新构造一个string，然后将原来的string进行析构，降低了效率（被rust所有权薄纱），所以我们引入了移动语义（使用右值引用），其用法与所有权类似。将这个string的所有权转给vector，只需要简单的修改指针即可，效率大大提高。</p>
-<p>引入右值引用后，我们可以使用移动语义将右值引用绑定到一个临时对象，然后可以将其资源（例如堆内存、文件句柄等）有效地转移到新对象中，而无需进行资源拷贝。这通过使用移动构造函数和移动赋值运算符来实现。</p>
-<h2 id="完美转发"><a href="#完美转发" class="headerlink" title="完美转发"></a>完美转发</h2><p>对于const引用，它可以接受任何类型的参数，包括左值和右值。但在转发参数时，它无法保留参数的值类别信息，无法实现完美转发。<br>考虑下面这些函数：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">overloadedFunction</span><span class="params">(<span class="type">int</span> &amp;a)</span></span>&#123;</span><br><span class="line">	std::cout&lt;&lt;<span class="string">&quot;left value ref\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">overloadedFunction</span><span class="params">(<span class="type">int</span>&amp;&amp; a)</span></span>&#123;</span><br><span class="line">	std::cout&lt;&lt;<span class="string">&quot;right value ref\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">caller</span><span class="params">(T&amp;&amp;a)</span></span>&#123;</span><br><span class="line">	std::cout&lt;&lt;std::is_rvalue_reference_v&lt;<span class="keyword">decltype</span>(a)&gt;&lt;&lt;std::endl;</span><br><span class="line">	<span class="built_in">overloadedFunction</span>(std::forward&lt;T&gt;(a));</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> a=<span class="number">0</span>;</span><br><span class="line">	<span class="built_in">caller</span>(<span class="number">0</span>);</span><br><span class="line">	<span class="built_in">caller</span>(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>输出：</p>
-<blockquote>
-<p>1<br>right value ref<br>0<br>left value ref</p>
-</blockquote>
-<p>根据引用坍缩，模板参数中的T&amp;&amp;不一定是右值引用，当传入左值时，此函数的引用会被推导为左值。<br>也就是当只有形参实参都为r-ref的时候，才会调用传递之后才是r-ref。</p>
-<p>对于右值引用，它可以接受临时对象（右值），并且在转发参数时可以保留参数的值类别信息，可以实现完美转发。右值引用在模板编程中非常有用，可以保留传递参数的值类别，避免不必要的拷贝或移动操作。</p>
-<p>在此处我们使用的 <code>std::forward()</code>可以避免额外的拷贝和移动，还可以保持参数的constness，从而达成完美转发</p>
-]]></content>
-      <categories>
-        <category>编程语言特性</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>基础排序算法</title>
     <url>/2023/04/11/Sorts/</url>
     <content><![CDATA[<h1 id="基础排序算法"><a href="#基础排序算法" class="headerlink" title="基础排序算法"></a>基础排序算法</h1><hr>
@@ -584,30 +685,6 @@
         <tag>算法</tag>
         <tag>排序</tag>
         <tag>数组</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>寄存器与内存</title>
-    <url>/2023/05/11/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/</url>
-    <content><![CDATA[<h1 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h1><h2 id="锁存器"><a href="#锁存器" class="headerlink" title="锁存器"></a>锁存器</h2><p>在了解寄存器之前，我们要了解数据是如何存储的<br><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683771275654.png" alt="锁存器"><br>我们通过几个逻辑门的组合实现了一个锁存器，上面的输入线叫做输入，下面的输入先叫做复位线，当输入1时，and门总是输出1，这样我们就成功的存储了一位bit，知道我们输入复位，将and门的输入清空</p>
-<h2 id="门锁"><a href="#门锁" class="headerlink" title="门锁"></a>门锁</h2><p>但是这样通过锁存器存储还是太麻烦了，我们希望可以有一条线用于输入，一条线用于启动内存，于是设计出了门锁：<br><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683771522942.png" alt="门锁"></p>
-<p>多个门锁排列在一起，就组成了寄存器<br><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683771783576.png" alt="寄存器"></p>
-<h1 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h1><p><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772174357.png" alt="内存中的锁存"><br>内存就是由无数个锁存组成的，我们可以将锁存排列成一个矩阵，然后通过控制行和列来找到特定锁存并激活它<br>因为我们每次只激活一个锁存，所以我们可以只用一根数据线、一根允许写入和一根允许读取，因为当锁存没有被激活时，它会忽略所有的信息</p>
-<h2 id="多路复用器"><a href="#多路复用器" class="headerlink" title="多路复用器"></a>多路复用器</h2><p>想要通过这种结构存储大量数据，就需要用到多路复用器，一个多路复用器控制行，一个多路复用器控制列，我们就可以轻松找到矩阵中的某一个锁存，可以读写它的值<br><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772049711.png" alt="多路复用器"></p>
-<h2 id="内存单元"><a href="#内存单元" class="headerlink" title="内存单元"></a>内存单元</h2><p>我们对上面的模型进行简单的抽象，一个256位的内存可以由8条地址线来确定一个特定的锁存，一条数据线用于读和写，一条写入，一条读取线，如图：</p>
-<p><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772090587.png" alt="256位内存单元"></p>
-<h2 id="物理内存"><a href="#物理内存" class="headerlink" title="物理内存"></a>物理内存</h2><p>将多个这样的内存单元并排，我们就可以得到一个内存，地址线传入一个地址，然后每个单元都找到自己对应的锁存，将其从自己的数据线传出，就得到了一个数据</p>
-<p><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772618137.png" alt="内存"></p>
-<h2 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h2><p>对上面的物理内存进行抽象，就得到了可以通过一个地址直接寻址的虚拟内存：<br><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772785273.png" alt="虚拟内存"></p>
-]]></content>
-      <categories>
-        <category>计算机组成原理</category>
-      </categories>
-      <tags>
-        <tag>CPU</tag>
-        <tag>计算机组成</tag>
-        <tag>寄存器</tag>
-        <tag>内存</tag>
       </tags>
   </entry>
 </search>
