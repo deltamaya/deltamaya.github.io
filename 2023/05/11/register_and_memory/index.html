@@ -21,39 +21,40 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"www.deltamaya.top","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","width":280,"display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="简要介绍布尔逻辑与逻辑门，了解抽象的概念和意义">
+    <meta name="description" content="简要介绍寄存器和内存的结构和原理">
 <meta property="og:type" content="article">
-<meta property="og:title" content="布尔逻辑与逻辑门">
-<meta property="og:url" content="http://www.deltamaya.top/2023/05/10/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/index.html">
+<meta property="og:title" content="寄存器与内存">
+<meta property="og:url" content="http://www.deltamaya.top/2023/05/11/register_and_memory/index.html">
 <meta property="og:site_name" content="玛雅55369">
-<meta property="og:description" content="简要介绍布尔逻辑与逻辑门，了解抽象的概念和意义">
+<meta property="og:description" content="简要介绍寄存器和内存的结构和原理">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://www.deltamaya.top/img/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/1683685214282.png">
-<meta property="og:image" content="http://www.deltamaya.top/img/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/1683685326237.png">
-<meta property="og:image" content="http://www.deltamaya.top/img/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/1683685734975.png">
-<meta property="og:image" content="http://www.deltamaya.top/img/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/1683686119690.png">
-<meta property="og:image" content="http://www.deltamaya.top/img/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/1683686324190.png">
-<meta property="og:image" content="http://www.deltamaya.top/img/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/1683686573047.png">
-<meta property="og:image" content="http://www.deltamaya.top/img/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/1683686816940.png">
-<meta property="og:image" content="http://www.deltamaya.top/img/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/1683687474009.png">
-<meta property="article:published_time" content="2023-05-10T02:07:57.411Z">
-<meta property="article:modified_time" content="2023-05-10T04:10:16.275Z">
+<meta property="og:image" content="http://www.deltamaya.top/image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683771275654.png">
+<meta property="og:image" content="http://www.deltamaya.top/image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683771522942.png">
+<meta property="og:image" content="http://www.deltamaya.top/image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683771783576.png">
+<meta property="og:image" content="http://www.deltamaya.top/image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772174357.png">
+<meta property="og:image" content="http://www.deltamaya.top/image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772049711.png">
+<meta property="og:image" content="http://www.deltamaya.top/image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772090587.png">
+<meta property="og:image" content="http://www.deltamaya.top/image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772618137.png">
+<meta property="og:image" content="http://www.deltamaya.top/image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772785273.png">
+<meta property="article:published_time" content="2023-05-11T00:42:54.283Z">
+<meta property="article:modified_time" content="2023-06-23T13:12:44.087Z">
 <meta property="article:author" content="deltamaya">
+<meta property="article:tag" content="CPU">
 <meta property="article:tag" content="计算机组成">
-<meta property="article:tag" content="位运算">
-<meta property="article:tag" content="布尔逻辑">
+<meta property="article:tag" content="寄存器">
+<meta property="article:tag" content="内存">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://www.deltamaya.top/img/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/1683685214282.png">
+<meta name="twitter:image" content="http://www.deltamaya.top/image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683771275654.png">
 
 
-<link rel="canonical" href="http://www.deltamaya.top/2023/05/10/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/">
+<link rel="canonical" href="http://www.deltamaya.top/2023/05/11/register_and_memory/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://www.deltamaya.top/2023/05/10/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/","path":"2023/05/10/布尔逻辑与逻辑门/","title":"布尔逻辑与逻辑门"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://www.deltamaya.top/2023/05/11/register_and_memory/","path":"2023/05/11/register_and_memory/","title":"寄存器与内存"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>布尔逻辑与逻辑门 | 玛雅55369</title>
+<title>寄存器与内存 | 玛雅55369</title>
   
 
 
@@ -155,7 +156,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91"><span class="nav-number">1.</span> <span class="nav-text">布尔逻辑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E9%97%A8"><span class="nav-number">2.</span> <span class="nav-text">逻辑门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%99%B6%E4%BD%93%E7%AE%A1"><span class="nav-number">2.1.</span> <span class="nav-text">晶体管</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E%E9%97%A8"><span class="nav-number">2.2.</span> <span class="nav-text">非门</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8E%E9%97%A8"><span class="nav-number">2.3.</span> <span class="nav-text">与门</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%96%E9%97%A8"><span class="nav-number">2.4.</span> <span class="nav-text">或门</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1"><span class="nav-number">2.5.</span> <span class="nav-text">抽象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E6%88%96%E9%97%A8"><span class="nav-number">2.6.</span> <span class="nav-text">异或门</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1-1"><span class="nav-number">3.</span> <span class="nav-text">抽象</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%81%E5%AD%98%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">锁存器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%A8%E9%94%81"><span class="nav-number">1.2.</span> <span class="nav-text">门锁</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AD%98"><span class="nav-number">2.</span> <span class="nav-text">内存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">多路复用器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%8D%95%E5%85%83"><span class="nav-number">2.2.</span> <span class="nav-text">内存单元</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%86%85%E5%AD%98"><span class="nav-number">2.3.</span> <span class="nav-text">物理内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98"><span class="nav-number">2.4.</span> <span class="nav-text">虚拟内存</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -181,7 +182,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -244,7 +245,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.deltamaya.top/2023/05/10/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/">
+    <link itemprop="mainEntityOfPage" href="http://www.deltamaya.top/2023/05/11/register_and_memory/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -257,12 +258,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="布尔逻辑与逻辑门 | 玛雅55369">
-      <meta itemprop="description" content="简要介绍布尔逻辑与逻辑门，了解抽象的概念和意义">
+      <meta itemprop="name" content="寄存器与内存 | 玛雅55369">
+      <meta itemprop="description" content="简要介绍寄存器和内存的结构和原理">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          布尔逻辑与逻辑门
+          寄存器与内存
         </h1>
 
         <div class="post-meta-container">
@@ -272,9 +273,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-05-10 10:07:57 / 修改时间：12:10:16" itemprop="dateCreated datePublished" datetime="2023-05-10T10:07:57+08:00">2023-05-10</time>
+      <time title="创建时间：2023-05-11 08:42:54" itemprop="dateCreated datePublished" datetime="2023-05-11T08:42:54+08:00">2023-05-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-06-23 21:12:44" itemprop="dateModified" datetime="2023-06-23T21:12:44+08:00">2023-06-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -300,7 +307,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.4k</span>
+      <span>576</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -311,7 +318,7 @@
     </span>
 </div>
 
-            <div class="post-description">简要介绍布尔逻辑与逻辑门，了解抽象的概念和意义</div>
+            <div class="post-description">简要介绍寄存器和内存的结构和原理</div>
         </div>
       </header>
 
@@ -319,45 +326,16 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="布尔逻辑"><a href="#布尔逻辑" class="headerlink" title="布尔逻辑"></a>布尔逻辑</h1><p>布尔逻辑中存在两个状态：true和false<br>刚好对应每一个bit的两个状态：1和0<br>存在三种运算与(AND)、或(OR)、非(NOT)<br>通过这三种布尔运算，我们就可以在计算机中进行运算</p>
-<h1 id="逻辑门"><a href="#逻辑门" class="headerlink" title="逻辑门"></a>逻辑门</h1><p>在计算机中，我们可以通过逻辑门实现这三种布尔运算逻辑：</p>
-<h2 id="晶体管"><a href="#晶体管" class="headerlink" title="晶体管"></a>晶体管</h2><p>对于布尔运算，我们有一种很好用的电子元件叫做<strong>晶体管</strong></p>
-<blockquote>
-<p>晶体管一般都有三个极，其中一极兼任输入及输出端子，(B)基极不能做输出，(C)集电极不能做输入之外，其余两个极组成输入及输出对。 晶体管之所以有如此多用途在于其信号放大能力，当微细信号加于其中的一对极时便能控制在另一对极较大的信号，这特性叫<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%A2%9E%E7%9B%8A" title="增益">增益</a>。</p>
-<p>–维基百科</p>
-</blockquote>
-<p><img src="/../img/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/1683685214282.png" alt="晶体管实体"><br><img src="/../img/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/1683685326237.png" alt="晶体管电路图"><br>我们可以将顶部的<strong>基极B作为输入</strong>，将底部的<strong>集电极C作为输出</strong>，那么当我们B输入高电平的时候C也会得到高电平，输入低电平的时候C也会得到低电平，这样我们就得到了一个真值表：true-&gt;true  false-&gt;false</p>
-<p><em>这看上去没什么意思，因为最基本的原理我们都懂。</em></p>
-<h2 id="非门"><a href="#非门" class="headerlink" title="非门"></a>非门</h2><p>但是在这个晶体管的基础上，我们稍加修改就可以实现<strong>NOT非门</strong>：</p>
-<p><img src="/../img/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/1683685734975.png" alt="非门"><br>依然将B作为输入，但是我们将输出改为上图的模式，C级接地</p>
-<p>那么当我们的B输入true的时候，上下导通，将E端的电流接地，导致输出端没有高电平，输出false<br>而当B输入false，地线不导通，直接流向输出端，此时输出false</p>
-<h2 id="与门"><a href="#与门" class="headerlink" title="与门"></a>与门</h2><p>将两个晶体管<strong>串联</strong>，我们就得到了<strong>AND与门</strong>：</p>
-<p><img src="/../img/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/1683686119690.png" alt="与门"></p>
-<p>当一个或者没有晶体管的B级接通时，电路无法导通<br>此时满足AND的真值表，构成与门</p>
-<h2 id="或门"><a href="#或门" class="headerlink" title="或门"></a>或门</h2><p>由 <em>与门</em> 我们自然可以得知 <em>或门</em> 的结构，<br>将两个晶体管<strong>并联</strong>，可以得到<strong>OR或门</strong>：<br><img src="/../img/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/1683686324190.png" alt="或门"></p>
-<p>当两个晶体管其中的一个导通时，输出端也导通<br>此时满足OR的真值表，构成或门</p>
-<h2 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h2><p>由于这几种门在电路中出现十分频繁，所以我们可以将它们简写成如下形式：</p>
-<p><img src="/../img/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/1683686573047.png" alt="符号"></p>
-<p>如图，我们在图纸上画出这些图形的时候，实际的晶体管和电线依然存在，但是我们将他们抽象封装成了一个符号，这可以让我们的图纸更加简介明了</p>
-<h2 id="异或门"><a href="#异或门" class="headerlink" title="异或门"></a>异或门</h2><p>我们可以根据以上三种门搭建出另一种常见的门，<strong>XOR异或门</strong>：</p>
-<p><img src="/../img/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/1683686816940.png" alt="异或门"></p>
-<p>下面是异或门的布尔逻辑表达式</p>
-<blockquote>
-<p>A  <em>xor</em>  B &#x3D; ( <em>not</em>( A <em>and</em> B )  <em>and</em>  ( A <em>or</em> B ) )</p>
-</blockquote>
-<p>也就是说，<em>A异或B</em>  就是 <em>A或B里有一个true 并且 A和B不能都为true</em></p>
-<p>我们也可以通过离散数学中的一个公式帮助理解：</p>
-<blockquote>
-<p>A  <em>xor</em>  B &#x3D; ( A  <em>and</em>  <em>not</em>B )  <em>or</em>  ( <em>not</em>A <em>and</em> B)</p>
-</blockquote>
-<p>当A与B相同时，or左右两侧值相同两侧一定都为false，得到的值也为false</p>
-<p>当A与B不同时，or左右两侧的值至少有一侧为true，输出true</p>
-<h1 id="抽象-1"><a href="#抽象-1" class="headerlink" title="抽象"></a>抽象</h1><p><img src="/../img/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/1683687474009.png" alt="基本符号"><br>上面是一些逻辑门的抽象符号</p>
-<blockquote>
-<p>在<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8" title="计算机科学">计算机科学</a>中， <strong>抽象化</strong> （英语：Abstraction）是将资料与程序，以它的语义来呈现出它的外观，但是隐藏起它的实现细节。抽象化是用来减少程序的复杂度，使得程序员可以专注在处理少数重要的部分。一个电脑系统可以分割成几个<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%8A%BD%E8%B1%A1%E5%B1%A4" title="抽象层">抽象层</a>（Abstraction layer），使得程序员可以将它们分开处理。</p>
-<p>–维基百科</p>
-</blockquote>
-<p>在这里我们了解到了<strong>抽象</strong>的含义，我们将隐藏复杂组件中具体的实现细节，将精力放到自己要做的事情上。<br>例如：一个程序员不需要了解自己写的程序需要几个晶体管几个逻辑门，也不需要了解电子在电路中是怎么移动的，但是他依然可以写出可以运行的程序，这就是抽象的意义。</p>
+        <h1 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h1><h2 id="锁存器"><a href="#锁存器" class="headerlink" title="锁存器"></a>锁存器</h2><p>在了解寄存器之前，我们要了解数据是如何存储的<br><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683771275654.png" alt="锁存器"><br>我们通过几个逻辑门的组合实现了一个锁存器，上面的输入线叫做输入，下面的输入先叫做复位线，当输入1时，and门总是输出1，这样我们就成功的存储了一位bit，知道我们输入复位，将and门的输入清空</p>
+<h2 id="门锁"><a href="#门锁" class="headerlink" title="门锁"></a>门锁</h2><p>但是这样通过锁存器存储还是太麻烦了，我们希望可以有一条线用于输入，一条线用于启动内存，于是设计出了门锁：<br><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683771522942.png" alt="门锁"></p>
+<p>多个门锁排列在一起，就组成了寄存器<br><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683771783576.png" alt="寄存器"></p>
+<h1 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h1><p><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772174357.png" alt="内存中的锁存"><br>内存就是由无数个锁存组成的，我们可以将锁存排列成一个矩阵，然后通过控制行和列来找到特定锁存并激活它<br>因为我们每次只激活一个锁存，所以我们可以只用一根数据线、一根允许写入和一根允许读取，因为当锁存没有被激活时，它会忽略所有的信息</p>
+<h2 id="多路复用器"><a href="#多路复用器" class="headerlink" title="多路复用器"></a>多路复用器</h2><p>想要通过这种结构存储大量数据，就需要用到多路复用器，一个多路复用器控制行，一个多路复用器控制列，我们就可以轻松找到矩阵中的某一个锁存，可以读写它的值<br><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772049711.png" alt="多路复用器"></p>
+<h2 id="内存单元"><a href="#内存单元" class="headerlink" title="内存单元"></a>内存单元</h2><p>我们对上面的模型进行简单的抽象，一个256位的内存可以由8条地址线来确定一个特定的锁存，一条数据线用于读和写，一条写入，一条读取线，如图：</p>
+<p><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772090587.png" alt="256位内存单元"></p>
+<h2 id="物理内存"><a href="#物理内存" class="headerlink" title="物理内存"></a>物理内存</h2><p>将多个这样的内存单元并排，我们就可以得到一个内存，地址线传入一个地址，然后每个单元都找到自己对应的锁存，将其从自己的数据线传出，就得到了一个数据</p>
+<p><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772618137.png" alt="内存"></p>
+<h2 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h2><p>对上面的物理内存进行抽象，就得到了可以通过一个地址直接寻址的虚拟内存：<br><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772785273.png" alt="虚拟内存"></p>
 
     </div>
 
@@ -389,7 +367,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://www.deltamaya.top/2023/05/10/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/" title="布尔逻辑与逻辑门">http://www.deltamaya.top/2023/05/10/布尔逻辑与逻辑门/</a>
+      <a href="http://www.deltamaya.top/2023/05/11/register_and_memory/" title="寄存器与内存">http://www.deltamaya.top/2023/05/11/register_and_memory/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -435,22 +413,23 @@
 </div>
 
           <div class="post-tags">
+              <a href="/tags/CPU/" rel="tag"><i class="fa fa-tag"></i> CPU</a>
               <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/" rel="tag"><i class="fa fa-tag"></i> 计算机组成</a>
-              <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag"><i class="fa fa-tag"></i> 位运算</a>
-              <a href="/tags/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91/" rel="tag"><i class="fa fa-tag"></i> 布尔逻辑</a>
+              <a href="/tags/%E5%AF%84%E5%AD%98%E5%99%A8/" rel="tag"><i class="fa fa-tag"></i> 寄存器</a>
+              <a href="/tags/%E5%86%85%E5%AD%98/" rel="tag"><i class="fa fa-tag"></i> 内存</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/04/23/KMP%E7%AE%97%E6%B3%95/" rel="prev" title="KMP算法">
-                  <i class="fa fa-chevron-left"></i> KMP算法
+                <a href="/2023/05/10/CPU/" rel="prev" title="CPU结构和原理">
+                  <i class="fa fa-chevron-left"></i> CPU结构和原理
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/05/10/CPU/" rel="next" title="CPU结构和原理">
-                  CPU结构和原理 <i class="fa fa-chevron-right"></i>
+                <a href="/2023/05/11/ALU/" rel="next" title="ALU结构和原理">
+                  ALU结构和原理 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -484,13 +463,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">40k</span>
+    <span title="站点总字数">41k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">36 分钟</span>
+    <span title="站点阅读时长">37 分钟</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -576,7 +555,7 @@ setInterval("createtime()",250);
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"deltamaya","repo":"blogComments","client_id":"95730dfc2d8326ee8856","client_secret":"50558ab8fe856f5fc5fe6eefd3ef1b981ad279d2","admin_user":"deltamaya","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"82f60ac067b679ce4280fc7988f72832"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"deltamaya","repo":"blogComments","client_id":"95730dfc2d8326ee8856","client_secret":"50558ab8fe856f5fc5fe6eefd3ef1b981ad279d2","admin_user":"deltamaya","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"379ae66f1fb9c6beafd6aa01ee0f48ce"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
 </body>

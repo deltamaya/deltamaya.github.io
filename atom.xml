@@ -6,7 +6,7 @@
   <link href="http://www.deltamaya.top/atom.xml" rel="self"/>
   
   <link href="http://www.deltamaya.top/"/>
-  <updated>2023-06-16T03:48:01.921Z</updated>
+  <updated>2023-06-23T13:12:43.208Z</updated>
   <id>http://www.deltamaya.top/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://www.deltamaya.top/2023/06/23/operating_system_intro/"/>
+    <id>http://www.deltamaya.top/2023/06/23/operating_system_intro/</id>
+    <published>2023-06-23T12:06:04.771Z</published>
+    <updated>2023-06-23T13:12:43.208Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="操作系统简介"><a href="#操作系统简介" class="headerlink" title="操作系统简介"></a>操作系统简介</h1><p>操作系统就是计算机硬件与软件交互的媒介，软件通过操作系统执行<strong>系统调用</strong>，操作系统根据设备的驱动程序操作底层硬件。</p><p>操作系统对软硬件资源进行抽象和管理。</p><h2 id="计算机硬件介绍"><a href="#计算机硬件介绍" class="headerlink" title="计算机硬件介绍"></a>计算机硬件介绍</h2><p>我们都知道计算机有四大组成：控制器、运算器、存储器、IO设备</p><h3 id="处理器（控制器-运算器）"><a href="#处理器（控制器-运算器）" class="headerlink" title="处理器（控制器+运算器）"></a>处理器（控制器+运算器）</h3><p>可以先看一下这篇博客，点击下面链接对处理器有一个初步了解：</p><p><a href="https://deltamaya.top/2023/05/10/CPU/">处理器</a></p><p>在执行指令时，为了获得硬件服务，软件需要通过<strong>系统调用</strong>向操作系统申请，此时用户程序就会陷入到<strong>内核态</strong>并调用操作系统。</p><h4 id="GPU"><a href="#GPU" class="headerlink" title="GPU"></a>GPU</h4><p>这里要额外介绍一下GPU，我们都知道CPU可以通过多核提高运行速度。</p><p>而GPU就是在一个芯片上安装了大量（通常上万）的微核，这些微核都只能进行简单的运算，但是由于数量巨大，使得GPU十分擅长于大量并行的简单运算，比如图像处理。但是GPU不擅长CPU的串行处理，也就不适合编程、更不适合运行操作系统了。</p><h3 id="存储器"><a href="#存储器" class="headerlink" title="存储器"></a>存储器</h3><p>内存 （Random Access Memory, RAM）：可随机读写，断电内容消失</p><p>只读存储器（Read Only Memory，ROM）：只能读不能写，用于加载计算机启动模块</p><p>磁盘（硬盘）：存储大量数据，读写速度慢</p><p>虚拟内存：通过逻辑地址映像为物理地址，将程序常用部分存储在内存，使可用内存大大增加</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;操作系统简介&quot;&gt;&lt;a href=&quot;#操作系统简介&quot; class=&quot;headerlink&quot; title=&quot;操作系统简介&quot;&gt;&lt;/a&gt;操作系统简介&lt;/h1&gt;&lt;p&gt;操作系统就是计算机硬件与软件交互的媒介，软件通过操作系统执行&lt;strong&gt;系统调用&lt;/strong&gt;，操作</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>位运算的奇技淫巧</title>
@@ -36,37 +56,6 @@
     <category term="C++" scheme="http://www.deltamaya.top/tags/C/"/>
     
     <category term="位运算" scheme="http://www.deltamaya.top/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>操作系统相关概念简要介绍</title>
-    <link href="http://www.deltamaya.top/2023/06/15/OS_concepts/"/>
-    <id>http://www.deltamaya.top/2023/06/15/OS_concepts/</id>
-    <published>2023-06-15T03:14:03.735Z</published>
-    <updated>2023-06-16T03:48:13.708Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><p>操作系统就是计算机硬件与软件交互的媒介，软件通过操作系统执行<strong>系统调用</strong>，操作系统根据设备的驱动程序操作底层硬件。</p><h1 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h1><p>进程就是一个程序在内存中的副本，当用户打开某个程序时，该程序的代码和数据被<strong>加载</strong>到内存或者<strong>虚存</strong>中</p><h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><p>线程就是轻量级的进程，不会分配内存资源，只会分配计算资源，一个进程可以有多个线程</p>]]></content>
-    
-    
-    <summary type="html">尝试使用简短的自然语言，对操作系统中的相关概念进行通俗易懂的介绍</summary>
-    
-    
-    
-    <category term="操作系统" scheme="http://www.deltamaya.top/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-    <category term="操作系统" scheme="http://www.deltamaya.top/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-    <category term="OS" scheme="http://www.deltamaya.top/tags/OS/"/>
-    
-    <category term="进程" scheme="http://www.deltamaya.top/tags/%E8%BF%9B%E7%A8%8B/"/>
-    
-    <category term="线程" scheme="http://www.deltamaya.top/tags/%E7%BA%BF%E7%A8%8B/"/>
-    
-    <category term="并发" scheme="http://www.deltamaya.top/tags/%E5%B9%B6%E5%8F%91/"/>
-    
-    <category term="虚拟内存" scheme="http://www.deltamaya.top/tags/%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/"/>
     
   </entry>
   
@@ -143,8 +132,8 @@
   
   <entry>
     <title>并发控制</title>
-    <link href="http://www.deltamaya.top/2023/05/16/%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/"/>
-    <id>http://www.deltamaya.top/2023/05/16/%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/</id>
+    <link href="http://www.deltamaya.top/2023/05/16/concurrency_management/"/>
+    <id>http://www.deltamaya.top/2023/05/16/concurrency_management/</id>
     <published>2023-05-16T01:51:46.778Z</published>
     <updated>2023-05-29T06:28:01.975Z</updated>
     
@@ -193,10 +182,10 @@
   
   <entry>
     <title>寄存器与内存</title>
-    <link href="http://www.deltamaya.top/2023/05/11/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/"/>
-    <id>http://www.deltamaya.top/2023/05/11/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/</id>
+    <link href="http://www.deltamaya.top/2023/05/11/register_and_memory/"/>
+    <id>http://www.deltamaya.top/2023/05/11/register_and_memory/</id>
     <published>2023-05-11T00:42:54.283Z</published>
-    <updated>2023-05-11T02:43:17.879Z</updated>
+    <updated>2023-06-23T13:12:44.087Z</updated>
     
     <content type="html"><![CDATA[<h1 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h1><h2 id="锁存器"><a href="#锁存器" class="headerlink" title="锁存器"></a>锁存器</h2><p>在了解寄存器之前，我们要了解数据是如何存储的<br><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683771275654.png" alt="锁存器"><br>我们通过几个逻辑门的组合实现了一个锁存器，上面的输入线叫做输入，下面的输入先叫做复位线，当输入1时，and门总是输出1，这样我们就成功的存储了一位bit，知道我们输入复位，将and门的输入清空</p><h2 id="门锁"><a href="#门锁" class="headerlink" title="门锁"></a>门锁</h2><p>但是这样通过锁存器存储还是太麻烦了，我们希望可以有一条线用于输入，一条线用于启动内存，于是设计出了门锁：<br><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683771522942.png" alt="门锁"></p><p>多个门锁排列在一起，就组成了寄存器<br><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683771783576.png" alt="寄存器"></p><h1 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h1><p><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772174357.png" alt="内存中的锁存"><br>内存就是由无数个锁存组成的，我们可以将锁存排列成一个矩阵，然后通过控制行和列来找到特定锁存并激活它<br>因为我们每次只激活一个锁存，所以我们可以只用一根数据线、一根允许写入和一根允许读取，因为当锁存没有被激活时，它会忽略所有的信息</p><h2 id="多路复用器"><a href="#多路复用器" class="headerlink" title="多路复用器"></a>多路复用器</h2><p>想要通过这种结构存储大量数据，就需要用到多路复用器，一个多路复用器控制行，一个多路复用器控制列，我们就可以轻松找到矩阵中的某一个锁存，可以读写它的值<br><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772049711.png" alt="多路复用器"></p><h2 id="内存单元"><a href="#内存单元" class="headerlink" title="内存单元"></a>内存单元</h2><p>我们对上面的模型进行简单的抽象，一个256位的内存可以由8条地址线来确定一个特定的锁存，一条数据线用于读和写，一条写入，一条读取线，如图：</p><p><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772090587.png" alt="256位内存单元"></p><h2 id="物理内存"><a href="#物理内存" class="headerlink" title="物理内存"></a>物理内存</h2><p>将多个这样的内存单元并排，我们就可以得到一个内存，地址线传入一个地址，然后每个单元都找到自己对应的锁存，将其从自己的数据线传出，就得到了一个数据</p><p><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772618137.png" alt="内存"></p><h2 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h2><p>对上面的物理内存进行抽象，就得到了可以通过一个地址直接寻址的虚拟内存：<br><img src="/../image/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/1683772785273.png" alt="虚拟内存"></p>]]></content>
     
@@ -223,9 +212,9 @@
     <link href="http://www.deltamaya.top/2023/05/10/CPU/"/>
     <id>http://www.deltamaya.top/2023/05/10/CPU/</id>
     <published>2023-05-10T09:04:15.444Z</published>
-    <updated>2023-06-14T11:50:24.967Z</updated>
+    <updated>2023-06-23T13:12:44.543Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h1><p>首先我们来看一下什么是CPU：</p><blockquote><p><strong>中央处理器</strong> （英语：<strong>C</strong>entral <strong>P</strong>rocessing <strong>U</strong>nit，缩写： <strong>CPU</strong> ）是<a href="https://zh.wikipedia.org/wiki/%E7%94%B5%E5%AD%90%E8%AE%A1%E7%AE%97%E6%9C%BA" title="电子计算机">计算机</a>的主要设备之一，功能主要是解释计算机<a href="https://zh.wikipedia.org/wiki/%E6%8C%87%E4%BB%A4" title="指令">指令</a>以及处理计算机<a href="https://zh.wikipedia.org/wiki/%E8%BD%AF%E4%BB%B6" title="软件">软件</a>中的<a href="https://zh.wikipedia.org/wiki/%E6%95%B0%E6%8D%AE" title="数据">数据</a>。</p><p>–维基百科</p></blockquote><h2 id="CPU结构"><a href="#CPU结构" class="headerlink" title="CPU结构"></a>CPU结构</h2><p><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683714535332.png" alt="CPU结构"><br>可以看到，CPU中有若干寄存器、ALU和一个控制单元，大体介绍一下这些组件的功能：</p><ul><li>寄存器：CPU中用来暂时存储数据、处理数据的小型存储区域</li><li>ALU（算数逻辑单元）：用来执行算数或者逻辑操作</li><li>控制单元：控制各个组件的运行</li></ul><h3 id="寄存器、ALU"><a href="#寄存器、ALU" class="headerlink" title="寄存器、ALU"></a>寄存器、ALU</h3><p>关于寄存器和ALU的介绍我单独写了博客，你可以在这里查看：<a href="https://deltamaya.top/2023/05/11/ALU/">ALU</a>、<a href="https://deltamaya.top/2023/05/11/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/">寄存器</a></p><h3 id="控制器"><a href="#控制器" class="headerlink" title="控制器"></a>控制器</h3><p>控制器中也有若干寄存器，其中一个叫做<strong>PC(Program Counter)程序计数器</strong>、一个叫做<strong>IR(Instruction Register)指令寄存器</strong>，PC中存储着计算机要执行的<strong>下一条指令的地址</strong>，IR中则存储着计算机<strong>要执行的指令</strong>，它们都被编码为了二进制</p><h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p>CPU是计算机用于执行指令的一个组件，指令就是计算机中的一个个操作，例如将一个值拷贝到一个地方、将两个值相加..</p><p>因为CPU无法理解自然语言，所以如果要执行指令，我们就要对指令进行编码，为了简化模型，这里我们以8位的长度举例：<br><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683712829076.png" alt="指令编码"><br>这里对四条指令进行了编码，每个指令都有自己的操作码和操作数，<br>在这里一条指令的前四位是<strong>操作码</strong>，后四位是<strong>操作数</strong><br>操作码对应CPU要执行的操作，操作数对应CPU操作的对象<br>在需要执行指令时，CPU将会根据操作码和操作数进行具体的操作。</p><blockquote><p>计算机的指令需要存储在<strong>内存RAM</strong>中，如果你对此不太了解可以看这篇博客：<a href="./%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98.md">寄存器和内存</a></p></blockquote><h2 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h2><p>这里先以取数为例</p><p><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683715030031.png" alt="取数的执行过程"></p><ol><li><strong>取指令</strong>：开机之后PC中存储着要执行的指令的地址，PC将这个地址传给MAR，然后内存在这个地址中搜索，将地址中存储的值传给MDR，然后再传回CPU的IR中</li><li><strong>解码</strong>：CU控制单元对IR中的指令进行解码，得到操作码对应要执行的操作，得到操作数对应要执行操作的对象</li><li><strong>执行</strong>：经过分析，这条指令的内容是从一个地址中取出一个数放到某个寄存器中。那么CPU就会将这个地址传给MAR，然后将取得的数放到寄存器中。</li><li>指令执行结束，PC自增1，指向下一条指令</li></ol><h2 id="时钟周期"><a href="#时钟周期" class="headerlink" title="时钟周期"></a>时钟周期</h2><p>在上面描述的一个周期中，我们需要在状态之间不断切换，那怎样才能知道接下来要做什么呢？<br>答案就是：<strong>时钟</strong></p><p>时钟是一个电子元件，以准确的时间间隔触发电信号，<br>这个循环执行一次就叫做一个<strong>时钟周期</strong></p><blockquote><p>取指令 -&gt; 解码 -&gt; 执行<br><strong>CPU就会根据时钟信号推进上述周期的执行。</strong></p></blockquote><p>例如，如果一个CPU的频率是5.0 GHz，那么这个CPU就可以每秒操作50亿</p><h3 id="超频"><a href="#超频" class="headerlink" title="超频"></a>超频</h3><p><strong>超频</strong>就是通过提高时钟频率来达到<strong>提高CPU性能</strong>的目的，<br>芯片制造商一般会为CPU留一些余地，可以接受一些超频，但是长时间的超频可能会造成过热，或者会产生乱码，因为信号跟不上时钟</p><h3 id="降频"><a href="#降频" class="headerlink" title="降频"></a>降频</h3><p>你可能很少听说<strong>降频</strong>，但是降频是一个很好的手段来<strong>降低能耗</strong><br>当你的手机或者其他移动设备没有进行很多计算时，对CPU进行降频减慢CPU的计算速度可以减少能耗，提高续航</p><blockquote><p>现代的很多处理器都可以根据需求调整时钟频率</p></blockquote><h1 id="高级CPU设计"><a href="#高级CPU设计" class="headerlink" title="高级CPU设计"></a>高级CPU设计</h1><p>早期对CPU进行优化提速的方法主要是减少晶体管的切换时间，但是这种优化硬件的方法很快就遇到了瓶颈，所以厂商们探索出了更多的设计模式，可以大大提高CPU的运行速度</p><h2 id="优化电路"><a href="#优化电路" class="headerlink" title="优化电路"></a>优化电路</h2><p>早期的CPU进行除法时要调用多次减法，这样会花费很多个时钟周期，在操作很大或者很多的数的时候效率十分低下，所以厂商们研发出了直接用于除法的ALU电路，解决了这个问题，提高了运行速度</p><p>随着计算机的发展，CPU中也加入了更多可以快速执行原先需要很多时钟周期才能完成的指令的电路</p><h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>很高的主频则会带来另一个问题，CPU从内存读取指令的速度一般需要几个时钟周期，远跟不上CPU执行指令的速度，这会让CPU处于等待状态，效率低下</p><p>所以我们在CPU中加入了<strong>Cache缓存</strong>（KB或MB级），在读取指令时CPU可以一次性从内存<strong>读取多条指令暂存到缓存</strong>中，这是很实用的，因为计算机中大多是时候指令都是顺序执行</p><p>在CPU执行完一条指令之后可以马上从缓存读取下一条指令而无需等待内存</p><p>当想要的内容在缓存中时叫做缓存命中<strong>cache hit</strong><br>不在缓存中则成为缓存未命中<strong>cache miss</strong></p><p>缓存也可以存储一些临时值，用于复杂计算</p><h3 id="脏位"><a href="#脏位" class="headerlink" title="脏位"></a>脏位</h3><p>当我们计算完一些值需要写到内存中时，我们可以将其<strong>暂存到缓存</strong>，如果后续还要接着算，这么做也会提高效率。</p><p>当我们把一个数据存到缓存中，我们把这个缓存中的位置标记为<strong>脏位（Dirty bit）</strong><br><strong>同步</strong>一般会发生在缓存已经写满，但还需要从内存读取数据时<br>同步时CPU会<strong>把脏位中的数据先写到RAM</strong>，然后再从RAM进行读取</p><h2 id="流水线"><a href="#流水线" class="headerlink" title="流水线"></a>流水线</h2><p><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683719476635.png" alt="非流水线模式"><br>因为取指令、解码、执行分别用的CPU中不同的组件，在非流水线模式下CPU同一时刻只能用到某部分组件，效率低下</p><p><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683719503473.png" alt="流水线模式"><br>流水线模式下同时调动CPU中的全部组件，<a href="https://zh.wikipedia.org/wiki/%E5%90%9E%E5%90%90%E9%87%8F">吞吐量</a>*3</p><h3 id="乱序执行"><a href="#乱序执行" class="headerlink" title="乱序执行"></a>乱序执行</h3><p>流水线并行执行下处理器会根据指令间的关系进行拓扑排序，得到没有影响的执行顺序，但是有时候这样做会带来并发问题，所以我们要注意指令间的依赖性，或者在代码中加入<strong>内存屏障</strong>在必要的时候停止流水线，防止出现错误</p><p>在现代处理器中往往会对流水线进行优化，当出现cache miss时，与其花费大量时间等待从内存中取出目标指令时，cpu可以选择先执行这条指令后面cache hit的指令，这叫做<strong>乱序执行</strong></p><h3 id="预测执行"><a href="#预测执行" class="headerlink" title="预测执行"></a>预测执行</h3><p>最后，当程序出现条件控制时，原始的处理器会等待判断结果，然后再根据结果执行，效率低下</p><p>现代处理器中，一般采用一些算法来预测程序接下来要执行的程序，这叫做<strong>分支预测</strong></p><p>在判断结果出来之前就进行读取。当判断结果出来之后，如果猜测是正确的，那么此时缓存中都是正确的指令，马上就可以执行</p><p>如果猜测错误，那么就会<strong>清空流水线</strong>，耗费大量时间</p><p>但是不用担心，现代处理器猜测<strong>命中率超过90%</strong></p><h2 id="多核"><a href="#多核" class="headerlink" title="多核"></a>多核</h2><p>上面的方法都是优化一个指令流的速度<br>而多核，也就是在CPU中添加多个独立处理单元，来同时执行多个指令流</p><h2 id="多CPU"><a href="#多CPU" class="headerlink" title="多CPU"></a>多CPU</h2><p>同样的，一台计算机里多塞几个CPU也能提高效率</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h1><p>首先我们来看一下什么是CPU：</p><blockquote><p><strong>中央处理器</strong> （英语：<strong>C</strong>entral <strong>P</strong>rocessing <strong>U</strong>nit，缩写： <strong>CPU</strong> ）是<a href="https://zh.wikipedia.org/wiki/%E7%94%B5%E5%AD%90%E8%AE%A1%E7%AE%97%E6%9C%BA" title="电子计算机">计算机</a>的主要设备之一，功能主要是解释计算机<a href="https://zh.wikipedia.org/wiki/%E6%8C%87%E4%BB%A4" title="指令">指令</a>以及处理计算机<a href="https://zh.wikipedia.org/wiki/%E8%BD%AF%E4%BB%B6" title="软件">软件</a>中的<a href="https://zh.wikipedia.org/wiki/%E6%95%B0%E6%8D%AE" title="数据">数据</a>。</p><p>–维基百科</p></blockquote><h2 id="CPU结构"><a href="#CPU结构" class="headerlink" title="CPU结构"></a>CPU结构</h2><p><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683714535332.png" alt="CPU结构"><br>可以看到，CPU中有若干寄存器、ALU和一个控制单元，大体介绍一下这些组件的功能：</p><ul><li>寄存器：CPU中用来暂时存储数据、处理数据的小型存储区域</li><li>ALU（算数逻辑单元）：用来执行算数或者逻辑操作</li><li>控制单元：控制各个组件的运行</li></ul><h3 id="寄存器、ALU"><a href="#寄存器、ALU" class="headerlink" title="寄存器、ALU"></a>寄存器、ALU</h3><p>关于寄存器和ALU的介绍我单独写了博客，你可以在这里查看：<a href="https://deltamaya.top/2023/05/11/ALU/">ALU</a>、<a href="https://deltamaya.top/2023/05/11/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/">寄存器</a></p><h3 id="控制器"><a href="#控制器" class="headerlink" title="控制器"></a>控制器</h3><p>控制器中也有若干寄存器，其中一个叫做<strong>PC(Program Counter)程序计数器</strong>、一个叫做<strong>IR(Instruction Register)指令寄存器</strong>，PC中存储着计算机要执行的<strong>下一条指令的地址</strong>，IR中则存储着计算机<strong>要执行的指令</strong>，它们都被编码为了二进制。以及<strong>PSW（程序状态字, Program Status Word）</strong>用于记录条件码（ALU使用）、CPU优先级、模式（内核&#x2F;用户）、以及其他控制位。</p><h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p>CPU是计算机用于执行指令的一个组件，指令就是计算机中的一个个操作，例如将一个值拷贝到一个地方、将两个值相加..</p><p>因为CPU无法理解自然语言，所以如果要执行指令，我们就要对指令进行编码，为了简化模型，这里我们以8位的长度举例：<br><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683712829076.png" alt="指令编码"><br>这里对四条指令进行了编码，每个指令都有自己的操作码和操作数，<br>在这里一条指令的前四位是<strong>操作码</strong>，后四位是<strong>操作数</strong><br>操作码对应CPU要执行的操作，操作数对应CPU操作的对象<br>在需要执行指令时，CPU将会根据操作码和操作数进行具体的操作。</p><blockquote><p>计算机的指令需要存储在<strong>内存RAM</strong>中，如果你对此不太了解可以看这篇博客：<a href="./%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98.md">寄存器和内存</a></p></blockquote><h2 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h2><p>这里先以取数为例</p><p><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683715030031.png" alt="取数的执行过程"></p><ol><li><strong>取指令</strong>：开机之后PC中存储着要执行的指令的地址，PC将这个地址传给MAR，然后内存在这个地址中搜索，将地址中存储的值传给MDR，然后再传回CPU的IR中</li><li><strong>解码</strong>：CU控制单元对IR中的指令进行解码，得到操作码对应要执行的操作，得到操作数对应要执行操作的对象</li><li><strong>执行</strong>：经过分析，这条指令的内容是从一个地址中取出一个数放到某个寄存器中。那么CPU就会将这个地址传给MAR，然后将取得的数放到寄存器中。</li><li>指令执行结束，PC自增1，指向下一条指令</li></ol><h2 id="时钟周期"><a href="#时钟周期" class="headerlink" title="时钟周期"></a>时钟周期</h2><p>在上面描述的一个周期中，我们需要在状态之间不断切换，那怎样才能知道接下来要做什么呢？<br>答案就是：<strong>时钟</strong></p><p>时钟是一个电子元件，以准确的时间间隔触发电信号，<br>这个循环执行一次就叫做一个<strong>时钟周期</strong></p><blockquote><p>取指令 -&gt; 解码 -&gt; 执行<br><strong>CPU就会根据时钟信号推进上述周期的执行。</strong></p></blockquote><p>例如，如果一个CPU的频率是5.0 GHz，那么这个CPU就可以每秒操作50亿</p><h3 id="超频"><a href="#超频" class="headerlink" title="超频"></a>超频</h3><p><strong>超频</strong>就是通过提高时钟频率来达到<strong>提高CPU性能</strong>的目的，<br>芯片制造商一般会为CPU留一些余地，可以接受一些超频，但是长时间的超频可能会造成过热，或者会产生乱码，因为信号跟不上时钟</p><h3 id="降频"><a href="#降频" class="headerlink" title="降频"></a>降频</h3><p>你可能很少听说<strong>降频</strong>，但是降频是一个很好的手段来<strong>降低能耗</strong><br>当你的手机或者其他移动设备没有进行很多计算时，对CPU进行降频减慢CPU的计算速度可以减少能耗，提高续航</p><blockquote><p>现代的很多处理器都可以根据需求调整时钟频率</p></blockquote><h1 id="高级CPU设计"><a href="#高级CPU设计" class="headerlink" title="高级CPU设计"></a>高级CPU设计</h1><p>早期对CPU进行优化提速的方法主要是减少晶体管的切换时间，但是这种优化硬件的方法很快就遇到了瓶颈，所以厂商们探索出了更多的设计模式，可以大大提高CPU的运行速度</p><h2 id="优化电路"><a href="#优化电路" class="headerlink" title="优化电路"></a>优化电路</h2><p>早期的CPU进行除法时要调用多次减法，这样会花费很多个时钟周期，在操作很大或者很多的数的时候效率十分低下，所以厂商们研发出了直接用于除法的ALU电路，解决了这个问题，提高了运行速度</p><p>随着计算机的发展，CPU中也加入了更多可以快速执行原先需要很多时钟周期才能完成的指令的电路</p><h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>很高的主频则会带来另一个问题，CPU从内存读取指令的速度一般需要几个时钟周期，远跟不上CPU执行指令的速度，这会让CPU处于等待状态，效率低下</p><p>所以我们在CPU中加入了<strong>Cache缓存</strong>，在读取指令时CPU可以一次性从内存<strong>读取多条指令暂存到缓存</strong>中，这是很实用的，因为计算机中大多是时候指令都是顺序执行。</p><p>现代系统一般具有三级缓存：</p><p>L1cache，大小为kb级，访问没有时延</p><p>L2cache，大小为mb级，访问有1~2个时钟周期。L2cache可以放在CPU内部（ARM），也可以多个CPU共同使用（x86）</p><p>在CPU执行完一条指令之后可以马上从缓存读取下一条指令而无需等待内存</p><p>当想要的内容在缓存中时叫做缓存命中<strong>cache hit</strong><br>不在缓存中则成为缓存未命中<strong>cache miss</strong></p><p>缓存也可以存储一些临时值，用于复杂计算</p><h3 id="脏位"><a href="#脏位" class="headerlink" title="脏位"></a>脏位</h3><p>当我们计算完一些值需要写到内存中时，我们可以将其<strong>暂存到缓存</strong>，如果后续还要接着算，这么做也会提高效率。</p><p>当我们把一个数据存到缓存中，我们把这个缓存中的位置标记为<strong>脏位（Dirty bit）</strong><br><strong>同步</strong>一般会发生在缓存已经写满，但还需要从内存读取数据时<br>同步时CPU会<strong>把脏位中的数据先写到RAM</strong>，然后再从RAM进行读取</p><h2 id="流水线"><a href="#流水线" class="headerlink" title="流水线"></a>流水线</h2><p><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683719476635.png" alt="非流水线模式"><br>因为取指令、解码、执行分别用的CPU中不同的组件，在非流水线模式下CPU同一时刻只能用到某部分组件，效率低下</p><p><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683719503473.png" alt="流水线模式"><br>现在很多CPU都有单独的取指、解码、执行单元，不同单元之间可以单独执行，互不影响，如上图所示。在同一时间可以执行多个操作。</p><p>流水线模式下同时调动CPU中的全部组件，<a href="https://zh.wikipedia.org/wiki/%E5%90%9E%E5%90%90%E9%87%8F">吞吐量</a>*3</p><h3 id="乱序执行"><a href="#乱序执行" class="headerlink" title="乱序执行"></a>乱序执行</h3><p>流水线并行执行下处理器会根据指令间的关系进行<strong>拓扑排序</strong>，得到理论上对计算结果没有影响的执行顺序</p><p>但是有时候这样做会带来并发问题，所以我们要注意指令间的依赖性，或者在代码中加入<strong>内存屏障</strong>在必要的时候停止流水线，防止出现错误</p><p>在现代处理器中往往会对流水线进行优化，当出现cache miss时，与其花费大量时间等待从内存中取出目标指令时，cpu可以选择先执行这条指令后面cache hit的指令，这叫做<strong>乱序执行</strong>，也叫做<strong>超标量CPU</strong></p><h3 id="预测执行"><a href="#预测执行" class="headerlink" title="预测执行"></a>预测执行</h3><p>最后，当程序出现条件控制时，原始的处理器会等待判断结果，然后再根据结果执行，效率低下</p><p>现代处理器中，一般采用一些算法来预测程序接下来要执行的程序，这叫做<strong>分支预测</strong></p><p>在判断结果出来之前就进行读取。当判断结果出来之后，如果猜测是正确的，那么此时缓存中都是正确的指令，马上就可以执行</p><p>如果猜测错误，那么就会<strong>清空流水线</strong>，耗费大量时间</p><p>但是不用担心，现代处理器猜测<strong>命中率超过90%</strong></p><h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><p>多线程也叫超线程，就是允许CPU保持两个不同的线程状态，然后再纳秒级的时间内来回切换</p><p>这可以让操作系统将一个CPU当作多个CPU使用，个数取决于这个CPU支持的线程数</p><h2 id="多核"><a href="#多核" class="headerlink" title="多核"></a>多核</h2><p>上面的方法都是优化一个指令流的速度<br>而多核，也就是在CPU中添加多个独立处理单元，来同时执行多个指令流</p><p>多核可以在一个多核芯片上放值多个单核芯片，每个单核芯片就是一个CPU</p><h2 id="多CPU"><a href="#多CPU" class="headerlink" title="多CPU"></a>多CPU</h2><p>同样的，一台计算机里多塞几个CPU也能提高效率</p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>处理器就是在计算机中不断进行 <code>取指、解码、执行</code> 循环的部件，每进行一次循环叫做一个CPU周期。</p><p>每个CPU都有一套指令集，不同指令集之间不可以混淆</p><p>大多数CPU都有PC（程序计数器）、堆栈指针，和 PSW（程序状态字, Program Status Word）用于记录条件码（ALU使用）、CPU优先级、模式（内核&#x2F;用户）、以及其他控制位。</p><p>为了提高计算效率，现代CPU采用了流水线、预测执行、乱序执行、多核、多线程的方法。</p>]]></content>
     
     
     <summary type="html">简要介绍CPU基本原理</summary>
@@ -243,8 +232,8 @@
   
   <entry>
     <title>布尔逻辑与逻辑门</title>
-    <link href="http://www.deltamaya.top/2023/05/10/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/"/>
-    <id>http://www.deltamaya.top/2023/05/10/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E4%B8%8E%E9%80%BB%E8%BE%91%E9%97%A8/</id>
+    <link href="http://www.deltamaya.top/2023/05/10/bool_logic_and_doors/"/>
+    <id>http://www.deltamaya.top/2023/05/10/bool_logic_and_doors/</id>
     <published>2023-05-10T02:07:57.411Z</published>
     <updated>2023-05-10T04:10:16.275Z</updated>
     
@@ -268,8 +257,8 @@
   
   <entry>
     <title>KMP算法</title>
-    <link href="http://www.deltamaya.top/2023/04/23/KMP%E7%AE%97%E6%B3%95/"/>
-    <id>http://www.deltamaya.top/2023/04/23/KMP%E7%AE%97%E6%B3%95/</id>
+    <link href="http://www.deltamaya.top/2023/04/23/KMP_algorithm/"/>
+    <id>http://www.deltamaya.top/2023/04/23/KMP_algorithm/</id>
     <published>2023-04-23T11:18:37.592Z</published>
     <updated>2023-05-10T03:42:27.735Z</updated>
     
@@ -322,8 +311,8 @@
   
   <entry>
     <title>二叉树</title>
-    <link href="http://www.deltamaya.top/2023/03/30/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
-    <id>http://www.deltamaya.top/2023/03/30/%E4%BA%8C%E5%8F%89%E6%A0%91/</id>
+    <link href="http://www.deltamaya.top/2023/03/30/binary_tree/"/>
+    <id>http://www.deltamaya.top/2023/03/30/binary_tree/</id>
     <published>2023-03-30T09:15:00.178Z</published>
     <updated>2023-04-23T03:24:16.598Z</updated>
     
@@ -351,8 +340,8 @@
   
   <entry>
     <title>二叉堆</title>
-    <link href="http://www.deltamaya.top/2023/03/28/%E4%BA%8C%E5%8F%89%E5%A0%86/"/>
-    <id>http://www.deltamaya.top/2023/03/28/%E4%BA%8C%E5%8F%89%E5%A0%86/</id>
+    <link href="http://www.deltamaya.top/2023/03/28/binary_heap/"/>
+    <id>http://www.deltamaya.top/2023/03/28/binary_heap/</id>
     <published>2023-03-28T03:55:33.737Z</published>
     <updated>2023-05-10T03:36:17.572Z</updated>
     
@@ -378,8 +367,8 @@
   
   <entry>
     <title>IEEE754标准的浮点数表示</title>
-    <link href="http://www.deltamaya.top/2023/03/27/IEEE%E6%A0%87%E5%87%86%E7%9A%84%E6%B5%AE%E7%82%B9%E6%95%B0%E8%A1%A8%E7%A4%BA/"/>
-    <id>http://www.deltamaya.top/2023/03/27/IEEE%E6%A0%87%E5%87%86%E7%9A%84%E6%B5%AE%E7%82%B9%E6%95%B0%E8%A1%A8%E7%A4%BA/</id>
+    <link href="http://www.deltamaya.top/2023/03/27/float_in_IEEE754/"/>
+    <id>http://www.deltamaya.top/2023/03/27/float_in_IEEE754/</id>
     <published>2023-03-27T09:24:02.443Z</published>
     <updated>2023-06-14T11:50:30.308Z</updated>
     

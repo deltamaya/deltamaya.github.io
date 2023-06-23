@@ -21,25 +21,31 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"www.deltamaya.top","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","width":280,"display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="好好干，好好活">
-<meta property="og:type" content="website">
-<meta property="og:title" content="玛雅55369">
-<meta property="og:url" content="http://www.deltamaya.top/tags/OS/index.html">
+    <meta name="description" content="简要介绍KMP算法基本原理与实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KMP算法">
+<meta property="og:url" content="http://www.deltamaya.top/2023/04/23/KMP_algorithm/index.html">
 <meta property="og:site_name" content="玛雅55369">
-<meta property="og:description" content="好好干，好好活">
+<meta property="og:description" content="简要介绍KMP算法基本原理与实现">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-23T11:18:37.592Z">
+<meta property="article:modified_time" content="2023-05-10T03:42:27.735Z">
 <meta property="article:author" content="deltamaya">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="搜索">
+<meta property="article:tag" content="字符串">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://www.deltamaya.top/tags/OS/">
+<link rel="canonical" href="http://www.deltamaya.top/2023/04/23/KMP_algorithm/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"tags/OS/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://www.deltamaya.top/2023/04/23/KMP_algorithm/","path":"2023/04/23/KMP_algorithm/","title":"KMP算法"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>标签: OS | 玛雅55369</title>
+<title>KMP算法 | 玛雅55369</title>
   
 
 
@@ -128,7 +134,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -141,6 +147,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#KMP%E7%AE%97%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">KMP算法</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -166,7 +173,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -218,51 +225,218 @@
 
     </div>
 
-    <div class="main-inner tag posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
+
+
+<div class="post-block">
   
   
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h1 class="collection-header">OS
-          <small>标签</small>
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.deltamaya.top/2023/04/23/KMP_algorithm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="deltamaya">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="玛雅55369">
+      <meta itemprop="description" content="好好干，好好活">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="KMP算法 | 玛雅55369">
+      <meta itemprop="description" content="简要介绍KMP算法基本原理与实现">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          KMP算法
         </h1>
-      </div>
 
-      
-    <div class="collection-year">
-      <span class="collection-header">2023</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-04-23 19:18:37" itemprop="dateCreated datePublished" datetime="2023-04-23T19:18:37+08:00">2023-04-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-05-10 11:42:27" itemprop="dateModified" datetime="2023-05-10T11:42:27+08:00">2023-05-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">简要介绍KMP算法基本原理与实现</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h1><p>KMP算法是一种字符串查找算法，他可以返回字串在原始字符串中第一次出现的位置。<br>时间复杂度是 O(M+N) 空间复杂度O(M)</p>
+<p>KMP算法核心逻辑：<strong>当字符不匹配时，从与前一个字符对应的最长相同前后缀的长度之后继续进行搜索</strong></p>
+<p>前缀：一定包含首字符但不包含尾字符的连续字串<br>后缀：一定包含尾字符但不包含首字符的连续子串</p>
+<p>通俗来讲，当你在某一个字符匹配不上的时候，此时前面所有字符组成的字符串中存在某一个前缀和后缀是相同的（ps：这里都是从前到后读，而<strong>不是</strong>前缀从前往后而，后缀从后往前），所以当你从这个后缀的首字符开始匹配时，一定可以完成这个前缀的匹配，所以我们就不用费力再做一遍了，于是我们直接跳转到这个前缀的后一个字符继续匹配。</p>
+<p>例如：text&#x3D;”ABAABABCA”  target&#x3D;”ABABC”<br>target最长相同前后缀的长度数组为：00120</p>
+<ol>
+<li>当搜索到下标为3时，A与B不匹配，此时从与B的前一个字符A匹配的最长相同前后缀的后面继续搜索，与A匹配的最长前后缀为A，长度为1，所以我们保持text中的指针不动，target中的指针移动到下标为1的位置，我们可以保证下标1之前的元素一定就在text指针的前面，因为我们用target的前缀替代了后缀</li>
+<li>同理，B与A然不匹配，此时target指针跳转到0位置，继续搜索</li>
+<li>然后不断向前匹配，知道target指针结束或者text指针结束</li>
+</ol>
+<hr>
+<p>实现如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">KMP</span><span class="params">(<span class="type">const</span> string&amp; str,<span class="type">const</span> string&amp; target)</span></span>&#123;</span><br><span class="line">	vector&lt;<span class="type">int</span>&gt;next;</span><br><span class="line">	<span class="comment">//next数组用于存放每个位置对应的最长相同前后缀的长度</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;target.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">		<span class="type">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">		<span class="type">int</span> len=<span class="number">1</span>;</span><br><span class="line">		<span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(j+len&lt;=i)&#123;</span><br><span class="line">			<span class="keyword">if</span>(target[j]==target[j+len])&#123;</span><br><span class="line">				++cnt;</span><br><span class="line">				++j;</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				++len;</span><br><span class="line">				cnt=<span class="number">0</span>;</span><br><span class="line">				j=<span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		next.<span class="built_in">push_back</span> (cnt);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="type">int</span> i=<span class="number">0</span>,f=<span class="number">0</span>,begin=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(i&lt;str.<span class="built_in">size</span>())&#123;</span><br><span class="line">		<span class="keyword">if</span>(str[i]!=target[f])&#123;</span><br><span class="line">			<span class="keyword">if</span>(f)f=next[f<span class="number">-1</span>];</span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				++i;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">while</span>(str[i]==target[f])&#123;</span><br><span class="line">			<span class="keyword">if</span>(f==target.<span class="built_in">size</span>()<span class="number">-1</span>)&#123;</span><br><span class="line">				<span class="keyword">return</span> i-f;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(i==str.<span class="built_in">size</span>()<span class="number">-1</span>)&#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			++i;++f;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(f)f=next[f<span class="number">-1</span>];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2023-06-15T11:14:03+08:00"
-              content="2023-06-15">
-          06-15
-        </time>
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/alipay.png" alt="deltamaya 支付宝">
+        <span>支付宝</span>
       </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/06/15/OS_concepts/" itemprop="url">
-            <span itemprop="name">操作系统相关概念简要介绍</span>
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>deltamaya
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://www.deltamaya.top/2023/04/23/KMP_algorithm/" title="KMP算法">http://www.deltamaya.top/2023/04/23/KMP_algorithm/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/deltamaya55369">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
           </a>
       </div>
 
-      
-    </header>
-  </article>
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://t.me/deltamaya">
+            <span class="icon">
+              <i class="fab fa-telegram"></i>
+            </span>
 
-    </div>
+            <span class="label">Telegram</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://space.bilibili.com/280642105">
+            <span class="icon">
+              <i class="fab fa-bilibili"></i>
+            </span>
+
+            <span class="label">Bilibili</span>
+          </a>
+      </div>
   </div>
-  
-  
-  
+</div>
 
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+              <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C++</a>
+              <a href="/tags/%E6%90%9C%E7%B4%A2/" rel="tag"><i class="fa fa-tag"></i> 搜索</a>
+              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag"><i class="fa fa-tag"></i> 字符串</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/04/11/Sorts/" rel="prev" title="基础排序算法">
+                  <i class="fa fa-chevron-left"></i> 基础排序算法
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/05/10/bool_logic_and_doors/" rel="next" title="布尔逻辑与逻辑门">
+                  布尔逻辑与逻辑门 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
 </div>
   </main>
 
@@ -283,13 +457,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">40k</span>
+    <span title="站点总字数">41k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">36 分钟</span>
+    <span title="站点阅读时长">37 分钟</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -375,7 +549,7 @@ setInterval("createtime()",250);
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"deltamaya","repo":"blogComments","client_id":"95730dfc2d8326ee8856","client_secret":"50558ab8fe856f5fc5fe6eefd3ef1b981ad279d2","admin_user":"deltamaya","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"6b5ae55f9a320db06de3b7813f601da2"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"deltamaya","repo":"blogComments","client_id":"95730dfc2d8326ee8856","client_secret":"50558ab8fe856f5fc5fe6eefd3ef1b981ad279d2","admin_user":"deltamaya","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"df4a2b47e0316421841c786b2ffe6db2"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
 </body>
