@@ -6,7 +6,7 @@
   <link href="http://www.deltamaya.top/atom.xml" rel="self"/>
   
   <link href="http://www.deltamaya.top/"/>
-  <updated>2023-06-23T13:12:43.208Z</updated>
+  <updated>2023-06-25T07:22:29.290Z</updated>
   <id>http://www.deltamaya.top/</id>
   
   <author>
@@ -17,22 +17,69 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
+    <title>Effective Modern C++</title>
+    <link href="http://www.deltamaya.top/2023/06/25/effective_c++/"/>
+    <id>http://www.deltamaya.top/2023/06/25/effective_c++/</id>
+    <published>2023-06-25T07:15:48.956Z</published>
+    <updated>2023-06-25T07:22:29.290Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Item-1"><a href="#Item-1" class="headerlink" title="Item 1"></a>Item 1</h2><p><strong>Prefer consts, enums, and inlines to #define</strong></p>]]></content>
+    
+    
+    <summary type="html">Learning Effective and Modern C++</summary>
+    
+    
+    
+    <category term="C++" scheme="http://www.deltamaya.top/categories/C/"/>
+    
+    
+    <category term="C++" scheme="http://www.deltamaya.top/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>进程与线程</title>
+    <link href="http://www.deltamaya.top/2023/06/24/process_and_thread/"/>
+    <id>http://www.deltamaya.top/2023/06/24/process_and_thread/</id>
+    <published>2023-06-24T01:53:37.813Z</published>
+    <updated>2023-06-30T09:27:59.181Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h1><p>进程可以理解为一个正在执行中的程序的实例，现代的CPU可以在不同进程之间进行快速切换，达成在某个时间之内多个进程同时在运行的错觉（伪并行），这种快速的切换叫做<strong>多道程序设计</strong>，而<strong>多处理器系统</strong>则是有多个CPU同时使用内存，这是真正的硬件并行</p><p>单个处理器可以被若干进程共享，它使用某种<strong>调度算法</strong>来决定何时该停止一个工作。</p><p>此外，一个进程运行了两次的话，他依然算作两个进程，操作系统使他们共享源码，因此只有一份代码放在内存中。</p><p>进程在内存中一般有如下几个组成：</p><p>地址空间、全局变量、打开文件、子进程、即将发生的定时器、信号与信号处理程序、账户信息</p><h2 id="进程的创建"><a href="#进程的创建" class="headerlink" title="进程的创建"></a>进程的创建</h2><p>何时会发生进程创建？</p><ol><li>系统初始化</li><li>正在运行的程序调用创建进程的系统调用</li><li>用户请求创建一个进程</li><li>一个批处理程序的初始化</li></ol><p>进程可以分为前台进程和后台进程。</p><p>还有一种后台进程大部分时间都在睡眠，当某些请求到达时会被唤醒，叫做守护进程</p><p>在UNIX中提供了 <code>fork()</code>系统调用用来创建一个子进程，给父进程返回子进程的pid，给子进程返回0</p><p>进程创建之后，父进程和子进程拥有不同的地址空间</p><h2 id="进程的终止"><a href="#进程的终止" class="headerlink" title="进程的终止"></a>进程的终止</h2><p>在以下情况进程会终止：</p><ol><li>正常退出（自愿的）</li><li>出错退出（自愿的</li><li>严重错误（非自愿</li><li>被其他进程杀死（非自愿</li></ol><p>出错退出是指进程自己发现了非法操作，自己调用 <code>exit</code>退出程序</p><p>严重错误是指进程没有发现的错误，比如除数是0，操作系统会自动结束这个出错进程</p><h2 id="进程的层次结构"><a href="#进程的层次结构" class="headerlink" title="进程的层次结构"></a>进程的层次结构</h2><p>在UNIX中，进程和他的所有子进程成为一个<strong>进程组</strong></p><p>UNIX在启动时，会初始化一个init进程，init被载入内存映像之后，接受一个说明终端数量的文件，接着，为每个终端创建一个新进程</p><p>Windows中没有子进程的概念，唯一相似的概念是在进程创建一个新进程之后会返回一个<strong>进程句柄</strong>，父进程可以使用这个句柄对子进程进行控制</p><h2 id="进程的状态"><a href="#进程的状态" class="headerlink" title="进程的状态"></a>进程的状态</h2><p>进程有运行态，就绪态和挂起态</p><p>操作系统的最底层是调度程序，在它上面有许多进程。</p><h2 id="进程的实现"><a href="#进程的实现" class="headerlink" title="进程的实现"></a>进程的实现</h2><p>操作系统维护者一张<strong>进程表</strong>，每个进程就是一个表项，也叫进程控制块</p><p>每个表项中有这些属性：</p><ol><li>进程管理<ol><li>寄存器</li><li>PC</li><li>堆栈指针</li><li>程序状态字</li></ol></li><li>储存管理<ol><li>正文段指针</li><li>数据段指针</li><li>堆栈段指针</li></ol></li><li>文件管理<ol><li>根目录</li><li>文件描述符</li><li>用户ID</li><li>组ID</li></ol></li></ol><p>每一类IO都关联了一个中断向量的位置，它包含中断服务程序的入口</p><p>所有的中断都从保存寄存器开始，如下是一个中断的大致过程：</p><ol><li>硬件压入堆栈PC等</li><li>硬件从中断向量装入新的PC</li><li>汇编语言过程保存寄存器</li><li>汇编语言过程设置新堆栈</li><li>C中断服务例程运行</li><li>调度程序决定下一个运行的程序</li><li>C过程返回值汇编代码</li><li>汇编语言过程开始运行新的进程</li></ol><h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><p>线程在内存中主要有如下内容：</p><p>PC、寄存器、堆栈、状态</p><p>可以看出，线程就是轻量版的进程，他只分配计算资源</p><p>一个进程可以有多个线程，这几个线程共用进程的资源（内存），但是单独执行自己的计算任务</p><p>总之，进程用于把资源集中到一起，线程则是在CPU上被调度执行的实体</p><p><strong>多线程</strong>一般用于描述一个进程中使用了多个线程，每个线程都有自己的堆栈</p><h2 id="线程的实现方法"><a href="#线程的实现方法" class="headerlink" title="线程的实现方法"></a>线程的实现方法</h2><p>有两种主要的方法实现线程包，在用户空间和内核中</p><h3 id="用户空间"><a href="#用户空间" class="headerlink" title="用户空间"></a>用户空间</h3><p>在用户空间中实现线程包，内核不知道有线程的存在</p><p>优点是：用户级线程包可以在不支持线程的操作系统上实现（现代操作系统基本都支持线程）</p><p>用户空间的线程需要进程在运行时提供一个系统，用来管理线程</p><p>这个系统就需要维护一个线程表，用于记录线程的PC、堆栈、寄存器和状态位等</p><p>并且用户级线程切换不需要陷入内核，不需要上下文切换，速度比内核级线程快了不止一个数量级</p><p>支持每个进程都有自己的调度算法</p><p>但是，用户级线程也有如下缺点：</p><p>当一个线程发生页面故障时，整个进程都会陷入陷入IO中断，导致其他没有发生页面故障的程序也被置为阻塞态</p><h3 id="内核"><a href="#内核" class="headerlink" title="内核"></a>内核</h3><p>内核级线程的实现使得进程不再需要维护一个运行时系统和线程表</p><p>在当线程希望创建一个新线程或者撤销一个已有线程时，他会进行一个系统调用，陷入内核，所以当线程操作比较多，就会带来很大开销</p><p>内核级的线程表保存的东西与用户级线程相同</p><p>最后，线程可以注册自己感兴趣的信号，当这些信号到达的时候，可把他交给需要他的线程</p><p>总之，多线程并不能在没有频繁发生阻塞的应用中显著提高运行速度，只有在频繁进行系统调用的程序中，多线程可以显著提高运行速度</p><h1 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h1><p>进程之间可以通过信息传递通信，这种通信方法使用两条原语send和receive</p><h3 id="信息传递系统的要点"><a href="#信息传递系统的要点" class="headerlink" title="信息传递系统的要点"></a>信息传递系统的要点</h3><p>在信息传递中会发生信息丢失，这时候就需要进程之间进行确认</p><p>消息系统还需要解决进程命名问题，同时，身份认证也是一个问题</p><p>最后，将消息从一个进程复制到另一个进程通常比信号量操作和进入管程要慢</p><h3 id="信箱"><a href="#信箱" class="headerlink" title="信箱"></a>信箱</h3><p>进程之间也可以通过信箱进行通信，在发送和接收信息时，都将目标进程的地址改为信箱的地址，这样可以降低系统的耦合性</p><h3 id="屏障"><a href="#屏障" class="headerlink" title="屏障"></a>屏障</h3><p>可以通过在多个进程结束的位置设置一个屏障，当单个进程到达屏障时他必须等待其他进程，知道所有进程都抵达屏障位置，所有进程同时穿越屏障。屏障可用于进程同步。</p><h1 id="调度"><a href="#调度" class="headerlink" title="调度"></a>调度</h1><p>进程的调度同样适用于线程的调度</p><p>所有的调度算法都需要具有如下属性：</p><ol><li>公平（给每个进程公平的CPU份额）</li><li>策略强制执行（保证规定的策略被执行</li><li>平衡（保持系统的所有部分都忙碌</li></ol><h2 id="何时调度"><a href="#何时调度" class="headerlink" title="何时调度"></a>何时调度</h2><ol><li>在创建一个新的进程，需要决定是运行父进程还是子进程</li><li>要给进程退出的时候必须做出调度决策</li><li>当一个进程阻塞在IO或者信号量或者其他东西上时，必须选择另一个进程运行</li><li>当一个IO中断发生时，需要进行调度</li></ol><p>调度算法主要分为两类：</p><h3 id="非抢占式"><a href="#非抢占式" class="headerlink" title="非抢占式"></a>非抢占式</h3><p>非抢占式调度算法挑选一个进程，然后让这个进程运行直到被阻塞，或者主动释放CPU</p><h3 id="抢占式"><a href="#抢占式" class="headerlink" title="抢占式"></a>抢占式</h3><p>抢占式调度算法挑选一个进程，并且让该进程运行某个固定时段的最大值</p><h2 id="调度算法分类"><a href="#调度算法分类" class="headerlink" title="调度算法分类"></a>调度算法分类</h2><h3 id="批处理"><a href="#批处理" class="headerlink" title="批处理"></a>批处理</h3><h4 id="先到先服务"><a href="#先到先服务" class="headerlink" title="先到先服务"></a>先到先服务</h4><p>这就是最简单的调度算法，这个算法的优点是易于理解且便于在程序中使用</p><p>但是这个调度算法会导致运行时间很短的任务需要等待运行时间长的任务，这是不可接受的</p><h4 id="最短作业优先"><a href="#最短作业优先" class="headerlink" title="最短作业优先"></a>最短作业优先</h4><p>因此人们发明了最短作业优先算法，这个算法可以让平均等待时间降到最短</p><p>只有在所有作业都可同时运行的情况下，最短作业优先才是最优的</p><h3 id="交互式系统"><a href="#交互式系统" class="headerlink" title="交互式系统"></a>交互式系统</h3><h4 id="轮转调度"><a href="#轮转调度" class="headerlink" title="轮转调度"></a>轮转调度</h4><p>每个进程被分配一个时间片，当进程的时间片使用完之后，调度到队列中的下一个进程</p><p>进程切换，又叫上下文切换</p><p>当时间片设置的太短会导致进程切换频繁，降低性能，而设置的太长又会让短的交互请求等待时间过长。</p><p>通常将时间片设置为20-50ms</p><h4 id="优先级调度"><a href="#优先级调度" class="headerlink" title="优先级调度"></a>优先级调度</h4><p>优先级调度就是在轮转调度的基础上加入了优先级，操作系统总是轮转执行最高优先级上的进程</p><p>一般运行之后需要对优先级进行调整，否则会发生低优先级进程的饥饿</p><h4 id="最短进程优先"><a href="#最短进程优先" class="headerlink" title="最短进程优先"></a>最短进程优先</h4><p>这个调度算法需要根据进程之前使用时间片的情况对进程的运行时间进行估计，估计时间最短的进程优先执行</p>]]></content>
+    
+    
+    <summary type="html">简要介绍进程与线程</summary>
+    
+    
+    
+    <category term="操作系统" scheme="http://www.deltamaya.top/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+    <category term="操作系统" scheme="http://www.deltamaya.top/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    <category term="进程" scheme="http://www.deltamaya.top/tags/%E8%BF%9B%E7%A8%8B/"/>
+    
+    <category term="线程" scheme="http://www.deltamaya.top/tags/%E7%BA%BF%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>操作系统简介</title>
     <link href="http://www.deltamaya.top/2023/06/23/operating_system_intro/"/>
     <id>http://www.deltamaya.top/2023/06/23/operating_system_intro/</id>
     <published>2023-06-23T12:06:04.771Z</published>
-    <updated>2023-06-23T13:12:43.208Z</updated>
+    <updated>2023-06-24T01:54:35.244Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="操作系统简介"><a href="#操作系统简介" class="headerlink" title="操作系统简介"></a>操作系统简介</h1><p>操作系统就是计算机硬件与软件交互的媒介，软件通过操作系统执行<strong>系统调用</strong>，操作系统根据设备的驱动程序操作底层硬件。</p><p>操作系统对软硬件资源进行抽象和管理。</p><h2 id="计算机硬件介绍"><a href="#计算机硬件介绍" class="headerlink" title="计算机硬件介绍"></a>计算机硬件介绍</h2><p>我们都知道计算机有四大组成：控制器、运算器、存储器、IO设备</p><h3 id="处理器（控制器-运算器）"><a href="#处理器（控制器-运算器）" class="headerlink" title="处理器（控制器+运算器）"></a>处理器（控制器+运算器）</h3><p>可以先看一下这篇博客，点击下面链接对处理器有一个初步了解：</p><p><a href="https://deltamaya.top/2023/05/10/CPU/">处理器</a></p><p>在执行指令时，为了获得硬件服务，软件需要通过<strong>系统调用</strong>向操作系统申请，此时用户程序就会陷入到<strong>内核态</strong>并调用操作系统。</p><h4 id="GPU"><a href="#GPU" class="headerlink" title="GPU"></a>GPU</h4><p>这里要额外介绍一下GPU，我们都知道CPU可以通过多核提高运行速度。</p><p>而GPU就是在一个芯片上安装了大量（通常上万）的微核，这些微核都只能进行简单的运算，但是由于数量巨大，使得GPU十分擅长于大量并行的简单运算，比如图像处理。但是GPU不擅长CPU的串行处理，也就不适合编程、更不适合运行操作系统了。</p><h3 id="存储器"><a href="#存储器" class="headerlink" title="存储器"></a>存储器</h3><p>内存 （Random Access Memory, RAM）：可随机读写，断电内容消失</p><p>只读存储器（Read Only Memory，ROM）：只能读不能写，用于加载计算机启动模块</p><p>磁盘（硬盘）：存储大量数据，读写速度慢</p><p>虚拟内存：通过逻辑地址映像为物理地址，将程序常用部分存储在内存，使可用内存大大增加</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="操作系统简介"><a href="#操作系统简介" class="headerlink" title="操作系统简介"></a>操作系统简介</h1><p>操作系统就是计算机硬件与软件交互的媒介，软件通过操作系统执行<strong>系统调用</strong>，操作系统根据设备的驱动程序操作底层硬件。</p><p>操作系统对软硬件资源进行抽象和管理。</p><h2 id="计算机硬件介绍"><a href="#计算机硬件介绍" class="headerlink" title="计算机硬件介绍"></a>计算机硬件介绍</h2><p>我们都知道计算机有四大组成：控制器、运算器、存储器、IO设备</p><h3 id="处理器（控制器-运算器）"><a href="#处理器（控制器-运算器）" class="headerlink" title="处理器（控制器+运算器）"></a>处理器（控制器+运算器）</h3><p>可以先看一下这篇博客，点击下面链接对处理器有一个初步了解：</p><p><a href="https://deltamaya.top/2023/05/10/CPU/">处理器</a></p><p>在执行指令时，为了获得硬件服务，软件需要通过<strong>系统调用</strong>向操作系统申请，此时用户程序就会陷入到<strong>内核态</strong>并调用操作系统。</p><h4 id="GPU"><a href="#GPU" class="headerlink" title="GPU"></a>GPU</h4><p>这里要额外介绍一下GPU，我们都知道CPU可以通过多核提高运行速度。</p><p>而GPU就是在一个芯片上安装了大量（通常上万）的微核，这些微核都只能进行简单的运算，但是由于数量巨大，使得GPU十分擅长于大量并行的简单运算，比如图像处理。但是GPU不擅长CPU的串行处理，也就不适合编程、更不适合运行操作系统了。</p><h3 id="存储器"><a href="#存储器" class="headerlink" title="存储器"></a>存储器</h3><p>内存 （Random Access Memory, RAM）：可随机读写，断电内容消失</p><p>只读存储器（Read Only Memory，ROM）：只能读不能写，用于加载计算机启动模块</p><p>磁盘（硬盘）：存储大量数据，读写速度慢</p><p>虚拟内存：通过逻辑地址映像为物理地址，将程序常用部分存储在内存，使可用内存大大增加</p><h2 id="操作系统基本概念"><a href="#操作系统基本概念" class="headerlink" title="操作系统基本概念"></a>操作系统基本概念</h2><h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><p>进程本质上就是正在执行的一个程序</p><p>它具有自己的地址空间，在地址空间中可以存放进程的代码、数据、堆栈等，进程可以在这个地址空间中进行读写</p><p>进程还具有自己的资源集，比如各个寄存器、打开文件的清单等</p><p>进程本身就是一个存放程序所需信息的容器</p><p>在真实的系统中，往往有多个进程同时运行。这就需要操作系统维护一份进程表，进程表是数组或链表结构，每一个节点中存放一个进程的相关信息。</p><p>一个挂起的进程的地址空间叫做进程的磁芯映像，还有对应的进程表项。</p><p>一个进程可以创建另一个进程，叫做子进程。</p><p>进程之间可以进行通信。</p><h3 id="地址空间"><a href="#地址空间" class="headerlink" title="地址空间"></a>地址空间</h3><p>进程需要放在内存中。进程可以使用的内存空间叫做进程的地址空间。</p><p>这个空间从物理内存被抽象为了逻辑地址（由一个唯一的数字表示），可以使进程使用一个数字来访问内存，也可以通过起始地址和偏移量来访问特定内存。</p><h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><p>文件系统就是一个多叉树</p><p>每个文件或者文件夹都有自己的路径，路径可以分为绝对路径和相对路径</p><p>每个进程都有一个工作目录，相对路径会使用这个工作目录来表示</p><p>要打开一个文件，先检查访问权限，如果权限许可，返回一个fd（文件描述符），若不许可，返回一个错误码</p><p>文件系统之间可以相互链接，例如一个u盘上的文件树可以接到pc文件树的某一个位置</p><p>每个文件都有自己独特的id，叫做i-编号，所以，一个目录本质上就是一个包含i-编号和ascii字符串的哈希表</p><p>我们可以通过link系统调用在目录之间放置某个文件的引用，文件本体和其引用的i-编号相同</p><p>特殊文件：用于表示IO设备</p><p>分为块特殊文件，又一个个的可以随机存取的块组成的IO</p><p>字符特殊文件，可以理解为流文件，比如打印机</p><p>管道：管道是一种虚文件，它可以连接两个进程，进程A可以向管道中输出，进程B可以从管道中输入，看上去就像是A的输出作为B的输入</p><h3 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h3><p>为理解系统调用，我们首先需要记住：1.任何单CPU计算机每次只能执行一条指令</p><p>2.如果一个用户态进程需要调用系统服务（比如使用IO），那么它就需要执行一个陷阱或系统调用，将控制权转移给操作系统</p><p>一个执行系统调用的过程：用户态进程希望进行系统调用，保存自己的上下文（堆栈和寄存器等），PC指向操作系统的代码，此时CPU控制权在操作系统，原进程此时处于阻塞，操作系统执行完毕系统调用之后，恢复进程上下文，PC指向调用操作系统的下一行，进程从内核态转为用户态</p><p>调用过程中，调用者需要将系统调用的对应编号存放在寄存器中，执行TRAP，陷入内核，TRAP会将PC跳转到一个固定地址，然后通过之前保存的编号跳转到相应的系统调用的代码</p><p>linux中，fork是用于赋值当前进程的系统调用，execve用于替换进程的磁芯映像（地址空间），通过这两个系统调用，就可以新建任何一个进程</p>]]></content>
     
     
-      
-      
-    <summary type="html">&lt;h1 id=&quot;操作系统简介&quot;&gt;&lt;a href=&quot;#操作系统简介&quot; class=&quot;headerlink&quot; title=&quot;操作系统简介&quot;&gt;&lt;/a&gt;操作系统简介&lt;/h1&gt;&lt;p&gt;操作系统就是计算机硬件与软件交互的媒介，软件通过操作系统执行&lt;strong&gt;系统调用&lt;/strong&gt;，操作</summary>
-      
+    <summary type="html">简要介绍操作系统的基本概念</summary>
     
     
     
+    <category term="操作系统" scheme="http://www.deltamaya.top/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+    <category term="操作系统" scheme="http://www.deltamaya.top/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
   </entry>
   
@@ -212,9 +259,9 @@
     <link href="http://www.deltamaya.top/2023/05/10/CPU/"/>
     <id>http://www.deltamaya.top/2023/05/10/CPU/</id>
     <published>2023-05-10T09:04:15.444Z</published>
-    <updated>2023-06-23T13:12:44.543Z</updated>
+    <updated>2023-06-24T01:17:24.846Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h1><p>首先我们来看一下什么是CPU：</p><blockquote><p><strong>中央处理器</strong> （英语：<strong>C</strong>entral <strong>P</strong>rocessing <strong>U</strong>nit，缩写： <strong>CPU</strong> ）是<a href="https://zh.wikipedia.org/wiki/%E7%94%B5%E5%AD%90%E8%AE%A1%E7%AE%97%E6%9C%BA" title="电子计算机">计算机</a>的主要设备之一，功能主要是解释计算机<a href="https://zh.wikipedia.org/wiki/%E6%8C%87%E4%BB%A4" title="指令">指令</a>以及处理计算机<a href="https://zh.wikipedia.org/wiki/%E8%BD%AF%E4%BB%B6" title="软件">软件</a>中的<a href="https://zh.wikipedia.org/wiki/%E6%95%B0%E6%8D%AE" title="数据">数据</a>。</p><p>–维基百科</p></blockquote><h2 id="CPU结构"><a href="#CPU结构" class="headerlink" title="CPU结构"></a>CPU结构</h2><p><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683714535332.png" alt="CPU结构"><br>可以看到，CPU中有若干寄存器、ALU和一个控制单元，大体介绍一下这些组件的功能：</p><ul><li>寄存器：CPU中用来暂时存储数据、处理数据的小型存储区域</li><li>ALU（算数逻辑单元）：用来执行算数或者逻辑操作</li><li>控制单元：控制各个组件的运行</li></ul><h3 id="寄存器、ALU"><a href="#寄存器、ALU" class="headerlink" title="寄存器、ALU"></a>寄存器、ALU</h3><p>关于寄存器和ALU的介绍我单独写了博客，你可以在这里查看：<a href="https://deltamaya.top/2023/05/11/ALU/">ALU</a>、<a href="https://deltamaya.top/2023/05/11/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/">寄存器</a></p><h3 id="控制器"><a href="#控制器" class="headerlink" title="控制器"></a>控制器</h3><p>控制器中也有若干寄存器，其中一个叫做<strong>PC(Program Counter)程序计数器</strong>、一个叫做<strong>IR(Instruction Register)指令寄存器</strong>，PC中存储着计算机要执行的<strong>下一条指令的地址</strong>，IR中则存储着计算机<strong>要执行的指令</strong>，它们都被编码为了二进制。以及<strong>PSW（程序状态字, Program Status Word）</strong>用于记录条件码（ALU使用）、CPU优先级、模式（内核&#x2F;用户）、以及其他控制位。</p><h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p>CPU是计算机用于执行指令的一个组件，指令就是计算机中的一个个操作，例如将一个值拷贝到一个地方、将两个值相加..</p><p>因为CPU无法理解自然语言，所以如果要执行指令，我们就要对指令进行编码，为了简化模型，这里我们以8位的长度举例：<br><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683712829076.png" alt="指令编码"><br>这里对四条指令进行了编码，每个指令都有自己的操作码和操作数，<br>在这里一条指令的前四位是<strong>操作码</strong>，后四位是<strong>操作数</strong><br>操作码对应CPU要执行的操作，操作数对应CPU操作的对象<br>在需要执行指令时，CPU将会根据操作码和操作数进行具体的操作。</p><blockquote><p>计算机的指令需要存储在<strong>内存RAM</strong>中，如果你对此不太了解可以看这篇博客：<a href="./%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98.md">寄存器和内存</a></p></blockquote><h2 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h2><p>这里先以取数为例</p><p><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683715030031.png" alt="取数的执行过程"></p><ol><li><strong>取指令</strong>：开机之后PC中存储着要执行的指令的地址，PC将这个地址传给MAR，然后内存在这个地址中搜索，将地址中存储的值传给MDR，然后再传回CPU的IR中</li><li><strong>解码</strong>：CU控制单元对IR中的指令进行解码，得到操作码对应要执行的操作，得到操作数对应要执行操作的对象</li><li><strong>执行</strong>：经过分析，这条指令的内容是从一个地址中取出一个数放到某个寄存器中。那么CPU就会将这个地址传给MAR，然后将取得的数放到寄存器中。</li><li>指令执行结束，PC自增1，指向下一条指令</li></ol><h2 id="时钟周期"><a href="#时钟周期" class="headerlink" title="时钟周期"></a>时钟周期</h2><p>在上面描述的一个周期中，我们需要在状态之间不断切换，那怎样才能知道接下来要做什么呢？<br>答案就是：<strong>时钟</strong></p><p>时钟是一个电子元件，以准确的时间间隔触发电信号，<br>这个循环执行一次就叫做一个<strong>时钟周期</strong></p><blockquote><p>取指令 -&gt; 解码 -&gt; 执行<br><strong>CPU就会根据时钟信号推进上述周期的执行。</strong></p></blockquote><p>例如，如果一个CPU的频率是5.0 GHz，那么这个CPU就可以每秒操作50亿</p><h3 id="超频"><a href="#超频" class="headerlink" title="超频"></a>超频</h3><p><strong>超频</strong>就是通过提高时钟频率来达到<strong>提高CPU性能</strong>的目的，<br>芯片制造商一般会为CPU留一些余地，可以接受一些超频，但是长时间的超频可能会造成过热，或者会产生乱码，因为信号跟不上时钟</p><h3 id="降频"><a href="#降频" class="headerlink" title="降频"></a>降频</h3><p>你可能很少听说<strong>降频</strong>，但是降频是一个很好的手段来<strong>降低能耗</strong><br>当你的手机或者其他移动设备没有进行很多计算时，对CPU进行降频减慢CPU的计算速度可以减少能耗，提高续航</p><blockquote><p>现代的很多处理器都可以根据需求调整时钟频率</p></blockquote><h1 id="高级CPU设计"><a href="#高级CPU设计" class="headerlink" title="高级CPU设计"></a>高级CPU设计</h1><p>早期对CPU进行优化提速的方法主要是减少晶体管的切换时间，但是这种优化硬件的方法很快就遇到了瓶颈，所以厂商们探索出了更多的设计模式，可以大大提高CPU的运行速度</p><h2 id="优化电路"><a href="#优化电路" class="headerlink" title="优化电路"></a>优化电路</h2><p>早期的CPU进行除法时要调用多次减法，这样会花费很多个时钟周期，在操作很大或者很多的数的时候效率十分低下，所以厂商们研发出了直接用于除法的ALU电路，解决了这个问题，提高了运行速度</p><p>随着计算机的发展，CPU中也加入了更多可以快速执行原先需要很多时钟周期才能完成的指令的电路</p><h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>很高的主频则会带来另一个问题，CPU从内存读取指令的速度一般需要几个时钟周期，远跟不上CPU执行指令的速度，这会让CPU处于等待状态，效率低下</p><p>所以我们在CPU中加入了<strong>Cache缓存</strong>，在读取指令时CPU可以一次性从内存<strong>读取多条指令暂存到缓存</strong>中，这是很实用的，因为计算机中大多是时候指令都是顺序执行。</p><p>现代系统一般具有三级缓存：</p><p>L1cache，大小为kb级，访问没有时延</p><p>L2cache，大小为mb级，访问有1~2个时钟周期。L2cache可以放在CPU内部（ARM），也可以多个CPU共同使用（x86）</p><p>在CPU执行完一条指令之后可以马上从缓存读取下一条指令而无需等待内存</p><p>当想要的内容在缓存中时叫做缓存命中<strong>cache hit</strong><br>不在缓存中则成为缓存未命中<strong>cache miss</strong></p><p>缓存也可以存储一些临时值，用于复杂计算</p><h3 id="脏位"><a href="#脏位" class="headerlink" title="脏位"></a>脏位</h3><p>当我们计算完一些值需要写到内存中时，我们可以将其<strong>暂存到缓存</strong>，如果后续还要接着算，这么做也会提高效率。</p><p>当我们把一个数据存到缓存中，我们把这个缓存中的位置标记为<strong>脏位（Dirty bit）</strong><br><strong>同步</strong>一般会发生在缓存已经写满，但还需要从内存读取数据时<br>同步时CPU会<strong>把脏位中的数据先写到RAM</strong>，然后再从RAM进行读取</p><h2 id="流水线"><a href="#流水线" class="headerlink" title="流水线"></a>流水线</h2><p><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683719476635.png" alt="非流水线模式"><br>因为取指令、解码、执行分别用的CPU中不同的组件，在非流水线模式下CPU同一时刻只能用到某部分组件，效率低下</p><p><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683719503473.png" alt="流水线模式"><br>现在很多CPU都有单独的取指、解码、执行单元，不同单元之间可以单独执行，互不影响，如上图所示。在同一时间可以执行多个操作。</p><p>流水线模式下同时调动CPU中的全部组件，<a href="https://zh.wikipedia.org/wiki/%E5%90%9E%E5%90%90%E9%87%8F">吞吐量</a>*3</p><h3 id="乱序执行"><a href="#乱序执行" class="headerlink" title="乱序执行"></a>乱序执行</h3><p>流水线并行执行下处理器会根据指令间的关系进行<strong>拓扑排序</strong>，得到理论上对计算结果没有影响的执行顺序</p><p>但是有时候这样做会带来并发问题，所以我们要注意指令间的依赖性，或者在代码中加入<strong>内存屏障</strong>在必要的时候停止流水线，防止出现错误</p><p>在现代处理器中往往会对流水线进行优化，当出现cache miss时，与其花费大量时间等待从内存中取出目标指令时，cpu可以选择先执行这条指令后面cache hit的指令，这叫做<strong>乱序执行</strong>，也叫做<strong>超标量CPU</strong></p><h3 id="预测执行"><a href="#预测执行" class="headerlink" title="预测执行"></a>预测执行</h3><p>最后，当程序出现条件控制时，原始的处理器会等待判断结果，然后再根据结果执行，效率低下</p><p>现代处理器中，一般采用一些算法来预测程序接下来要执行的程序，这叫做<strong>分支预测</strong></p><p>在判断结果出来之前就进行读取。当判断结果出来之后，如果猜测是正确的，那么此时缓存中都是正确的指令，马上就可以执行</p><p>如果猜测错误，那么就会<strong>清空流水线</strong>，耗费大量时间</p><p>但是不用担心，现代处理器猜测<strong>命中率超过90%</strong></p><h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><p>多线程也叫超线程，就是允许CPU保持两个不同的线程状态，然后再纳秒级的时间内来回切换</p><p>这可以让操作系统将一个CPU当作多个CPU使用，个数取决于这个CPU支持的线程数</p><h2 id="多核"><a href="#多核" class="headerlink" title="多核"></a>多核</h2><p>上面的方法都是优化一个指令流的速度<br>而多核，也就是在CPU中添加多个独立处理单元，来同时执行多个指令流</p><p>多核可以在一个多核芯片上放值多个单核芯片，每个单核芯片就是一个CPU</p><h2 id="多CPU"><a href="#多CPU" class="headerlink" title="多CPU"></a>多CPU</h2><p>同样的，一台计算机里多塞几个CPU也能提高效率</p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>处理器就是在计算机中不断进行 <code>取指、解码、执行</code> 循环的部件，每进行一次循环叫做一个CPU周期。</p><p>每个CPU都有一套指令集，不同指令集之间不可以混淆</p><p>大多数CPU都有PC（程序计数器）、堆栈指针，和 PSW（程序状态字, Program Status Word）用于记录条件码（ALU使用）、CPU优先级、模式（内核&#x2F;用户）、以及其他控制位。</p><p>为了提高计算效率，现代CPU采用了流水线、预测执行、乱序执行、多核、多线程的方法。</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h1><p>首先我们来看一下什么是CPU：</p><blockquote><p><strong>中央处理器</strong> （英语：<strong>C</strong>entral <strong>P</strong>rocessing <strong>U</strong>nit，缩写： <strong>CPU</strong> ）是<a href="https://zh.wikipedia.org/wiki/%E7%94%B5%E5%AD%90%E8%AE%A1%E7%AE%97%E6%9C%BA" title="电子计算机">计算机</a>的主要设备之一，功能主要是解释计算机<a href="https://zh.wikipedia.org/wiki/%E6%8C%87%E4%BB%A4" title="指令">指令</a>以及处理计算机<a href="https://zh.wikipedia.org/wiki/%E8%BD%AF%E4%BB%B6" title="软件">软件</a>中的<a href="https://zh.wikipedia.org/wiki/%E6%95%B0%E6%8D%AE" title="数据">数据</a>。</p><p>–维基百科</p></blockquote><h2 id="CPU结构"><a href="#CPU结构" class="headerlink" title="CPU结构"></a>CPU结构</h2><p><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683714535332.png" alt="CPU结构"><br>可以看到，CPU中有若干寄存器、ALU和一个控制单元，大体介绍一下这些组件的功能：</p><ul><li>寄存器：CPU中用来暂时存储数据、处理数据的小型存储区域</li><li>ALU（算数逻辑单元）：用来执行算数或者逻辑操作</li><li>控制单元：控制各个组件的运行</li></ul><h3 id="寄存器、ALU"><a href="#寄存器、ALU" class="headerlink" title="寄存器、ALU"></a>寄存器、ALU</h3><p>关于寄存器和ALU的介绍我单独写了博客，你可以在这里查看：<a href="https://deltamaya.top/2023/05/11/ALU/">ALU</a>、<a href="https://deltamaya.top/2023/05/11/%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98/">寄存器</a></p><h3 id="控制器"><a href="#控制器" class="headerlink" title="控制器"></a>控制器</h3><p>控制器中也有若干寄存器，其中一个叫做<strong>PC(Program Counter)程序计数器</strong>、一个叫做<strong>IR(Instruction Register)指令寄存器</strong>，PC中存储着计算机要执行的<strong>下一条指令的地址</strong>，IR中则存储着计算机<strong>要执行的指令</strong>，它们都被编码为了二进制。以及**PSW(程序状态字, Program Status Word)**用于记录条件码（ALU使用）、CPU优先级、模式（内核&#x2F;用户）、以及其他控制位。</p><h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p>CPU是计算机用于执行指令的一个组件，指令就是计算机中的一个个操作，例如将一个值拷贝到一个地方、将两个值相加..</p><p>因为CPU无法理解自然语言，所以如果要执行指令，我们就要对指令进行编码，为了简化模型，这里我们以8位的长度举例：<br><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683712829076.png" alt="指令编码"><br>这里对四条指令进行了编码，每个指令都有自己的操作码和操作数，<br>在这里一条指令的前四位是<strong>操作码</strong>，后四位是<strong>操作数</strong><br>操作码对应CPU要执行的操作，操作数对应CPU操作的对象<br>在需要执行指令时，CPU将会根据操作码和操作数进行具体的操作。</p><p>不同的CPU指令级会有不同的编码，所以不同架构下的二进制文件不能混合使用，因为指令编码不同</p><blockquote><p>计算机的指令需要存储在<strong>内存RAM</strong>中，如果你对此不太了解可以看这篇博客：<a href="./%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98.md">寄存器和内存</a></p></blockquote><h2 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h2><p>这里先以取数为例</p><p><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683715030031.png" alt="取数的执行过程"></p><ol><li><strong>取指令</strong>：开机之后PC中存储着要执行的指令的地址，PC将这个地址传给MAR，然后内存在这个地址中搜索，将地址中存储的值传给MDR，然后再传回CPU的IR中</li><li><strong>解码</strong>：CU控制单元对IR中的指令进行解码，得到操作码对应要执行的操作，得到操作数对应要执行操作的对象</li><li><strong>执行</strong>：经过分析，这条指令的内容是从一个地址中取出一个数放到某个寄存器中。那么CPU就会将这个地址传给MAR，然后将取得的数放到寄存器中。</li><li>指令执行结束，PC自增1，指向下一条指令</li></ol><h2 id="时钟周期"><a href="#时钟周期" class="headerlink" title="时钟周期"></a>时钟周期</h2><p>在上面描述的一个周期中，我们需要在状态之间不断切换，那怎样才能知道接下来要做什么呢？<br>答案就是：<strong>时钟</strong></p><p>时钟是一个电子元件，以准确的时间间隔触发电信号，<br>这个循环执行一次就叫做一个<strong>时钟周期</strong></p><blockquote><p>取指令 -&gt; 解码 -&gt; 执行<br><strong>CPU就会根据时钟信号推进上述周期的执行。</strong></p></blockquote><p>例如，如果一个CPU的频率是5.0 GHz，那么这个CPU就可以每秒操作50亿</p><h3 id="超频"><a href="#超频" class="headerlink" title="超频"></a>超频</h3><p><strong>超频</strong>就是通过提高时钟频率来达到<strong>提高CPU性能</strong>的目的，<br>芯片制造商一般会为CPU留一些余地，可以接受一些超频，但是长时间的超频可能会造成过热，或者会产生乱码，因为信号跟不上时钟</p><h3 id="降频"><a href="#降频" class="headerlink" title="降频"></a>降频</h3><p>你可能很少听说<strong>降频</strong>，但是降频是一个很好的手段来<strong>降低能耗</strong><br>当你的手机或者其他移动设备没有进行很多计算时，对CPU进行降频减慢CPU的计算速度可以减少能耗，提高续航</p><blockquote><p>现代的很多处理器都可以根据需求调整时钟频率</p></blockquote><h1 id="高级CPU设计"><a href="#高级CPU设计" class="headerlink" title="高级CPU设计"></a>高级CPU设计</h1><p>早期对CPU进行优化提速的方法主要是减少晶体管的切换时间，但是这种优化硬件的方法很快就遇到了瓶颈，所以厂商们探索出了更多的设计模式，可以大大提高CPU的运行速度</p><h2 id="优化电路"><a href="#优化电路" class="headerlink" title="优化电路"></a>优化电路</h2><p>早期的CPU进行除法时要调用多次减法，这样会花费很多个时钟周期，在操作很大或者很多的数的时候效率十分低下，所以厂商们研发出了直接用于除法的ALU电路，解决了这个问题，提高了运行速度</p><p>随着计算机的发展，CPU中也加入了更多可以快速执行原先需要很多时钟周期才能完成的指令的电路</p><h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>很高的主频则会带来另一个问题，CPU从内存读取指令的速度一般需要几个时钟周期，远跟不上CPU执行指令的速度，这会让CPU处于等待状态，效率低下</p><p>所以我们在CPU中加入了<strong>Cache缓存</strong>，在读取指令时CPU可以一次性从内存<strong>读取多条指令暂存到缓存</strong>中，这是很实用的，因为计算机中大多是时候指令都是顺序执行。</p><p>现代系统一般具有三级缓存：</p><p>L1cache，大小为kb级，访问没有时延</p><p>L2cache，大小为mb级，访问有1~2个时钟周期。L2cache可以放在CPU内部（ARM），也可以多个CPU共同使用（x86）</p><p>在CPU执行完一条指令之后可以马上从缓存读取下一条指令而无需等待内存</p><p>当想要的内容在缓存中时叫做缓存命中<strong>cache hit</strong><br>不在缓存中则成为缓存未命中<strong>cache miss</strong></p><p>缓存也可以存储一些临时值，用于复杂计算</p><h3 id="脏位"><a href="#脏位" class="headerlink" title="脏位"></a>脏位</h3><p>当我们计算完一些值需要写到内存中时，我们可以将其<strong>暂存到缓存</strong>，如果后续还要接着算，这么做也会提高效率。</p><p>当我们把一个数据存到缓存中，我们把这个缓存中的位置标记为<strong>脏位（Dirty bit）</strong><br><strong>同步</strong>一般会发生在缓存已经写满，但还需要从内存读取数据时<br>同步时CPU会<strong>把脏位中的数据先写到RAM</strong>，然后再从RAM进行读取</p><h2 id="流水线"><a href="#流水线" class="headerlink" title="流水线"></a>流水线</h2><p><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683719476635.png" alt="非流水线模式"><br>因为取指令、解码、执行分别用的CPU中不同的组件，在非流水线模式下CPU同一时刻只能用到某部分组件，效率低下</p><p><img src="/../image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8/1683719503473.png" alt="流水线模式"><br>现在很多CPU都有单独的取指、解码、执行单元，不同单元之间可以单独执行，互不影响，如上图所示。在同一时间可以执行多个操作。</p><p>流水线模式下同时调动CPU中的全部组件，<a href="https://zh.wikipedia.org/wiki/%E5%90%9E%E5%90%90%E9%87%8F">吞吐量</a>*3</p><h3 id="乱序执行"><a href="#乱序执行" class="headerlink" title="乱序执行"></a>乱序执行</h3><p>流水线并行执行下处理器会根据指令间的关系进行<strong>拓扑排序</strong>，得到理论上对计算结果没有影响的执行顺序</p><p>但是有时候这样做会带来并发问题，所以我们要注意指令间的依赖性，或者在代码中加入<strong>内存屏障</strong>在必要的时候停止流水线，防止出现错误</p><p>在现代处理器中往往会对流水线进行优化，当出现cache miss时，与其花费大量时间等待从内存中取出目标指令时，cpu可以选择先执行这条指令后面cache hit的指令，这叫做<strong>乱序执行</strong>，也叫做<strong>超标量CPU</strong></p><h3 id="预测执行"><a href="#预测执行" class="headerlink" title="预测执行"></a>预测执行</h3><p>最后，当程序出现条件控制时，原始的处理器会等待判断结果，然后再根据结果执行，效率低下</p><p>现代处理器中，一般采用一些算法来预测程序接下来要执行的程序，这叫做<strong>分支预测</strong></p><p>在判断结果出来之前就进行读取。当判断结果出来之后，如果猜测是正确的，那么此时缓存中都是正确的指令，马上就可以执行</p><p>如果猜测错误，那么就会<strong>清空流水线</strong>，耗费大量时间</p><p>但是不用担心，现代处理器猜测<strong>命中率超过90%</strong></p><h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><p>多线程也叫超线程，就是允许CPU保持两个不同的线程状态，然后再纳秒级的时间内来回切换</p><p>这可以让操作系统将一个CPU当作多个CPU使用，个数取决于这个CPU支持的线程数</p><h2 id="多核"><a href="#多核" class="headerlink" title="多核"></a>多核</h2><p>上面的方法都是优化一个指令流的速度<br>而多核，也就是在CPU中添加多个独立处理单元，来同时执行多个指令流</p><p>多核可以在一个多核芯片上放值多个单核芯片，每个单核芯片就是一个CPU</p><h2 id="多CPU"><a href="#多CPU" class="headerlink" title="多CPU"></a>多CPU</h2><p>同样的，一台计算机里多塞几个CPU也能提高效率</p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>处理器就是在计算机中不断进行 <code>取指、解码、执行</code> 循环的部件，每进行一次循环叫做一个CPU周期。</p><p>每个CPU都有一套指令集，不同指令集之间不可以混淆</p><p>大多数CPU都有PC（程序计数器）、堆栈指针，和 PSW（程序状态字, Program Status Word）用于记录条件码（ALU使用）、CPU优先级、模式（内核&#x2F;用户）、以及其他控制位。</p><p>为了提高计算效率，现代CPU采用了流水线、预测执行、乱序执行、多核、多线程的方法。</p>]]></content>
     
     
     <summary type="html">简要介绍CPU基本原理</summary>
@@ -272,9 +319,9 @@
     <category term="数据结构与算法" scheme="http://www.deltamaya.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-    <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
-    
     <category term="C++" scheme="http://www.deltamaya.top/tags/C/"/>
+    
+    <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
     
     <category term="搜索" scheme="http://www.deltamaya.top/tags/%E6%90%9C%E7%B4%A2/"/>
     
@@ -299,9 +346,9 @@
     <category term="数据结构与算法" scheme="http://www.deltamaya.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-    <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
-    
     <category term="C++" scheme="http://www.deltamaya.top/tags/C/"/>
+    
+    <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
     
     <category term="排序" scheme="http://www.deltamaya.top/tags/%E6%8E%92%E5%BA%8F/"/>
     
@@ -326,11 +373,11 @@
     <category term="数据结构与算法" scheme="http://www.deltamaya.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-    <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
-    
     <category term="C++" scheme="http://www.deltamaya.top/tags/C/"/>
     
     <category term="数据结构" scheme="http://www.deltamaya.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
     
     <category term="树" scheme="http://www.deltamaya.top/tags/%E6%A0%91/"/>
     
@@ -355,11 +402,11 @@
     <category term="数据结构与算法" scheme="http://www.deltamaya.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-    <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
-    
     <category term="C++" scheme="http://www.deltamaya.top/tags/C/"/>
     
     <category term="数据结构" scheme="http://www.deltamaya.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
     
     <category term="堆" scheme="http://www.deltamaya.top/tags/%E5%A0%86/"/>
     

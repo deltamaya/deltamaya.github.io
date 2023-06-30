@@ -21,28 +21,30 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"www.deltamaya.top","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","width":280,"display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="简要介绍C++中的右值引用，以及什么情况下需要使用右值引用">
+    <meta name="description" content="简要介绍进程与线程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="为什么使用要右值引用">
-<meta property="og:url" content="http://www.deltamaya.top/2023/05/29/rvalue_reference/index.html">
+<meta property="og:title" content="进程与线程">
+<meta property="og:url" content="http://www.deltamaya.top/2023/06/24/process_and_thread/index.html">
 <meta property="og:site_name" content="玛雅55369">
-<meta property="og:description" content="简要介绍C++中的右值引用，以及什么情况下需要使用右值引用">
+<meta property="og:description" content="简要介绍进程与线程">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-05-29T14:13:09.075Z">
-<meta property="article:modified_time" content="2023-06-14T11:52:08.355Z">
+<meta property="article:published_time" content="2023-06-24T01:53:37.813Z">
+<meta property="article:modified_time" content="2023-06-30T09:27:59.181Z">
 <meta property="article:author" content="deltamaya">
-<meta property="article:tag" content="C++">
+<meta property="article:tag" content="操作系统">
+<meta property="article:tag" content="进程">
+<meta property="article:tag" content="线程">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://www.deltamaya.top/2023/05/29/rvalue_reference/">
+<link rel="canonical" href="http://www.deltamaya.top/2023/06/24/process_and_thread/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://www.deltamaya.top/2023/05/29/rvalue_reference/","path":"2023/05/29/rvalue_reference/","title":"为什么使用要右值引用"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://www.deltamaya.top/2023/06/24/process_and_thread/","path":"2023/06/24/process_and_thread/","title":"进程与线程"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>为什么使用要右值引用 | 玛雅55369</title>
+<title>进程与线程 | 玛雅55369</title>
   
 
 
@@ -144,7 +146,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B7%A6%E5%80%BC%E5%92%8C%E5%8F%B3%E5%80%BC"><span class="nav-number">1.</span> <span class="nav-text">左值和右值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%BC%95%E7%94%A8%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">为什么要引用右值引用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E8%AF%AD%E4%B9%89"><span class="nav-number">2.1.</span> <span class="nav-text">移动语义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8C%E7%BE%8E%E8%BD%AC%E5%8F%91"><span class="nav-number">2.2.</span> <span class="nav-text">完美转发</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="nav-number">1.1.</span> <span class="nav-text">进程的创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%88%E6%AD%A2"><span class="nav-number">1.2.</span> <span class="nav-text">进程的终止</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.</span> <span class="nav-text">进程的层次结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81"><span class="nav-number">1.4.</span> <span class="nav-text">进程的状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.5.</span> <span class="nav-text">进程的实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">线程的实现方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%A9%BA%E9%97%B4"><span class="nav-number">2.1.1.</span> <span class="nav-text">用户空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E6%A0%B8"><span class="nav-number">2.1.2.</span> <span class="nav-text">内核</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1"><span class="nav-number">3.</span> <span class="nav-text">进程间通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E4%BC%A0%E9%80%92%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%A6%81%E7%82%B9"><span class="nav-number">3.0.1.</span> <span class="nav-text">信息传递系统的要点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E7%AE%B1"><span class="nav-number">3.0.2.</span> <span class="nav-text">信箱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%8F%E9%9A%9C"><span class="nav-number">3.0.3.</span> <span class="nav-text">屏障</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6"><span class="nav-number">4.</span> <span class="nav-text">调度</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%95%E6%97%B6%E8%B0%83%E5%BA%A6"><span class="nav-number">4.1.</span> <span class="nav-text">何时调度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E6%8A%A2%E5%8D%A0%E5%BC%8F"><span class="nav-number">4.1.1.</span> <span class="nav-text">非抢占式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%A2%E5%8D%A0%E5%BC%8F"><span class="nav-number">4.1.2.</span> <span class="nav-text">抢占式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E5%88%86%E7%B1%BB"><span class="nav-number">4.2.</span> <span class="nav-text">调度算法分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%B9%E5%A4%84%E7%90%86"><span class="nav-number">4.2.1.</span> <span class="nav-text">批处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%88%E5%88%B0%E5%85%88%E6%9C%8D%E5%8A%A1"><span class="nav-number">4.2.1.1.</span> <span class="nav-text">先到先服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E7%9F%AD%E4%BD%9C%E4%B8%9A%E4%BC%98%E5%85%88"><span class="nav-number">4.2.1.2.</span> <span class="nav-text">最短作业优先</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E4%BA%92%E5%BC%8F%E7%B3%BB%E7%BB%9F"><span class="nav-number">4.2.2.</span> <span class="nav-text">交互式系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%AE%E8%BD%AC%E8%B0%83%E5%BA%A6"><span class="nav-number">4.2.2.1.</span> <span class="nav-text">轮转调度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%85%88%E7%BA%A7%E8%B0%83%E5%BA%A6"><span class="nav-number">4.2.2.2.</span> <span class="nav-text">优先级调度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E7%9F%AD%E8%BF%9B%E7%A8%8B%E4%BC%98%E5%85%88"><span class="nav-number">4.2.2.3.</span> <span class="nav-text">最短进程优先</span></a></li></ol></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -233,7 +235,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.deltamaya.top/2023/05/29/rvalue_reference/">
+    <link itemprop="mainEntityOfPage" href="http://www.deltamaya.top/2023/06/24/process_and_thread/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -246,12 +248,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="为什么使用要右值引用 | 玛雅55369">
-      <meta itemprop="description" content="简要介绍C++中的右值引用，以及什么情况下需要使用右值引用">
+      <meta itemprop="name" content="进程与线程 | 玛雅55369">
+      <meta itemprop="description" content="简要介绍进程与线程">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          为什么使用要右值引用
+          进程与线程
         </h1>
 
         <div class="post-meta-container">
@@ -262,14 +264,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-05-29 22:13:09" itemprop="dateCreated datePublished" datetime="2023-05-29T22:13:09+08:00">2023-05-29</time>
+      <time title="创建时间：2023-06-24 09:53:37" itemprop="dateCreated datePublished" datetime="2023-06-24T09:53:37+08:00">2023-06-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-06-14 19:52:08" itemprop="dateModified" datetime="2023-06-14T19:52:08+08:00">2023-06-14</time>
+      <time title="修改时间：2023-06-30 17:27:59" itemprop="dateModified" datetime="2023-06-30T17:27:59+08:00">2023-06-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -277,7 +279,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+          <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
         </span>
     </span>
 
@@ -295,18 +297,18 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.5k</span>
+      <span>2.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
-            <div class="post-description">简要介绍C++中的右值引用，以及什么情况下需要使用右值引用</div>
+            <div class="post-description">简要介绍进程与线程</div>
         </div>
       </header>
 
@@ -314,24 +316,125 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="左值和右值"><a href="#左值和右值" class="headerlink" title="左值和右值"></a>左值和右值</h1><p>需要搞明白右值引用，必须先明白左值和右值的定义。</p>
-<p>所谓左值大致可以理解为有名字，可以取地址，位于赋值符号左侧的值</p>
-<p>相反，右值一般没有名字，不可以取地址，位于赋值符号右侧，一般是一些临时变量。</p>
-<h1 id="为什么要引用右值引用"><a href="#为什么要引用右值引用" class="headerlink" title="为什么要引用右值引用"></a>为什么要引用右值引用</h1><h2 id="移动语义"><a href="#移动语义" class="headerlink" title="移动语义"></a>移动语义</h2><p>如果使用你使用一个指针指向一个动态开辟的空间的类，并且这个类实现了深拷贝，那么在进行传参的时候就会进行额外的拷贝开销，降低性能。<br>所以我们可以使用const reference技术解决上面这个问题，但是这样同样也带来了另一个问题。</p>
-<p>首先const reference可以绑定到任何东西上面，有时候这会带来意想不到的问题，例如不经意间将一个变量隐式类型转换为了一个临时变量，然后reference绑定到了这个临时变量上面，这个临时变量的值有时候不是我们所期望的。</p>
-<p>其次，const reference无法修改绑定到的变量上面，如果我们希望将一个string移动到一个vector中（类似所有权的转移），此时如果使用const reference，就需要重新构造一个string，然后将原来的string进行析构，降低了效率（被rust所有权薄纱），所以我们引入了移动语义（使用右值引用），其用法与所有权类似。将这个string的所有权转给vector，只需要简单的修改指针即可，效率大大提高。</p>
-<p>引入右值引用后，我们可以使用移动语义将右值引用绑定到一个临时对象，然后可以将其资源（例如堆内存、文件句柄等）有效地转移到新对象中，而无需进行资源拷贝。这通过使用移动构造函数和移动赋值运算符来实现。</p>
-<h2 id="完美转发"><a href="#完美转发" class="headerlink" title="完美转发"></a>完美转发</h2><p>所谓完美转发，就是在函数之间传递参数时总是可以保证参数的类型，例如&amp;&amp;多次转发之后还是&amp;&amp;，&amp;多次转发后还是&amp;</p>
-<p>对于const引用，它可以接受任何类型的参数，包括左值和右值。但在转发参数时，它无法保留参数的值类别信息，无法实现完美转发。<br>考虑下面这些函数：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">overloadedFunction</span><span class="params">(<span class="type">int</span> &amp;a)</span></span>&#123;</span><br><span class="line">	std::cout&lt;&lt;<span class="string">&quot;left value ref\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">overloadedFunction</span><span class="params">(<span class="type">int</span>&amp;&amp; a)</span></span>&#123;</span><br><span class="line">	std::cout&lt;&lt;<span class="string">&quot;right value ref\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">caller</span><span class="params">(T&amp;&amp;a)</span></span>&#123;</span><br><span class="line">	std::cout&lt;&lt;std::is_rvalue_reference_v&lt;<span class="keyword">decltype</span>(a)&gt;&lt;&lt;std::endl;</span><br><span class="line">	<span class="built_in">overloadedFunction</span>(std::forward&lt;T&gt;(a));</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> a=<span class="number">0</span>;</span><br><span class="line">	<span class="built_in">caller</span>(<span class="number">0</span>);</span><br><span class="line">	<span class="built_in">caller</span>(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>输出：</p>
-<blockquote>
-<p>1<br>right value ref<br>0<br>left value ref</p>
-</blockquote>
-<p>根据<strong>引用坍缩</strong>，模板参数中的T&amp;&amp;不一定是右值引用，当传入左值时，此函数的引用会被推导为左值。<br>也就是当只有形参实参都为r-ref的时候，才会调用传递之后才是r-ref。</p>
-<p>对于右值引用，它可以接受临时对象（右值），并且在转发参数时可以保留参数的值类别信息，可以实现完美转发。右值引用在模板编程中非常有用，可以保留传递参数的值类别，避免不必要的拷贝或移动操作。</p>
-<p>在此处我们使用的 <code>std::forward()</code>可以避免额外的拷贝和移动，还可以保持参数的constness，从而达成完美转发</p>
+        <h1 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h1><p>进程可以理解为一个正在执行中的程序的实例，现代的CPU可以在不同进程之间进行快速切换，达成在某个时间之内多个进程同时在运行的错觉（伪并行），这种快速的切换叫做<strong>多道程序设计</strong>，而<strong>多处理器系统</strong>则是有多个CPU同时使用内存，这是真正的硬件并行</p>
+<p>单个处理器可以被若干进程共享，它使用某种<strong>调度算法</strong>来决定何时该停止一个工作。</p>
+<p>此外，一个进程运行了两次的话，他依然算作两个进程，操作系统使他们共享源码，因此只有一份代码放在内存中。</p>
+<p>进程在内存中一般有如下几个组成：</p>
+<p>地址空间、全局变量、打开文件、子进程、即将发生的定时器、信号与信号处理程序、账户信息</p>
+<h2 id="进程的创建"><a href="#进程的创建" class="headerlink" title="进程的创建"></a>进程的创建</h2><p>何时会发生进程创建？</p>
+<ol>
+<li>系统初始化</li>
+<li>正在运行的程序调用创建进程的系统调用</li>
+<li>用户请求创建一个进程</li>
+<li>一个批处理程序的初始化</li>
+</ol>
+<p>进程可以分为前台进程和后台进程。</p>
+<p>还有一种后台进程大部分时间都在睡眠，当某些请求到达时会被唤醒，叫做守护进程</p>
+<p>在UNIX中提供了 <code>fork()</code>系统调用用来创建一个子进程，给父进程返回子进程的pid，给子进程返回0</p>
+<p>进程创建之后，父进程和子进程拥有不同的地址空间</p>
+<h2 id="进程的终止"><a href="#进程的终止" class="headerlink" title="进程的终止"></a>进程的终止</h2><p>在以下情况进程会终止：</p>
+<ol>
+<li>正常退出（自愿的）</li>
+<li>出错退出（自愿的</li>
+<li>严重错误（非自愿</li>
+<li>被其他进程杀死（非自愿</li>
+</ol>
+<p>出错退出是指进程自己发现了非法操作，自己调用 <code>exit</code>退出程序</p>
+<p>严重错误是指进程没有发现的错误，比如除数是0，操作系统会自动结束这个出错进程</p>
+<h2 id="进程的层次结构"><a href="#进程的层次结构" class="headerlink" title="进程的层次结构"></a>进程的层次结构</h2><p>在UNIX中，进程和他的所有子进程成为一个<strong>进程组</strong></p>
+<p>UNIX在启动时，会初始化一个init进程，init被载入内存映像之后，接受一个说明终端数量的文件，接着，为每个终端创建一个新进程</p>
+<p>Windows中没有子进程的概念，唯一相似的概念是在进程创建一个新进程之后会返回一个<strong>进程句柄</strong>，父进程可以使用这个句柄对子进程进行控制</p>
+<h2 id="进程的状态"><a href="#进程的状态" class="headerlink" title="进程的状态"></a>进程的状态</h2><p>进程有运行态，就绪态和挂起态</p>
+<p>操作系统的最底层是调度程序，在它上面有许多进程。</p>
+<h2 id="进程的实现"><a href="#进程的实现" class="headerlink" title="进程的实现"></a>进程的实现</h2><p>操作系统维护者一张<strong>进程表</strong>，每个进程就是一个表项，也叫进程控制块</p>
+<p>每个表项中有这些属性：</p>
+<ol>
+<li>进程管理<ol>
+<li>寄存器</li>
+<li>PC</li>
+<li>堆栈指针</li>
+<li>程序状态字</li>
+</ol>
+</li>
+<li>储存管理<ol>
+<li>正文段指针</li>
+<li>数据段指针</li>
+<li>堆栈段指针</li>
+</ol>
+</li>
+<li>文件管理<ol>
+<li>根目录</li>
+<li>文件描述符</li>
+<li>用户ID</li>
+<li>组ID</li>
+</ol>
+</li>
+</ol>
+<p>每一类IO都关联了一个中断向量的位置，它包含中断服务程序的入口</p>
+<p>所有的中断都从保存寄存器开始，如下是一个中断的大致过程：</p>
+<ol>
+<li>硬件压入堆栈PC等</li>
+<li>硬件从中断向量装入新的PC</li>
+<li>汇编语言过程保存寄存器</li>
+<li>汇编语言过程设置新堆栈</li>
+<li>C中断服务例程运行</li>
+<li>调度程序决定下一个运行的程序</li>
+<li>C过程返回值汇编代码</li>
+<li>汇编语言过程开始运行新的进程</li>
+</ol>
+<h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><p>线程在内存中主要有如下内容：</p>
+<p>PC、寄存器、堆栈、状态</p>
+<p>可以看出，线程就是轻量版的进程，他只分配计算资源</p>
+<p>一个进程可以有多个线程，这几个线程共用进程的资源（内存），但是单独执行自己的计算任务</p>
+<p>总之，进程用于把资源集中到一起，线程则是在CPU上被调度执行的实体</p>
+<p><strong>多线程</strong>一般用于描述一个进程中使用了多个线程，每个线程都有自己的堆栈</p>
+<h2 id="线程的实现方法"><a href="#线程的实现方法" class="headerlink" title="线程的实现方法"></a>线程的实现方法</h2><p>有两种主要的方法实现线程包，在用户空间和内核中</p>
+<h3 id="用户空间"><a href="#用户空间" class="headerlink" title="用户空间"></a>用户空间</h3><p>在用户空间中实现线程包，内核不知道有线程的存在</p>
+<p>优点是：用户级线程包可以在不支持线程的操作系统上实现（现代操作系统基本都支持线程）</p>
+<p>用户空间的线程需要进程在运行时提供一个系统，用来管理线程</p>
+<p>这个系统就需要维护一个线程表，用于记录线程的PC、堆栈、寄存器和状态位等</p>
+<p>并且用户级线程切换不需要陷入内核，不需要上下文切换，速度比内核级线程快了不止一个数量级</p>
+<p>支持每个进程都有自己的调度算法</p>
+<p>但是，用户级线程也有如下缺点：</p>
+<p>当一个线程发生页面故障时，整个进程都会陷入陷入IO中断，导致其他没有发生页面故障的程序也被置为阻塞态</p>
+<h3 id="内核"><a href="#内核" class="headerlink" title="内核"></a>内核</h3><p>内核级线程的实现使得进程不再需要维护一个运行时系统和线程表</p>
+<p>在当线程希望创建一个新线程或者撤销一个已有线程时，他会进行一个系统调用，陷入内核，所以当线程操作比较多，就会带来很大开销</p>
+<p>内核级的线程表保存的东西与用户级线程相同</p>
+<p>最后，线程可以注册自己感兴趣的信号，当这些信号到达的时候，可把他交给需要他的线程</p>
+<p>总之，多线程并不能在没有频繁发生阻塞的应用中显著提高运行速度，只有在频繁进行系统调用的程序中，多线程可以显著提高运行速度</p>
+<h1 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h1><p>进程之间可以通过信息传递通信，这种通信方法使用两条原语send和receive</p>
+<h3 id="信息传递系统的要点"><a href="#信息传递系统的要点" class="headerlink" title="信息传递系统的要点"></a>信息传递系统的要点</h3><p>在信息传递中会发生信息丢失，这时候就需要进程之间进行确认</p>
+<p>消息系统还需要解决进程命名问题，同时，身份认证也是一个问题</p>
+<p>最后，将消息从一个进程复制到另一个进程通常比信号量操作和进入管程要慢</p>
+<h3 id="信箱"><a href="#信箱" class="headerlink" title="信箱"></a>信箱</h3><p>进程之间也可以通过信箱进行通信，在发送和接收信息时，都将目标进程的地址改为信箱的地址，这样可以降低系统的耦合性</p>
+<h3 id="屏障"><a href="#屏障" class="headerlink" title="屏障"></a>屏障</h3><p>可以通过在多个进程结束的位置设置一个屏障，当单个进程到达屏障时他必须等待其他进程，知道所有进程都抵达屏障位置，所有进程同时穿越屏障。屏障可用于进程同步。</p>
+<h1 id="调度"><a href="#调度" class="headerlink" title="调度"></a>调度</h1><p>进程的调度同样适用于线程的调度</p>
+<p>所有的调度算法都需要具有如下属性：</p>
+<ol>
+<li>公平（给每个进程公平的CPU份额）</li>
+<li>策略强制执行（保证规定的策略被执行</li>
+<li>平衡（保持系统的所有部分都忙碌</li>
+</ol>
+<h2 id="何时调度"><a href="#何时调度" class="headerlink" title="何时调度"></a>何时调度</h2><ol>
+<li>在创建一个新的进程，需要决定是运行父进程还是子进程</li>
+<li>要给进程退出的时候必须做出调度决策</li>
+<li>当一个进程阻塞在IO或者信号量或者其他东西上时，必须选择另一个进程运行</li>
+<li>当一个IO中断发生时，需要进行调度</li>
+</ol>
+<p>调度算法主要分为两类：</p>
+<h3 id="非抢占式"><a href="#非抢占式" class="headerlink" title="非抢占式"></a>非抢占式</h3><p>非抢占式调度算法挑选一个进程，然后让这个进程运行直到被阻塞，或者主动释放CPU</p>
+<h3 id="抢占式"><a href="#抢占式" class="headerlink" title="抢占式"></a>抢占式</h3><p>抢占式调度算法挑选一个进程，并且让该进程运行某个固定时段的最大值</p>
+<h2 id="调度算法分类"><a href="#调度算法分类" class="headerlink" title="调度算法分类"></a>调度算法分类</h2><h3 id="批处理"><a href="#批处理" class="headerlink" title="批处理"></a>批处理</h3><h4 id="先到先服务"><a href="#先到先服务" class="headerlink" title="先到先服务"></a>先到先服务</h4><p>这就是最简单的调度算法，这个算法的优点是易于理解且便于在程序中使用</p>
+<p>但是这个调度算法会导致运行时间很短的任务需要等待运行时间长的任务，这是不可接受的</p>
+<h4 id="最短作业优先"><a href="#最短作业优先" class="headerlink" title="最短作业优先"></a>最短作业优先</h4><p>因此人们发明了最短作业优先算法，这个算法可以让平均等待时间降到最短</p>
+<p>只有在所有作业都可同时运行的情况下，最短作业优先才是最优的</p>
+<h3 id="交互式系统"><a href="#交互式系统" class="headerlink" title="交互式系统"></a>交互式系统</h3><h4 id="轮转调度"><a href="#轮转调度" class="headerlink" title="轮转调度"></a>轮转调度</h4><p>每个进程被分配一个时间片，当进程的时间片使用完之后，调度到队列中的下一个进程</p>
+<p>进程切换，又叫上下文切换</p>
+<p>当时间片设置的太短会导致进程切换频繁，降低性能，而设置的太长又会让短的交互请求等待时间过长。</p>
+<p>通常将时间片设置为20-50ms</p>
+<h4 id="优先级调度"><a href="#优先级调度" class="headerlink" title="优先级调度"></a>优先级调度</h4><p>优先级调度就是在轮转调度的基础上加入了优先级，操作系统总是轮转执行最高优先级上的进程</p>
+<p>一般运行之后需要对优先级进行调整，否则会发生低优先级进程的饥饿</p>
+<h4 id="最短进程优先"><a href="#最短进程优先" class="headerlink" title="最短进程优先"></a>最短进程优先</h4><p>这个调度算法需要根据进程之前使用时间片的情况对进程的运行时间进行估计，估计时间最短的进程优先执行</p>
 
     </div>
 
@@ -363,7 +466,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://www.deltamaya.top/2023/05/29/rvalue_reference/" title="为什么使用要右值引用">http://www.deltamaya.top/2023/05/29/rvalue_reference/</a>
+      <a href="http://www.deltamaya.top/2023/06/24/process_and_thread/" title="进程与线程">http://www.deltamaya.top/2023/06/24/process_and_thread/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -409,20 +512,22 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C++</a>
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"><i class="fa fa-tag"></i> 操作系统</a>
+              <a href="/tags/%E8%BF%9B%E7%A8%8B/" rel="tag"><i class="fa fa-tag"></i> 进程</a>
+              <a href="/tags/%E7%BA%BF%E7%A8%8B/" rel="tag"><i class="fa fa-tag"></i> 线程</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/05/16/concurrency_management/" rel="prev" title="并发控制">
-                  <i class="fa fa-chevron-left"></i> 并发控制
+                <a href="/2023/06/23/operating_system_intro/" rel="prev" title="操作系统简介">
+                  <i class="fa fa-chevron-left"></i> 操作系统简介
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/06/14/gdb/" rel="next" title="gdb的基本使用">
-                  gdb的基本使用 <i class="fa fa-chevron-right"></i>
+                <a href="/2023/06/25/effective_c++/" rel="next" title="Effective Modern C++">
+                  Effective Modern C++ <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -548,7 +653,7 @@ setInterval("createtime()",250);
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"deltamaya","repo":"blogComments","client_id":"95730dfc2d8326ee8856","client_secret":"50558ab8fe856f5fc5fe6eefd3ef1b981ad279d2","admin_user":"deltamaya","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"93025dbcae34845a613d02e71dedcdf8"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"deltamaya","repo":"blogComments","client_id":"95730dfc2d8326ee8856","client_secret":"50558ab8fe856f5fc5fe6eefd3ef1b981ad279d2","admin_user":"deltamaya","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"92655f8ee2cd81b9370062b343b5220c"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
 </body>
