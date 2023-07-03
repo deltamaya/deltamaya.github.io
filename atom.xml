@@ -6,7 +6,7 @@
   <link href="http://www.deltamaya.top/atom.xml" rel="self"/>
   
   <link href="http://www.deltamaya.top/"/>
-  <updated>2023-06-25T07:22:29.290Z</updated>
+  <updated>2023-07-03T03:10:20.441Z</updated>
   <id>http://www.deltamaya.top/</id>
   
   <author>
@@ -17,13 +17,63 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>内存管理</title>
+    <link href="http://www.deltamaya.top/2023/07/02/memory_management/"/>
+    <id>http://www.deltamaya.top/2023/07/02/memory_management/</id>
+    <published>2023-07-02T02:29:48.547Z</published>
+    <updated>2023-07-03T03:10:20.441Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="为何要进行内存管理"><a href="#为何要进行内存管理" class="headerlink" title="为何要进行内存管理"></a>为何要进行内存管理</h1><p>我们知道，现在的计算机通常都要同时运行多个进程，而进程需要访问数据，数据存放在内存中</p><p>那么当我们同时运行两个程序的时候，怎么才能确定两个程序的某些数据不会重叠呢</p><p>换言之，怎么才能让两个程序同时运行在内存上而不发生冲突？</p><h1 id="地址空间"><a href="#地址空间" class="headerlink" title="地址空间"></a>地址空间</h1><p>于是，我们引入了地址空间的概念</p><p>地址空间通过实现了<strong>保护</strong>和<strong>重定位</strong>解决了这个问题</p><p>这里，每个进程都把自己使用的内存空间进行了分段，每一段都有一个<strong>基地址</strong>和一个<strong>界限大小</strong></p><h2 id="保护"><a href="#保护" class="headerlink" title="保护"></a>保护</h2><p>通过对内存分段，每段有自己的<strong>rwx权限</strong>保护</p><p>当用户使用的地址在<strong>基址+界限</strong>之内时表示合法访问</p><p>确保在访问内存地址时不会进行非法操作，例如在想要修改数据的时候意外写入到了正文段导致程序崩溃</p><p>此外，也可以防止攻击者轻易修改代码进行攻击，造成生命财产损失</p><h2 id="重定位"><a href="#重定位" class="headerlink" title="重定位"></a>重定位</h2><p>分为编译时重定位和运行时重定位，</p><h3 id="编译时重定位"><a href="#编译时重定位" class="headerlink" title="编译时重定位"></a>编译时重定位</h3><p>需要在编译时就确定程序需要在那些地址上运行，适合于单一作用的嵌入式系统，而放在真正的计算机上就很难实现</p><p>因为有如此多的软件开发商，很难让大家都有序的分配内存</p><p>于是我们就要使用运行时重定位</p><h3 id="运行时重定位"><a href="#运行时重定位" class="headerlink" title="运行时重定位"></a>运行时重定位</h3><p>就是在运行时对即将访问的地址进行修改，通常使用一个基址寄存器实现，每个段有自己的基址寄存器，在访问内存的时候</p><p><strong>逻辑地址+基址&#x3D;物理地址</strong></p><p>就可以有序的访问物理地址</p><hr><h1 id="分段"><a href="#分段" class="headerlink" title="分段"></a>分段</h1><p>当有一些进程处于阻塞状态时，如果让它一直在内存中，就导致内存使用率降低了</p><p>段是程序被人为分割成的几部分，比如代码段、数据段</p><p>而我们知道程序分成的段大小不一致，有大有小，如果胡乱进行分配，很容易就会造成内存中很多狭小的缝隙，这些缝隙放不下任何新的段</p><p>导致内存的使用率降低，而这些缝隙就叫做<strong>内存碎片</strong>。</p><p>当然，我们也可以使用<strong>内存&#x2F;碎片整理</strong>来“压缩”这些内存碎片。但是这样做就需要遍历整个内存，极大的拖慢了运行速度</p><p>为了避免内存碎片的产生，我们需要一种优秀的内存分配算法</p><h2 id="内存分配算法"><a href="#内存分配算法" class="headerlink" title="内存分配算法"></a>内存分配算法</h2><p>此外，为了达成这一点，程序自己必须维护一份自己的段表（LDT）</p><h3 id="首次适配算法"><a href="#首次适配算法" class="headerlink" title="首次适配算法"></a>首次适配算法</h3><p>顾名思义，首次适配算法就是在进程的段表中进行遍历，将找到的第一个可以放的下该段的空间，并将段放入其中</p><p>这种交换算法的速度很快，因为他尽可能少的遍历节点</p><h3 id="下次适配算法"><a href="#下次适配算法" class="headerlink" title="下次适配算法"></a>下次适配算法</h3><p>下次适配算法与首次适配算法的不同是 下次适配算法都从上次搜索重点的结尾继续搜索 ，其他都与首次适配搜索相同。</p><p>经过仿真程序证明：下次适配算法在性能上略差于首次适配算法</p><h3 id="最佳适配算法"><a href="#最佳适配算法" class="headerlink" title="最佳适配算法"></a>最佳适配算法</h3><p>最佳适配算法会遍历整个链表来找到与当前段大小最匹配的空间，并将当前段放入其中</p><p>这种算法运行很慢，因为每次都要遍历整个链表，并且也会带来大量内存碎片</p><h3 id="最差适配算法"><a href="#最差适配算法" class="headerlink" title="最差适配算法"></a>最差适配算法</h3><p>与之相对的，最差适配算法会找最不匹配的内存空间来放置当前段</p><p>这样虽然可以减少内存碎片，但是依然无法解决运行慢的问题</p><h3 id="快速适配算法"><a href="#快速适配算法" class="headerlink" title="快速适配算法"></a>快速适配算法</h3><p>快速适配算法会维护一张常用内存大小的链表，每个节点都存放着一个有着当前大小空间的内存地址</p><p>这样虽然可以快速找到可以分配的空间，但是他跟所有将空闲区按大小排序的方案有一个共同的缺点</p><p>就是在一个进程终止或者被换出时，寻找他的相邻块并查看是否可以合并时非常耗时的。如果不进行合并，就会产生大量内存碎片</p><h1 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h1><p>尽管我们创建了地址空间抽象，解决了多个程序不能运行的问题，但是依然无法解决应用占用内存膨胀的问题</p><p>我们希望在内存中可以尽可能多的运行程序，但是内存的膨胀速度远没有程序所需内存膨胀的速度块</p><p>所以就需要使用虚拟内存</p><p>根据局部性原理，程序在运行的某一个时期，只会访问某一个部分的数据，而不是全体数据</p><p>这就给了我们操作空间——只要将程序当前运行需要的数据放在内存中就好，不需要将整个程序都放在内存中</p><p>虚拟内存的基本思想就是：</p><blockquote><p>每个程序都拥有自己的地址空间，这个空间被分为很多块，称为<strong>页</strong>，每一页有连续的地址范围，这些页被映射到物理内存，但并不是所有的页都必须在内存中才能运行程序</p></blockquote><h2 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h2><p>操作系统将物理内存分为很多个页，比如一个页可以是4k</p><p>操作系统还会维护一张<strong>页表</strong>，用来记录每个页是不是被占用了</p><p>在进程眼中，自己拥有整个内存的空间，它会维护一张页表，但是这个页表中存放的是当前页号向操作系统页表页号的映射，以及是否存在</p><p>在CPU要访问内存时，先将逻辑地址送往MMU（内存管理单元）进行映射，得到物理地址，再通过物理地址访问内存</p><p>如果只有一级映射关系的话，MMU所做的工作就是逻辑地址的页框号映射为物理地址的页框号，然后通过偏移去访问对应页框对应地址的内存</p><h2 id="缺页中断"><a href="#缺页中断" class="headerlink" title="缺页中断"></a>缺页中断</h2><p>但是当MMU发现进程要访问的逻辑页没有映射到任何一个物理页时，就会引发一个缺页中断</p><p>例如：</p><p>这里MMU收到了一个逻辑页8，于是他去进程维护的页表中查询8位置对应的物理页，得到了24，但是24号页当前不在内存中，就会引起缺页中断</p><p>这意味着在内存中现在不存在进程要访问的东西，需要从磁盘中读取这个数据。而磁盘IO是慢于CPU的，所以进程需要陷入内核进行IO</p><h2 id="页表"><a href="#页表" class="headerlink" title="页表"></a>页表</h2><p>为了实现分页的功能，页表表项一般长成这样：</p><p><img src="/image/memory_management/1688289818587.png" alt="1688289818587"></p><p>这里我们只介绍其中几个</p><ol><li>Present &#x2F; 出现位<br>这个位告诉我们当前页表是否存在于内存当中</li><li>ReadWrite &#x2F;  保护位<br>这个位用来约束rwx权限</li><li>Dirty &#x2F; 脏位<br>这个位用来表示当前页是否被修改了，如果被修改了需要写回内存</li><li>CacheDisabled &#x2F; 高速缓存禁止位<br>当我们希望读取的数据总是在内存中的最新值而不是从高速缓存中读取，就需要这个位</li></ol><h2 id="加速分页过程"><a href="#加速分页过程" class="headerlink" title="加速分页过程"></a>加速分页过程</h2><p>当内存逐渐增大时，页表会逐渐增大。例如32位机器中，以4k为一个页框的话就会有1m个表项，每个表项占用四个字节（如上图），就需要有4m内存来存放一个页表，而每个进程都需要一个页表，每个进程都至少需要4m来存放一个页表，这是不可接受的</p><p>所以我们使用了两种方法加速分页的过程</p><h3 id="多级页表"><a href="#多级页表" class="headerlink" title="多级页表"></a>多级页表</h3><p>多级页表就类似于看书的时候先通过章的名字大致定位节的位置，然后在某一章的范围内查找某一小节</p><p>其中章的页表叫做<strong>页目录表</strong>，节的页表就叫页表（页项必须连续存储，否则查找次数过多性能太差）</p><p>我们以二级页表为例：</p><p>逻辑地址就不只需要一个逻辑页号了，而是需要一个页表号和一个页号，还有一个偏移</p><p>我们先使用页表号去查找对应页表，然后再去对应页表中映射物理页号。</p><p>假如这里的页表号和页号都是用10位表示，一共有三个页表，那么总共需要$2^{10}*3$&#x3D;16k的空间来存放页，远远小于之前的4m</p><p>实际的系统中（64位），往往需要5~6级页表</p><h3 id="TLB（快表）"><a href="#TLB（快表）" class="headerlink" title="TLB（快表）"></a>TLB（快表）</h3><p>虽然使用了多级页表减少了查找次数，但是依然需要查好几次内存，如果想进一步提升性能，就需要使用TLB</p><p>TLB是一组寄存器，用来存放最近使用的页表映射，TLB可以<em>使用硬件</em>在O1的时间查找所有TLB寄存器</p><p>如果TLB hit，直接去内存中查找即可，如果TLB miss就需要查多级页表，然后将这个页表放入TLB</p><p>我们可以得到平均访问内存时间$t&#x3D;p*(mem+tlb)+(1-p)<em>(tlb+n</em>mem)$</p><p>其中p是TLB hit的概率，mem是访问内存的时间，tlb是访问TLB寄存器的时间，n是多级页表的级数</p><p>一般TLB hit的概率都比较高（局部性原理），所以有了TLB，访问目标的时间就能接近于访问一次内存的时间</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>综上所述，我们知道段是面向用户的，页是面向硬件的。</p><p>将段和页结合起来，操作系统就可以实现对内存的管理</p><p>首先，程序提供一个逻辑地址（段号+偏移），然后这个逻辑地址会映射到虚拟内存，得到虚拟地址，虚拟内存被分成了很多页，根据虚拟地址去查页表，得到页号和偏移，也就是物理地址，最后根据这个物理地址去物理内存中寻找目标。</p><p><img src="/image/memory_management/1688301082288.png" alt="1688301082288"></p><p>一个进程有一个段表和一个页表(但是如果段与段之间没有重合的话，也可以只需要一张页表)，只要建立好了页表和段表，MMU就可以帮助我们做好一切。</p><p>在一个进程执行fork的时候，会将地址空间完全复制一份，包括段表和页表。也就是说，它们并没有开辟多个物理内存，只是复制了一份指针。</p><p>当其中一个进程想要写某一个位置的时候，会发生<strong>写时复制</strong>，子进程在物理内存上映射一个新的页用来存放自己的这个修改的数据，同时也会修改自己的页表，将映射的页框号改为新申请的这个页。注意，这里段表并不会被修改，虽然父子进程映射在虚存的位置是相同的，但是由于页表不同，映射到物理内存的位置也不同。</p><h1 id="内存交换"><a href="#内存交换" class="headerlink" title="内存交换"></a>内存交换</h1><p>由于虚拟内存的存在，每个进程看到的都是完整的线性物理内存，并且这些内存都是可以使用的。</p><p>但是真正的物理内存中，我们知道一个进程绝对没有可能占据所有的物理内存，那这是怎么实现的呢？</p><h2 id="内存换入"><a href="#内存换入" class="headerlink" title="内存换入"></a>内存换入</h2><p>实际上，每个进程将自己的所有资源都放在虚拟内存中，但是虚拟内存不一定都要映射在物理内存中，通常值映射一小部分。</p><blockquote><p>为什么发生缺页中断的时候选择调页而不是调段？</p><p>当发生缺页中断时，通常选择调页（page replacement）而不是调段（segment replacement）的原因如下：</p><ol><li>虚拟内存管理：调页是虚拟内存管理的核心概念之一，而调段并不是常用的虚拟内存管理策略。虚拟内存管理的目标是将进程的地址空间划分为固定大小的页面，以便更高效地管理内存资源。调页是一种粒度较小的管理方式，可以灵活地将进程的页面加载到物理内存中。</li><li>空间利用率：调页策略可以更好地利用物理内存资源。页面的大小通常较小（例如4KB），这使得可以在物理内存中更紧凑地组织页面，并更有效地利用可用的物理内存空间。调页可以实现细粒度的内存管理，按需加载和卸载页面，避免一次性加载整个段所需的大量内存。</li><li>页面局部性：调页能够更好地利用页面局部性原理。页面局部性是指程序倾向于访问临近的内存地址，而不是随机访问内存。调页策略通过在缺页中断时选择置换最不可能被访问的页面，以期望较少发生未来的缺页中断，从而更好地利用页面局部性。</li><li>简化管理：调页比调段更简化了内存管理的复杂性。段的大小可以变化，而且管理可变大小的段会更复杂。调页则可以采用相对固定的页面大小，更容易管理和实现。</li></ol><p>综上所述，调页作为一种常用的虚拟内存管理策略，更适合应对缺页中断和内存管理的需求。它可以更好地利用内存资源、适应页面局部性，并且相对于调段来说更简化内存管理的复杂性。</p></blockquote><p>这就会引出一个问题，当我们想访问的东西没有映射到物理内存应该怎么办呢？</p><p>通常会发生如下过程：</p><ol><li>MMU发现某一个页没有映射，产生缺页中断</li><li>通过中断向量跳转到缺页中断处理程序</li><li>申请新页框，必要的话需要将旧页写回磁盘，这会造成上下文切换</li><li>从磁盘中读入该页，放入新页框</li><li>建立虚拟内存的映射关系，修改页表</li><li>中断返回</li></ol><p>最重要的中断处理程序实际上就做了其中的第4，5，6步，就可以完成内存页的换入。</p><p>在我们想访问任何虚拟内存地址的时候，都可以访问，只不过有一些需要等一会等待换入。</p><h2 id="内存换出"><a href="#内存换出" class="headerlink" title="内存换出"></a>内存换出</h2><p>但是我们知道内存总是有限的，不可能总是开辟新的页，有时还需要将一个不怎么使用的页换出，用来给需要使用的页腾出空间，这就涉及到了内存换出。</p><p>内存换出有如下几种算法：</p><ol><li>最优页面置换算法<br>选择当前所有页中最后被用到的页换出，但是操作系统不可能事先知道那些页在什么时候被用到，所以是不可能实现的</li><li>NRU算法<br>每个页维护R&#x2F;W位，R位在每次时钟周期置为0，换页时随机选择一个RW位编号最小的页面</li><li>FIFO算法<br>先放入的先换出，可能会换出重要页面</li><li>第二次机会算法<br>FIFO的变种，每个页维护一个R位，如果R位被设置就放在页链表的末尾然后置为空，再检查下一个页。如果页R位没有被设置就换出</li><li>时钟算法<br>第二次机会算法的改进，页链表变成了一个环，如果R被设置就置空然后指向下一个页</li><li>LRU算法<br>维护页链表，将最近最多使用的放在前面，最近最少使用的放在后面，但是每次访问内存就要更新链表，很耗费时间，如果有硬件支持会很好</li><li>NFU算法<br>每个页维护一个计数器，每次访问内存就将所有页的R位加到计数器上，每次选择计数器最小的页换出</li><li>老化算法<br>NFU的改良，每个R位都有自己的权重，越久远的R位权重越低（比如可以每次右移然后将R位放到最高位）</li><li>工作集算法<br>根据局部性原理，进程在运行的某个时间只会访问某一部分内存，这部分内存就是它的工作集。<br>如果为一个进程分配的页数不足以容纳它的工作集，就会每执行一小段时间就发生缺页中断，叫做<strong>颠簸</strong><br>工作集算法思路就是每次都换出一个不在工作集中的页，这就需要每个进程维护一个工作集，而这又需要使用一些求工作集的算法，总体开销较大，一种比较好的拟合办法就是设置一个工作集时间t，在t以内使用过的内存就是它的工作集，如果当前时间减去每个页维护的上次使用时间大于t，就说明他不在工作集内。</li><li>工作集时钟算法<br>与时钟算法相似，如果W没有被设置并且生存时间大于t（工作集时间），就说明这个页面是干净的并且不在工作集，就可以换出，否则就检查下一个页。<br>当指针轮转一圈后，如果至少调度了一次写操作，就去调用那个干净的页。如果没有调用写操作，就随机置换一个干净的页，如果不存在干净的页，就将当前页写回磁盘。</li></ol><p>总结：</p><p><img src="/image/memory_management/1688350340706.png" alt="1688350340706"></p><p>总之，最好的算法是老化算法和工作集时钟算法，它们分别给予LRU和工作集。它们都有良好的页面调度能力和比较容易的实现。在实际应用中，这两种算法是重要的。</p><p>为了使分页系统工作良好，仅选择算法是不够的，还要关注很多问题，比如工作集的确定，内存分配算法以及所需的页面大小等。</p>]]></content>
+    
+    
+    <summary type="html">简要介绍计算机中的内存管理手段</summary>
+    
+    
+    
+    <category term="操作系统" scheme="http://www.deltamaya.top/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+    <category term="操作系统" scheme="http://www.deltamaya.top/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    <category term="内存" scheme="http://www.deltamaya.top/tags/%E5%86%85%E5%AD%98/"/>
+    
+    <category term="内存管理" scheme="http://www.deltamaya.top/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"/>
+    
+    <category term="虚拟内存" scheme="http://www.deltamaya.top/tags/%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>汇编语言基础</title>
+    <link href="http://www.deltamaya.top/2023/07/02/assmbly_basics/"/>
+    <id>http://www.deltamaya.top/2023/07/02/assmbly_basics/</id>
+    <published>2023-07-02T02:06:12.556Z</published>
+    <updated>2023-07-02T02:30:58.389Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="汇编语言基础"><a href="#汇编语言基础" class="headerlink" title="汇编语言基础"></a>汇编语言基础</h1><h2 id="操作数"><a href="#操作数" class="headerlink" title="操作数"></a>操作数</h2><p>在汇编语言中有三种操作数：</p><ol><li>立即数</li><li>寄存器</li><li>内存引用</li></ol><p>立即数使用 <code>$</code>符号开头，表示一个整数<br>寄存器使用 <code>%</code>符号开头，表示一个寄存器中存放的值<br>内存引用一般使用 <code>Imm(ra,rb,s)</code>表示，其中ra，rb是寄存器的名字，表示内存中（ra+s*rb）+Imm位置存放的值<br>其中ra叫做基址寄存器，rb叫做变址寄存器，s叫做比例因子，Imm叫做立即数偏移<br>注意，这里s必须是1，2，4，8。并且基址寄存器和变址寄存器必须都是64位寄存器</p><h2 id="数据传送指令"><a href="#数据传送指令" class="headerlink" title="数据传送指令"></a>数据传送指令</h2><p>数据传送指令一般长 <code>MOV S,D</code>这个样子<br>它的作用是将S中的值放入到D中<br>注意，S和D不能同时为内存地址，如果需要就需要使用两条MOV指令，先将内存地址的值放入某个临时寄存器，然后将寄存器的值放到另一个内存地址</p><h2 id="MOV指令的分类"><a href="#MOV指令的分类" class="headerlink" title="MOV指令的分类"></a>MOV指令的分类</h2><p>MOV指令根据操作数的大小可以分为movb，movw，movl，movq四条指令<br>b表示的是字节，w表示的是字，表示两个字节，l表示双字，四个字节，q表示四字，八个字节<br>此外mov还支持扩展传送：<code>mov+ s/z+ b/w/l/q + b/w/l/q src dest</code><br>表示的是将第一个bwlq大小的数据扩展为第二个bwlq大小，然后传送进入dest处，其中z表示零扩展，s表示符号扩展<br>特殊的，movabsq表示绝对四字</p><h2 id="算数逻辑操作"><a href="#算数逻辑操作" class="headerlink" title="算数逻辑操作"></a>算数逻辑操作</h2><p>大致有以下几种类型<br><code>INC D</code>表示D+&#x3D;1<br><code>DEC D</code>表示D-&#x3D;1<br><code>NEG D</code>表示D&#x3D;-D<br><code>ADD S,D</code>表示D+&#x3D;S<br><code>SAL k,D</code>表示D&lt;&lt;&#x3D;k<br><code>SHL k,D</code>同上<br><code>SAR k,D</code>算数右移D&gt;&gt;&#x3D;k<br><code>SHR k,D</code>逻辑右移D&gt;&gt;&#x3D;k<br>和 <code>lea S,D</code>，叫做加载有效地址load effective address<br>注意，lea与mov指令操作数是一样的，但是不会进行解引用操作，直接将左边的值放入右侧<br>lea也有时会被用于进行简单的计算</p><h2 id="条件码"><a href="#条件码" class="headerlink" title="条件码"></a>条件码</h2><p>CPU中还维护着一组单个位的条件码寄存器，<br>最常用的条件码有：CF进位标志，ZF零标志，SF符号标志，OF溢出标志</p><p>我们可以使用 <code>set</code>指令设置状态位</p><p>也可以通过 <code>test A,B</code> or <code>cmp A,B</code>设置状态位，其中test指令的含义就是根据A&amp;B得到的值来设置状态位，cmp指令是根据B-A得到的值来设置状态位</p><h2 id="JMP指令"><a href="#JMP指令" class="headerlink" title="JMP指令"></a>JMP指令</h2><p>通过上面所说的状态位，我们可以根据不同的境况来使用jmp指令，从而达成条件控制的效果</p><p>下面是几个例子</p><p><code>jmp dest</code>无条件跳转到dest处</p><p><code>je dest</code>如果零标志被设置则跳转至dest</p><p><code>jns dest</code>如果符号标志没有被设置则跳转至dest</p><p><code>jae dest</code>&#x3D;<code>jnb dest</code>（用于无符号数比较）&gt;&#x3D; 则跳转</p><p><code>jge dest</code>&#x3D;<code>jnl dest</code>（用于有符号数标胶）&gt;&#x3D; 则跳转</p><h2 id="函数调用"><a href="#函数调用" class="headerlink" title="函数调用"></a>函数调用</h2><p>汇编语言中使用 <code>call func</code>指令来调用函数</p><p>使用call指令之前，需要先将参数放入对应寄存器，函数的前六个参数分别使用 <code>%rdi %rsi %rdx %rcx %r8 %r9</code>这六个寄存器</p><p>然后超出的部分放入调用函数的栈帧的栈顶，并且自顶向下分别是第7，第8……个参数</p><p>函数的返回值放在 <code>%rax</code>中</p>]]></content>
+    
+    
+    <summary type="html">简要介绍几个汇编语言的基础语法</summary>
+    
+    
+    
+    <category term="操作系统" scheme="http://www.deltamaya.top/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+    <category term="汇编" scheme="http://www.deltamaya.top/tags/%E6%B1%87%E7%BC%96/"/>
+    
+    <category term="操作系统" scheme="http://www.deltamaya.top/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Effective Modern C++</title>
     <link href="http://www.deltamaya.top/2023/06/25/effective_c++/"/>
     <id>http://www.deltamaya.top/2023/06/25/effective_c++/</id>
     <published>2023-06-25T07:15:48.956Z</published>
-    <updated>2023-06-25T07:22:29.290Z</updated>
+    <updated>2023-07-01T01:10:11.633Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="Item-1"><a href="#Item-1" class="headerlink" title="Item 1"></a>Item 1</h2><p><strong>Prefer consts, enums, and inlines to #define</strong></p>]]></content>
+    <content type="html"><![CDATA[<h2 id="Item-1"><a href="#Item-1" class="headerlink" title="Item 1"></a>Item 1</h2><p><strong>Prefer smart pointers to traditional pointers</strong></p><p>consider the following code:</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::unique_ptr&lt;std::string&gt; <span class="title">fn</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">return</span> std::<span class="built_in">make_unique</span>&lt;std::string&gt;(<span class="string">&quot;hello smart pointers&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">auto</span> str=<span class="built_in">fn</span>();</span><br><span class="line"><span class="keyword">auto</span> new_str=std::<span class="built_in">move</span>(str);</span><br><span class="line">new_str.<span class="built_in">reset</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>this function <code>fn()</code> returned a <code>unique_ptr&lt;string&gt;</code> , and <code>new_str</code> took the ownership of <code>str</code>,and now <code>str</code> cannot access the string. In the end, we called the <code>reset</code> method to drop the value which the pointer holds.</p><h2 id="Item-2"><a href="#Item-2" class="headerlink" title="Item 2"></a>Item 2</h2>]]></content>
     
     
     <summary type="html">Learning Effective and Modern C++</summary>
@@ -42,9 +92,9 @@
     <link href="http://www.deltamaya.top/2023/06/24/process_and_thread/"/>
     <id>http://www.deltamaya.top/2023/06/24/process_and_thread/</id>
     <published>2023-06-24T01:53:37.813Z</published>
-    <updated>2023-06-30T09:27:59.181Z</updated>
+    <updated>2023-07-03T01:49:19.925Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h1><p>进程可以理解为一个正在执行中的程序的实例，现代的CPU可以在不同进程之间进行快速切换，达成在某个时间之内多个进程同时在运行的错觉（伪并行），这种快速的切换叫做<strong>多道程序设计</strong>，而<strong>多处理器系统</strong>则是有多个CPU同时使用内存，这是真正的硬件并行</p><p>单个处理器可以被若干进程共享，它使用某种<strong>调度算法</strong>来决定何时该停止一个工作。</p><p>此外，一个进程运行了两次的话，他依然算作两个进程，操作系统使他们共享源码，因此只有一份代码放在内存中。</p><p>进程在内存中一般有如下几个组成：</p><p>地址空间、全局变量、打开文件、子进程、即将发生的定时器、信号与信号处理程序、账户信息</p><h2 id="进程的创建"><a href="#进程的创建" class="headerlink" title="进程的创建"></a>进程的创建</h2><p>何时会发生进程创建？</p><ol><li>系统初始化</li><li>正在运行的程序调用创建进程的系统调用</li><li>用户请求创建一个进程</li><li>一个批处理程序的初始化</li></ol><p>进程可以分为前台进程和后台进程。</p><p>还有一种后台进程大部分时间都在睡眠，当某些请求到达时会被唤醒，叫做守护进程</p><p>在UNIX中提供了 <code>fork()</code>系统调用用来创建一个子进程，给父进程返回子进程的pid，给子进程返回0</p><p>进程创建之后，父进程和子进程拥有不同的地址空间</p><h2 id="进程的终止"><a href="#进程的终止" class="headerlink" title="进程的终止"></a>进程的终止</h2><p>在以下情况进程会终止：</p><ol><li>正常退出（自愿的）</li><li>出错退出（自愿的</li><li>严重错误（非自愿</li><li>被其他进程杀死（非自愿</li></ol><p>出错退出是指进程自己发现了非法操作，自己调用 <code>exit</code>退出程序</p><p>严重错误是指进程没有发现的错误，比如除数是0，操作系统会自动结束这个出错进程</p><h2 id="进程的层次结构"><a href="#进程的层次结构" class="headerlink" title="进程的层次结构"></a>进程的层次结构</h2><p>在UNIX中，进程和他的所有子进程成为一个<strong>进程组</strong></p><p>UNIX在启动时，会初始化一个init进程，init被载入内存映像之后，接受一个说明终端数量的文件，接着，为每个终端创建一个新进程</p><p>Windows中没有子进程的概念，唯一相似的概念是在进程创建一个新进程之后会返回一个<strong>进程句柄</strong>，父进程可以使用这个句柄对子进程进行控制</p><h2 id="进程的状态"><a href="#进程的状态" class="headerlink" title="进程的状态"></a>进程的状态</h2><p>进程有运行态，就绪态和挂起态</p><p>操作系统的最底层是调度程序，在它上面有许多进程。</p><h2 id="进程的实现"><a href="#进程的实现" class="headerlink" title="进程的实现"></a>进程的实现</h2><p>操作系统维护者一张<strong>进程表</strong>，每个进程就是一个表项，也叫进程控制块</p><p>每个表项中有这些属性：</p><ol><li>进程管理<ol><li>寄存器</li><li>PC</li><li>堆栈指针</li><li>程序状态字</li></ol></li><li>储存管理<ol><li>正文段指针</li><li>数据段指针</li><li>堆栈段指针</li></ol></li><li>文件管理<ol><li>根目录</li><li>文件描述符</li><li>用户ID</li><li>组ID</li></ol></li></ol><p>每一类IO都关联了一个中断向量的位置，它包含中断服务程序的入口</p><p>所有的中断都从保存寄存器开始，如下是一个中断的大致过程：</p><ol><li>硬件压入堆栈PC等</li><li>硬件从中断向量装入新的PC</li><li>汇编语言过程保存寄存器</li><li>汇编语言过程设置新堆栈</li><li>C中断服务例程运行</li><li>调度程序决定下一个运行的程序</li><li>C过程返回值汇编代码</li><li>汇编语言过程开始运行新的进程</li></ol><h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><p>线程在内存中主要有如下内容：</p><p>PC、寄存器、堆栈、状态</p><p>可以看出，线程就是轻量版的进程，他只分配计算资源</p><p>一个进程可以有多个线程，这几个线程共用进程的资源（内存），但是单独执行自己的计算任务</p><p>总之，进程用于把资源集中到一起，线程则是在CPU上被调度执行的实体</p><p><strong>多线程</strong>一般用于描述一个进程中使用了多个线程，每个线程都有自己的堆栈</p><h2 id="线程的实现方法"><a href="#线程的实现方法" class="headerlink" title="线程的实现方法"></a>线程的实现方法</h2><p>有两种主要的方法实现线程包，在用户空间和内核中</p><h3 id="用户空间"><a href="#用户空间" class="headerlink" title="用户空间"></a>用户空间</h3><p>在用户空间中实现线程包，内核不知道有线程的存在</p><p>优点是：用户级线程包可以在不支持线程的操作系统上实现（现代操作系统基本都支持线程）</p><p>用户空间的线程需要进程在运行时提供一个系统，用来管理线程</p><p>这个系统就需要维护一个线程表，用于记录线程的PC、堆栈、寄存器和状态位等</p><p>并且用户级线程切换不需要陷入内核，不需要上下文切换，速度比内核级线程快了不止一个数量级</p><p>支持每个进程都有自己的调度算法</p><p>但是，用户级线程也有如下缺点：</p><p>当一个线程发生页面故障时，整个进程都会陷入陷入IO中断，导致其他没有发生页面故障的程序也被置为阻塞态</p><h3 id="内核"><a href="#内核" class="headerlink" title="内核"></a>内核</h3><p>内核级线程的实现使得进程不再需要维护一个运行时系统和线程表</p><p>在当线程希望创建一个新线程或者撤销一个已有线程时，他会进行一个系统调用，陷入内核，所以当线程操作比较多，就会带来很大开销</p><p>内核级的线程表保存的东西与用户级线程相同</p><p>最后，线程可以注册自己感兴趣的信号，当这些信号到达的时候，可把他交给需要他的线程</p><p>总之，多线程并不能在没有频繁发生阻塞的应用中显著提高运行速度，只有在频繁进行系统调用的程序中，多线程可以显著提高运行速度</p><h1 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h1><p>进程之间可以通过信息传递通信，这种通信方法使用两条原语send和receive</p><h3 id="信息传递系统的要点"><a href="#信息传递系统的要点" class="headerlink" title="信息传递系统的要点"></a>信息传递系统的要点</h3><p>在信息传递中会发生信息丢失，这时候就需要进程之间进行确认</p><p>消息系统还需要解决进程命名问题，同时，身份认证也是一个问题</p><p>最后，将消息从一个进程复制到另一个进程通常比信号量操作和进入管程要慢</p><h3 id="信箱"><a href="#信箱" class="headerlink" title="信箱"></a>信箱</h3><p>进程之间也可以通过信箱进行通信，在发送和接收信息时，都将目标进程的地址改为信箱的地址，这样可以降低系统的耦合性</p><h3 id="屏障"><a href="#屏障" class="headerlink" title="屏障"></a>屏障</h3><p>可以通过在多个进程结束的位置设置一个屏障，当单个进程到达屏障时他必须等待其他进程，知道所有进程都抵达屏障位置，所有进程同时穿越屏障。屏障可用于进程同步。</p><h1 id="调度"><a href="#调度" class="headerlink" title="调度"></a>调度</h1><p>进程的调度同样适用于线程的调度</p><p>所有的调度算法都需要具有如下属性：</p><ol><li>公平（给每个进程公平的CPU份额）</li><li>策略强制执行（保证规定的策略被执行</li><li>平衡（保持系统的所有部分都忙碌</li></ol><h2 id="何时调度"><a href="#何时调度" class="headerlink" title="何时调度"></a>何时调度</h2><ol><li>在创建一个新的进程，需要决定是运行父进程还是子进程</li><li>要给进程退出的时候必须做出调度决策</li><li>当一个进程阻塞在IO或者信号量或者其他东西上时，必须选择另一个进程运行</li><li>当一个IO中断发生时，需要进行调度</li></ol><p>调度算法主要分为两类：</p><h3 id="非抢占式"><a href="#非抢占式" class="headerlink" title="非抢占式"></a>非抢占式</h3><p>非抢占式调度算法挑选一个进程，然后让这个进程运行直到被阻塞，或者主动释放CPU</p><h3 id="抢占式"><a href="#抢占式" class="headerlink" title="抢占式"></a>抢占式</h3><p>抢占式调度算法挑选一个进程，并且让该进程运行某个固定时段的最大值</p><h2 id="调度算法分类"><a href="#调度算法分类" class="headerlink" title="调度算法分类"></a>调度算法分类</h2><h3 id="批处理"><a href="#批处理" class="headerlink" title="批处理"></a>批处理</h3><h4 id="先到先服务"><a href="#先到先服务" class="headerlink" title="先到先服务"></a>先到先服务</h4><p>这就是最简单的调度算法，这个算法的优点是易于理解且便于在程序中使用</p><p>但是这个调度算法会导致运行时间很短的任务需要等待运行时间长的任务，这是不可接受的</p><h4 id="最短作业优先"><a href="#最短作业优先" class="headerlink" title="最短作业优先"></a>最短作业优先</h4><p>因此人们发明了最短作业优先算法，这个算法可以让平均等待时间降到最短</p><p>只有在所有作业都可同时运行的情况下，最短作业优先才是最优的</p><h3 id="交互式系统"><a href="#交互式系统" class="headerlink" title="交互式系统"></a>交互式系统</h3><h4 id="轮转调度"><a href="#轮转调度" class="headerlink" title="轮转调度"></a>轮转调度</h4><p>每个进程被分配一个时间片，当进程的时间片使用完之后，调度到队列中的下一个进程</p><p>进程切换，又叫上下文切换</p><p>当时间片设置的太短会导致进程切换频繁，降低性能，而设置的太长又会让短的交互请求等待时间过长。</p><p>通常将时间片设置为20-50ms</p><h4 id="优先级调度"><a href="#优先级调度" class="headerlink" title="优先级调度"></a>优先级调度</h4><p>优先级调度就是在轮转调度的基础上加入了优先级，操作系统总是轮转执行最高优先级上的进程</p><p>一般运行之后需要对优先级进行调整，否则会发生低优先级进程的饥饿</p><h4 id="最短进程优先"><a href="#最短进程优先" class="headerlink" title="最短进程优先"></a>最短进程优先</h4><p>这个调度算法需要根据进程之前使用时间片的情况对进程的运行时间进行估计，估计时间最短的进程优先执行</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h1><p>进程可以理解为一个正在执行中的程序的实例，现代的CPU可以在不同进程之间进行快速切换，达成在某个时间之内多个进程同时在运行的错觉（伪并行），这种快速的切换叫做<strong>多道程序设计</strong>，而<strong>多处理器系统</strong>则是有多个CPU同时使用内存，这是真正的硬件并行</p><p>单个处理器可以被若干进程共享，它使用某种<strong>调度算法</strong>来决定何时该停止一个工作。</p><p>此外，一个进程运行了两次的话，他依然算作两个进程，操作系统使他们共享源码，因此只有一份代码放在内存中。</p><p>进程在内存中一般有如下几个组成：</p><p>地址空间、全局变量、打开文件、子进程、即将发生的定时器、信号与信号处理程序、账户信息</p><h2 id="进程的创建"><a href="#进程的创建" class="headerlink" title="进程的创建"></a>进程的创建</h2><p>何时会发生进程创建？</p><ol><li>系统初始化</li><li>正在运行的程序调用创建进程的系统调用</li><li>用户请求创建一个进程</li><li>一个批处理程序的初始化</li></ol><p>进程可以分为前台进程和后台进程。</p><p>还有一种后台进程大部分时间都在睡眠，当某些请求到达时会被唤醒，叫做守护进程</p><p>在UNIX中提供了 <code>fork()</code>系统调用用来创建一个子进程，给父进程返回子进程的pid，给子进程返回0</p><p>进程创建之后，父进程和子进程拥有不同的地址空间</p><h2 id="进程的终止"><a href="#进程的终止" class="headerlink" title="进程的终止"></a>进程的终止</h2><p>在以下情况进程会终止：</p><ol><li>正常退出（自愿的）</li><li>出错退出（自愿的</li><li>严重错误（非自愿</li><li>被其他进程杀死（非自愿</li></ol><p>出错退出是指进程自己发现了非法操作，自己调用 <code>exit</code>退出程序</p><p>严重错误是指进程没有发现的错误，比如除数是0，操作系统会自动结束这个出错进程</p><h2 id="进程的层次结构"><a href="#进程的层次结构" class="headerlink" title="进程的层次结构"></a>进程的层次结构</h2><p>在UNIX中，进程和他的所有子进程成为一个<strong>进程组</strong></p><p>UNIX在启动时，会初始化一个init进程，init被载入内存映像之后，接受一个说明终端数量的文件，接着，为每个终端创建一个新进程</p><p>Windows中没有子进程的概念，唯一相似的概念是在进程创建一个新进程之后会返回一个<strong>进程句柄</strong>，父进程可以使用这个句柄对子进程进行控制</p><h2 id="进程的状态"><a href="#进程的状态" class="headerlink" title="进程的状态"></a>进程的状态</h2><p>进程有运行态，就绪态和挂起态</p><p>操作系统的最底层是调度程序，在它上面有许多进程。</p><h2 id="进程的实现"><a href="#进程的实现" class="headerlink" title="进程的实现"></a>进程的实现</h2><p>操作系统维护者一张<strong>进程表</strong>，每个进程就是一个表项，也叫进程控制块</p><p>每个表项中有这些属性：</p><ol><li>进程管理<ol><li>寄存器</li><li>PC</li><li>堆栈指针</li><li>程序状态字</li></ol></li><li>储存管理<ol><li>正文段指针</li><li>数据段指针</li><li>堆栈段指针</li></ol></li><li>文件管理<ol><li>根目录</li><li>文件描述符</li><li>用户ID</li><li>组ID</li></ol></li></ol><p>每一类中断都关联了一个中断向量的位置，它包含中断服务程序的入口</p><p>所有的中断都从保存寄存器开始，如下是一个中断的大致过程：</p><ol><li>硬件压入堆栈PC等</li><li>硬件从中断向量装入新的PC</li><li>汇编语言过程保存寄存器</li><li>汇编语言过程设置新堆栈</li><li>C中断服务例程运行</li><li>调度程序决定下一个运行的程序</li><li>C过程返回值汇编代码</li><li>汇编语言过程开始运行新的进程</li></ol><h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><p>线程在内存中主要有如下内容：</p><p>PC、寄存器、堆栈、状态</p><p>可以看出，线程就是轻量版的进程，他只分配计算资源</p><p>一个进程可以有多个线程，这几个线程共用进程的资源（内存），但是单独执行自己的计算任务</p><p>总之，进程用于把资源集中到一起，线程则是在CPU上被调度执行的实体</p><p><strong>多线程</strong>一般用于描述一个进程中使用了多个线程，每个线程都有自己的堆栈</p><h2 id="线程的实现方法"><a href="#线程的实现方法" class="headerlink" title="线程的实现方法"></a>线程的实现方法</h2><p>有两种主要的方法实现线程包，在用户空间和内核中</p><h3 id="用户空间"><a href="#用户空间" class="headerlink" title="用户空间"></a>用户空间</h3><p>在用户空间中实现线程包，内核不知道有线程的存在</p><p>优点是：用户级线程包可以在不支持线程的操作系统上实现（现代操作系统基本都支持线程）</p><p>用户空间的线程需要进程在运行时提供一个系统，用来管理线程</p><p>这个系统就需要维护一个线程表，用于记录线程的PC、堆栈、寄存器和状态位等</p><p>并且用户级线程切换不需要陷入内核，不需要上下文切换，速度比内核级线程快了不止一个数量级</p><p>支持每个进程都有自己的调度算法</p><p>但是，用户级线程也有如下缺点：</p><p>当一个线程发生页面故障时，整个进程都会陷入陷入IO中断，导致其他没有发生页面故障的程序也被置为阻塞态</p><h3 id="内核"><a href="#内核" class="headerlink" title="内核"></a>内核</h3><p>内核级线程的实现使得进程不再需要维护一个运行时系统和线程表</p><p>在当线程希望创建一个新线程或者撤销一个已有线程时，他会进行一个系统调用，陷入内核，所以当线程操作比较多，就会带来很大开销</p><p>内核级的线程表保存的东西与用户级线程相同</p><p>最后，线程可以注册自己感兴趣的信号，当这些信号到达的时候，可把他交给需要他的线程</p><p>总之，多线程并不能在没有频繁发生阻塞的应用中显著提高运行速度，只有在频繁进行系统调用的程序中，多线程可以显著提高运行速度</p><h1 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h1><p>进程之间可以通过信息传递通信，这种通信方法使用两条原语send和receive</p><h3 id="信息传递系统的要点"><a href="#信息传递系统的要点" class="headerlink" title="信息传递系统的要点"></a>信息传递系统的要点</h3><p>在信息传递中会发生信息丢失，这时候就需要进程之间进行确认</p><p>消息系统还需要解决进程命名问题，同时，身份认证也是一个问题</p><p>最后，将消息从一个进程复制到另一个进程通常比信号量操作和进入管程要慢</p><h3 id="信箱"><a href="#信箱" class="headerlink" title="信箱"></a>信箱</h3><p>进程之间也可以通过信箱进行通信，在发送和接收信息时，都将目标进程的地址改为信箱的地址，这样可以降低系统的耦合性</p><h3 id="屏障"><a href="#屏障" class="headerlink" title="屏障"></a>屏障</h3><p>可以通过在多个进程结束的位置设置一个屏障，当单个进程到达屏障时他必须等待其他进程，知道所有进程都抵达屏障位置，所有进程同时穿越屏障。屏障可用于进程同步。</p><h1 id="调度"><a href="#调度" class="headerlink" title="调度"></a>调度</h1><p>进程的调度同样适用于线程的调度</p><p>所有的调度算法都需要具有如下属性：</p><ol><li>公平（给每个进程公平的CPU份额）</li><li>策略强制执行（保证规定的策略被执行</li><li>平衡（保持系统的所有部分都忙碌</li></ol><h2 id="何时调度"><a href="#何时调度" class="headerlink" title="何时调度"></a>何时调度</h2><ol><li>在创建一个新的进程，需要决定是运行父进程还是子进程</li><li>要给进程退出的时候必须做出调度决策</li><li>当一个进程阻塞在IO或者信号量或者其他东西上时，必须选择另一个进程运行</li><li>当一个IO中断发生时，需要进行调度</li></ol><p>调度算法主要分为两类：</p><h3 id="非抢占式"><a href="#非抢占式" class="headerlink" title="非抢占式"></a>非抢占式</h3><p>非抢占式调度算法挑选一个进程，然后让这个进程运行直到被阻塞，或者主动释放CPU</p><h3 id="抢占式"><a href="#抢占式" class="headerlink" title="抢占式"></a>抢占式</h3><p>抢占式调度算法挑选一个进程，并且让该进程运行某个固定时段的最大值</p><h2 id="调度算法分类"><a href="#调度算法分类" class="headerlink" title="调度算法分类"></a>调度算法分类</h2><h3 id="批处理"><a href="#批处理" class="headerlink" title="批处理"></a>批处理</h3><h4 id="先到先服务"><a href="#先到先服务" class="headerlink" title="先到先服务"></a>先到先服务</h4><p>这就是最简单的调度算法，这个算法的优点是易于理解且便于在程序中使用</p><p>但是这个调度算法会导致运行时间很短的任务需要等待运行时间长的任务，这是不可接受的</p><h4 id="最短作业优先"><a href="#最短作业优先" class="headerlink" title="最短作业优先"></a>最短作业优先</h4><p>因此人们发明了最短作业优先算法，这个算法可以让平均等待时间降到最短</p><p>只有在所有作业都可同时运行的情况下，最短作业优先才是最优的</p><h3 id="交互式系统"><a href="#交互式系统" class="headerlink" title="交互式系统"></a>交互式系统</h3><h4 id="轮转调度"><a href="#轮转调度" class="headerlink" title="轮转调度"></a>轮转调度</h4><p>每个进程被分配一个时间片，当进程的时间片使用完之后，调度到队列中的下一个进程</p><p>进程切换，又叫上下文切换</p><p>当时间片设置的太短会导致进程切换频繁，降低性能，而设置的太长又会让短的交互请求等待时间过长。</p><p>通常将时间片设置为20-50ms</p><h4 id="优先级调度"><a href="#优先级调度" class="headerlink" title="优先级调度"></a>优先级调度</h4><p>优先级调度就是在轮转调度的基础上加入了优先级，操作系统总是轮转执行最高优先级上的进程</p><p>一般运行之后需要对优先级进行调整，否则会发生低优先级进程的饥饿</p><h4 id="最短进程优先"><a href="#最短进程优先" class="headerlink" title="最短进程优先"></a>最短进程优先</h4><p>这个调度算法需要根据进程之前使用时间片的情况对进程的运行时间进行估计，估计时间最短的进程优先执行</p>]]></content>
     
     
     <summary type="html">简要介绍进程与线程</summary>
@@ -134,25 +184,27 @@
   </entry>
   
   <entry>
-    <title>gdb的基本使用</title>
-    <link href="http://www.deltamaya.top/2023/06/14/gdb/"/>
-    <id>http://www.deltamaya.top/2023/06/14/gdb/</id>
+    <title>gcc与gdb的基本使用</title>
+    <link href="http://www.deltamaya.top/2023/06/14/gcc_gdb/"/>
+    <id>http://www.deltamaya.top/2023/06/14/gcc_gdb/</id>
     <published>2023-06-14T04:23:24.276Z</published>
-    <updated>2023-06-14T11:50:29.524Z</updated>
+    <updated>2023-07-02T06:47:58.449Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="gdb的基本使用"><a href="#gdb的基本使用" class="headerlink" title="gdb的基本使用"></a>gdb的基本使用</h1><p> 使用gdb启动程序</p><p>   <code>gdb ./your_program</code></p><h2 id="展示代码"><a href="#展示代码" class="headerlink" title="展示代码"></a>展示代码</h2><ol><li>打印当前往下十行<br><code>list</code></li><li>展示源代码TUI<br><code>layout src</code></li><li>展示反汇编TUI<br><code>layout asm</code></li></ol><h2 id="设置断点-括号内是可选内容"><a href="#设置断点-括号内是可选内容" class="headerlink" title="设置断点(括号内是可选内容)"></a>设置断点(括号内是可选内容)</h2><ol><li>在（某一文件）某一行设置断点<br><code>break (file_name:)line_number</code></li><li>在（某一文件）某一函数设置断点<br><code>break (file_name:)function_name</code></li></ol><h2 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h2><ol><li>运行程序<br><code>run</code></li><li>执行一行<br><code>next</code></li><li>执行一步<br><code>step</code></li><li>执行一句指令<br><code>stepi</code></li><li>执行至下个断点<br><code>continue</code></li></ol><h2 id="打印值"><a href="#打印值" class="headerlink" title="打印值"></a>打印值</h2><ol><li>打印表达式exp，单个变量也是一种表达式<br><code>print exp</code></li><li>在每次执行停止的时候都打印exp的值<br><code>display exp</code></li><li>解除打印<br><code>undisplay number</code></li></ol><blockquote><p>tips: 使用 <code>/x</code>打印16进制，<code>/d</code>打印10进制，<code>/t</code>打印2进制<br>寄存器使用 <code>$</code>符号+寄存器名字 表示，e.g.  <code>$rax</code></p></blockquote><h2 id="查看调用栈"><a href="#查看调用栈" class="headerlink" title="查看调用栈"></a>查看调用栈</h2><p>使用 <code>traceback</code> 查看程序的调用栈</p><h2 id="查看程序信息"><a href="#查看程序信息" class="headerlink" title="查看程序信息"></a>查看程序信息</h2><p>使用 <code>info</code>查看程序的状态信息，例如寄存器 <code>info registers</code>，函数 <code>info function</code></p><h2 id="退出"><a href="#退出" class="headerlink" title="退出"></a>退出</h2><p>输入 <code>quit</code>退出gdb并杀死子进程</p>]]></content>
-    
-    
-    <summary type="html">简要介绍gdb基本使用</summary>
+    <content type="html"><![CDATA[<h1 id="gcc的基本使用"><a href="#gcc的基本使用" class="headerlink" title="gcc的基本使用"></a>gcc的基本使用</h1><p>g++的使用方法与gcc基本完全一致，这里只介绍gcc，g++的使用只需要将gcc换为g++即可</p><h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><p><code>gcc file1 file2 -o prog</code></p><p>这里gcc会将file1与file2都进行编译然后进行链接，形成可执行文件prog</p><h2 id="分步编译"><a href="#分步编译" class="headerlink" title="分步编译"></a>分步编译</h2><p>我们都知道，从代码到可执行程序需要经历预处理、编译、汇编、链接四个步骤</p><p>我们可以使用 <code>gcc file -E/-S/-c -o out.i/.s/.o</code>分别对文件进行预处理、编译、汇编三个动作，并分别产生后缀为.i&#x2F;.s&#x2F;.o的文件</p><p>当然，我们也可以对上一步产生的文件继续处理，例如；</p><p><code>gcc obj1.o obj2.o -o prog</code></p><p>这里我们对两个目标文件进行了链接，产生了prog的可执行程序</p><h2 id="编译优化"><a href="#编译优化" class="headerlink" title="编译优化"></a>编译优化</h2><p>编译器通常会对我们的代码进行优化以达到最高的效率</p><p>我们可以使用 <code>gcc -Og/-O1/-O2/-O3</code>分别对代码进行0级优化（不优化），1&#x2F;2&#x2F;3级优化（优化强度逐渐增加）</p><p>此外，如果我们需要使用gdb对我们的程序进行调试，就需要使用 <code>gcc -g</code>显式的生成debug版文件，其中包含着可以供我们使用的调试信息</p><p>使用 <code>gcc -ggdb</code>来产生gdb使用的调试信息</p><h2 id="其他选项"><a href="#其他选项" class="headerlink" title="其他选项"></a>其他选项</h2><p>如果需要编译某一版本的代码，可以使用 <code>-std=...</code>来指定使用的那个c语言&#x2F;c++版本，例如-std&#x3D;c11、-std&#x3D;c++23</p><p>如果需要链接某些库，就需要使用 <code>-l...(lib_name)</code>来链接指定名字的库，例如 -lthis_is_a_lib</p><p>如果你对自己的程序不是很有信心，你可以使用 <code>gcc -Wall</code>让编译器产生所有的警告信息来帮助你找bug</p><p>而如果你是一个牛逼的程序员，那么你应该使用 <code>gcc -w</code>来无视所有的编译器警告，相信你是最强的</p><h1 id="gdb的基本使用"><a href="#gdb的基本使用" class="headerlink" title="gdb的基本使用"></a>gdb的基本使用</h1><p> 使用gdb启动程序</p><p>   <code>gdb ./your_program</code></p><h2 id="展示代码"><a href="#展示代码" class="headerlink" title="展示代码"></a>展示代码</h2><ol><li>打印当前往下十行<br><code>list</code></li><li>展示源代码TUI<br><code>layout src</code></li><li>展示反汇编TUI<br><code>layout asm</code></li></ol><h2 id="设置断点-括号内是可选内容"><a href="#设置断点-括号内是可选内容" class="headerlink" title="设置断点(括号内是可选内容)"></a>设置断点(括号内是可选内容)</h2><ol><li>在（某一文件）某一行设置断点<br><code>break (file_name:)line_number</code></li><li>在（某一文件）某一函数设置断点<br><code>break (file_name:)function_name</code></li><li>同样的，我们可以删除断点<br><code>delete 1</code>(删除断点1)</li></ol><h2 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h2><ol><li>运行程序<br><code>run</code></li><li>执行一行<br><code>next</code></li><li>执行一步<br><code>step</code></li><li>执行一句指令<br><code>stepi</code> + num（执行num条指令）</li><li>执行至下个断点<br><code>continue</code></li></ol><h2 id="打印值"><a href="#打印值" class="headerlink" title="打印值"></a>打印值</h2><ol><li>打印表达式exp，单个变量也是一种表达式<br><code>print exp</code><br>这里我们可以使用任何东西作为这个exp，例如一个寄存器，内存引用，甚至是一个函数</li><li>在每次执行停止的时候都打印exp的值<br><code>display exp</code></li><li>解除打印<br><code>undisplay number</code></li></ol><blockquote><p>tips: 使用 <code>/x</code>打印16进制，<code>/d</code>打印10进制，<code>/t</code>打印2进制<br>寄存器使用 <code>$</code>符号+寄存器名字 表示，e.g.  <code>$rax</code></p></blockquote><h2 id="查看调用栈"><a href="#查看调用栈" class="headerlink" title="查看调用栈"></a>查看调用栈</h2><p>使用 <code>traceback</code> 查看程序的调用栈</p><h2 id="查看程序信息"><a href="#查看程序信息" class="headerlink" title="查看程序信息"></a>查看程序信息</h2><p>使用 <code>info</code>查看程序的状态信息，例如寄存器 <code>info registers</code>，函数 <code>info function</code></p><h2 id="退出"><a href="#退出" class="headerlink" title="退出"></a>退出</h2><p>输入 <code>quit</code>退出gdb并杀死子进程</p><h1 id="RTFM"><a href="#RTFM" class="headerlink" title="RTFM"></a>RTFM</h1><p>Read The Fucking Manual (</p><p>使用 <code>man/help</code>指令获取gcc&#x2F;gdb手册</p>]]></content>
     
     
+    <summary type="html">简要介绍gcc&amp;gdb基本使用</summary>
     
-    <category term="gdb" scheme="http://www.deltamaya.top/categories/gdb/"/>
+    
+    
+    <category term="gcc" scheme="http://www.deltamaya.top/categories/gcc/"/>
     
     
     <category term="gdb" scheme="http://www.deltamaya.top/tags/gdb/"/>
     
     <category term="调试" scheme="http://www.deltamaya.top/tags/%E8%B0%83%E8%AF%95/"/>
+    
+    <category term="gcc" scheme="http://www.deltamaya.top/tags/gcc/"/>
     
   </entry>
   
@@ -248,9 +300,9 @@
     
     <category term="计算机组成" scheme="http://www.deltamaya.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/"/>
     
-    <category term="寄存器" scheme="http://www.deltamaya.top/tags/%E5%AF%84%E5%AD%98%E5%99%A8/"/>
-    
     <category term="内存" scheme="http://www.deltamaya.top/tags/%E5%86%85%E5%AD%98/"/>
+    
+    <category term="寄存器" scheme="http://www.deltamaya.top/tags/%E5%AF%84%E5%AD%98%E5%99%A8/"/>
     
   </entry>
   
@@ -296,9 +348,9 @@
     
     <category term="计算机组成" scheme="http://www.deltamaya.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/"/>
     
-    <category term="位运算" scheme="http://www.deltamaya.top/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
-    
     <category term="布尔逻辑" scheme="http://www.deltamaya.top/tags/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91/"/>
+    
+    <category term="位运算" scheme="http://www.deltamaya.top/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
     
   </entry>
   
@@ -319,9 +371,9 @@
     <category term="数据结构与算法" scheme="http://www.deltamaya.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-    <category term="C++" scheme="http://www.deltamaya.top/tags/C/"/>
-    
     <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="C++" scheme="http://www.deltamaya.top/tags/C/"/>
     
     <category term="搜索" scheme="http://www.deltamaya.top/tags/%E6%90%9C%E7%B4%A2/"/>
     
@@ -346,9 +398,9 @@
     <category term="数据结构与算法" scheme="http://www.deltamaya.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-    <category term="C++" scheme="http://www.deltamaya.top/tags/C/"/>
-    
     <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="C++" scheme="http://www.deltamaya.top/tags/C/"/>
     
     <category term="排序" scheme="http://www.deltamaya.top/tags/%E6%8E%92%E5%BA%8F/"/>
     
@@ -373,11 +425,11 @@
     <category term="数据结构与算法" scheme="http://www.deltamaya.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
+    <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
     <category term="C++" scheme="http://www.deltamaya.top/tags/C/"/>
     
     <category term="数据结构" scheme="http://www.deltamaya.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-    <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
     
     <category term="树" scheme="http://www.deltamaya.top/tags/%E6%A0%91/"/>
     
@@ -402,11 +454,11 @@
     <category term="数据结构与算法" scheme="http://www.deltamaya.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
+    <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
     <category term="C++" scheme="http://www.deltamaya.top/tags/C/"/>
     
     <category term="数据结构" scheme="http://www.deltamaya.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-    <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
     
     <category term="堆" scheme="http://www.deltamaya.top/tags/%E5%A0%86/"/>
     

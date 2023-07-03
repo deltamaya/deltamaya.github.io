@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic%7CRoboto+Slab:300,300italic,400,400italic,700,700italic%7CPT+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.deltamaya.top","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","width":280,"display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="简要介绍计算机中的内存管理手段">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内存管理">
+<meta property="og:url" content="http://www.deltamaya.top/2023/07/02/memory_management/index.html">
+<meta property="og:site_name" content="玛雅55369">
+<meta property="og:description" content="简要介绍计算机中的内存管理手段">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.deltamaya.top/image/memory_management/1688289818587.png">
+<meta property="og:image" content="http://www.deltamaya.top/image/memory_management/1688301082288.png">
+<meta property="og:image" content="http://www.deltamaya.top/image/memory_management/1688350340706.png">
+<meta property="article:published_time" content="2023-07-02T02:29:48.547Z">
+<meta property="article:modified_time" content="2023-07-03T03:10:20.441Z">
+<meta property="article:author" content="deltamaya">
+<meta property="article:tag" content="操作系统">
+<meta property="article:tag" content="内存">
+<meta property="article:tag" content="内存管理">
+<meta property="article:tag" content="虚拟内存">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.deltamaya.top/image/memory_management/1688289818587.png">
+
+
+<link rel="canonical" href="http://www.deltamaya.top/2023/07/02/memory_management/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://www.deltamaya.top/2023/07/02/memory_management/","path":"2023/07/02/memory_management/","title":"内存管理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>内存管理 | 玛雅55369</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="玛雅55369" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/uploads/custom-logo.jpg" alt="玛雅55369">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">玛雅55369</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">deltamaya</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BD%95%E8%A6%81%E8%BF%9B%E8%A1%8C%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">为何要进行内存管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4"><span class="nav-number">2.</span> <span class="nav-text">地址空间</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%9D%E6%8A%A4"><span class="nav-number">2.1.</span> <span class="nav-text">保护</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E5%AE%9A%E4%BD%8D"><span class="nav-number">2.2.</span> <span class="nav-text">重定位</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E6%97%B6%E9%87%8D%E5%AE%9A%E4%BD%8D"><span class="nav-number">2.2.1.</span> <span class="nav-text">编译时重定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E9%87%8D%E5%AE%9A%E4%BD%8D"><span class="nav-number">2.2.2.</span> <span class="nav-text">运行时重定位</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E6%AE%B5"><span class="nav-number">3.</span> <span class="nav-text">分段</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AE%97%E6%B3%95"><span class="nav-number">3.1.</span> <span class="nav-text">内存分配算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A6%96%E6%AC%A1%E9%80%82%E9%85%8D%E7%AE%97%E6%B3%95"><span class="nav-number">3.1.1.</span> <span class="nav-text">首次适配算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E6%AC%A1%E9%80%82%E9%85%8D%E7%AE%97%E6%B3%95"><span class="nav-number">3.1.2.</span> <span class="nav-text">下次适配算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E4%BD%B3%E9%80%82%E9%85%8D%E7%AE%97%E6%B3%95"><span class="nav-number">3.1.3.</span> <span class="nav-text">最佳适配算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%B7%AE%E9%80%82%E9%85%8D%E7%AE%97%E6%B3%95"><span class="nav-number">3.1.4.</span> <span class="nav-text">最差适配算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E9%80%82%E9%85%8D%E7%AE%97%E6%B3%95"><span class="nav-number">3.1.5.</span> <span class="nav-text">快速适配算法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98"><span class="nav-number">4.</span> <span class="nav-text">虚拟内存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E9%A1%B5"><span class="nav-number">4.1.</span> <span class="nav-text">分页</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%BA%E9%A1%B5%E4%B8%AD%E6%96%AD"><span class="nav-number">4.2.</span> <span class="nav-text">缺页中断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B5%E8%A1%A8"><span class="nav-number">4.3.</span> <span class="nav-text">页表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E9%80%9F%E5%88%86%E9%A1%B5%E8%BF%87%E7%A8%8B"><span class="nav-number">4.4.</span> <span class="nav-text">加速分页过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%BA%A7%E9%A1%B5%E8%A1%A8"><span class="nav-number">4.4.1.</span> <span class="nav-text">多级页表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TLB%EF%BC%88%E5%BF%AB%E8%A1%A8%EF%BC%89"><span class="nav-number">4.4.2.</span> <span class="nav-text">TLB（快表）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.5.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E4%BA%A4%E6%8D%A2"><span class="nav-number">5.</span> <span class="nav-text">内存交换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%8D%A2%E5%85%A5"><span class="nav-number">5.1.</span> <span class="nav-text">内存换入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%8D%A2%E5%87%BA"><span class="nav-number">5.2.</span> <span class="nav-text">内存换出</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="deltamaya"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">deltamaya</p>
+  <div class="site-description" itemprop="description">好好干，好好活</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/deltamaya" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;deltamaya" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/deltamaya55369" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;deltamaya55369" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/deltamaya" title="Telegram → https:&#x2F;&#x2F;t.me&#x2F;deltamaya" rel="noopener me" target="_blank"><i class="fab fa-telegram fa-fw"></i>Telegram</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://discord.com/channels/deltamaya#1139" title="Discord → https:&#x2F;&#x2F;discord.com&#x2F;channels&#x2F;deltamaya#1139" rel="noopener me" target="_blank"><i class="fab fa-discord fa-fw"></i>Discord</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://steamcommunity.com/id/deltamaya/" title="Steam → https:&#x2F;&#x2F;steamcommunity.com&#x2F;id&#x2F;deltamaya&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-steam fa-fw"></i>Steam</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://openai.com/blog/chatgpt/" title="https:&#x2F;&#x2F;openai.com&#x2F;blog&#x2F;chatgpt&#x2F;" rel="noopener" target="_blank">ChatGPT</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.deltamaya.top/2023/07/02/memory_management/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="deltamaya">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="玛雅55369">
+      <meta itemprop="description" content="好好干，好好活">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="内存管理 | 玛雅55369">
+      <meta itemprop="description" content="简要介绍计算机中的内存管理手段">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          内存管理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-07-02 10:29:48" itemprop="dateCreated datePublished" datetime="2023-07-02T10:29:48+08:00">2023-07-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-07-03 11:10:20" itemprop="dateModified" datetime="2023-07-03T11:10:20+08:00">2023-07-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">简要介绍计算机中的内存管理手段</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="为何要进行内存管理"><a href="#为何要进行内存管理" class="headerlink" title="为何要进行内存管理"></a>为何要进行内存管理</h1><p>我们知道，现在的计算机通常都要同时运行多个进程，而进程需要访问数据，数据存放在内存中</p>
+<p>那么当我们同时运行两个程序的时候，怎么才能确定两个程序的某些数据不会重叠呢</p>
+<p>换言之，怎么才能让两个程序同时运行在内存上而不发生冲突？</p>
+<h1 id="地址空间"><a href="#地址空间" class="headerlink" title="地址空间"></a>地址空间</h1><p>于是，我们引入了地址空间的概念</p>
+<p>地址空间通过实现了<strong>保护</strong>和<strong>重定位</strong>解决了这个问题</p>
+<p>这里，每个进程都把自己使用的内存空间进行了分段，每一段都有一个<strong>基地址</strong>和一个<strong>界限大小</strong></p>
+<h2 id="保护"><a href="#保护" class="headerlink" title="保护"></a>保护</h2><p>通过对内存分段，每段有自己的<strong>rwx权限</strong>保护</p>
+<p>当用户使用的地址在<strong>基址+界限</strong>之内时表示合法访问</p>
+<p>确保在访问内存地址时不会进行非法操作，例如在想要修改数据的时候意外写入到了正文段导致程序崩溃</p>
+<p>此外，也可以防止攻击者轻易修改代码进行攻击，造成生命财产损失</p>
+<h2 id="重定位"><a href="#重定位" class="headerlink" title="重定位"></a>重定位</h2><p>分为编译时重定位和运行时重定位，</p>
+<h3 id="编译时重定位"><a href="#编译时重定位" class="headerlink" title="编译时重定位"></a>编译时重定位</h3><p>需要在编译时就确定程序需要在那些地址上运行，适合于单一作用的嵌入式系统，而放在真正的计算机上就很难实现</p>
+<p>因为有如此多的软件开发商，很难让大家都有序的分配内存</p>
+<p>于是我们就要使用运行时重定位</p>
+<h3 id="运行时重定位"><a href="#运行时重定位" class="headerlink" title="运行时重定位"></a>运行时重定位</h3><p>就是在运行时对即将访问的地址进行修改，通常使用一个基址寄存器实现，每个段有自己的基址寄存器，在访问内存的时候</p>
+<p><strong>逻辑地址+基址&#x3D;物理地址</strong></p>
+<p>就可以有序的访问物理地址</p>
+<hr>
+<h1 id="分段"><a href="#分段" class="headerlink" title="分段"></a>分段</h1><p>当有一些进程处于阻塞状态时，如果让它一直在内存中，就导致内存使用率降低了</p>
+<p>段是程序被人为分割成的几部分，比如代码段、数据段</p>
+<p>而我们知道程序分成的段大小不一致，有大有小，如果胡乱进行分配，很容易就会造成内存中很多狭小的缝隙，这些缝隙放不下任何新的段</p>
+<p>导致内存的使用率降低，而这些缝隙就叫做<strong>内存碎片</strong>。</p>
+<p>当然，我们也可以使用<strong>内存&#x2F;碎片整理</strong>来“压缩”这些内存碎片。但是这样做就需要遍历整个内存，极大的拖慢了运行速度</p>
+<p>为了避免内存碎片的产生，我们需要一种优秀的内存分配算法</p>
+<h2 id="内存分配算法"><a href="#内存分配算法" class="headerlink" title="内存分配算法"></a>内存分配算法</h2><p>此外，为了达成这一点，程序自己必须维护一份自己的段表（LDT）</p>
+<h3 id="首次适配算法"><a href="#首次适配算法" class="headerlink" title="首次适配算法"></a>首次适配算法</h3><p>顾名思义，首次适配算法就是在进程的段表中进行遍历，将找到的第一个可以放的下该段的空间，并将段放入其中</p>
+<p>这种交换算法的速度很快，因为他尽可能少的遍历节点</p>
+<h3 id="下次适配算法"><a href="#下次适配算法" class="headerlink" title="下次适配算法"></a>下次适配算法</h3><p>下次适配算法与首次适配算法的不同是 下次适配算法都从上次搜索重点的结尾继续搜索 ，其他都与首次适配搜索相同。</p>
+<p>经过仿真程序证明：下次适配算法在性能上略差于首次适配算法</p>
+<h3 id="最佳适配算法"><a href="#最佳适配算法" class="headerlink" title="最佳适配算法"></a>最佳适配算法</h3><p>最佳适配算法会遍历整个链表来找到与当前段大小最匹配的空间，并将当前段放入其中</p>
+<p>这种算法运行很慢，因为每次都要遍历整个链表，并且也会带来大量内存碎片</p>
+<h3 id="最差适配算法"><a href="#最差适配算法" class="headerlink" title="最差适配算法"></a>最差适配算法</h3><p>与之相对的，最差适配算法会找最不匹配的内存空间来放置当前段</p>
+<p>这样虽然可以减少内存碎片，但是依然无法解决运行慢的问题</p>
+<h3 id="快速适配算法"><a href="#快速适配算法" class="headerlink" title="快速适配算法"></a>快速适配算法</h3><p>快速适配算法会维护一张常用内存大小的链表，每个节点都存放着一个有着当前大小空间的内存地址</p>
+<p>这样虽然可以快速找到可以分配的空间，但是他跟所有将空闲区按大小排序的方案有一个共同的缺点</p>
+<p>就是在一个进程终止或者被换出时，寻找他的相邻块并查看是否可以合并时非常耗时的。如果不进行合并，就会产生大量内存碎片</p>
+<h1 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h1><p>尽管我们创建了地址空间抽象，解决了多个程序不能运行的问题，但是依然无法解决应用占用内存膨胀的问题</p>
+<p>我们希望在内存中可以尽可能多的运行程序，但是内存的膨胀速度远没有程序所需内存膨胀的速度块</p>
+<p>所以就需要使用虚拟内存</p>
+<p>根据局部性原理，程序在运行的某一个时期，只会访问某一个部分的数据，而不是全体数据</p>
+<p>这就给了我们操作空间——只要将程序当前运行需要的数据放在内存中就好，不需要将整个程序都放在内存中</p>
+<p>虚拟内存的基本思想就是：</p>
+<blockquote>
+<p>每个程序都拥有自己的地址空间，这个空间被分为很多块，称为<strong>页</strong>，每一页有连续的地址范围，这些页被映射到物理内存，但并不是所有的页都必须在内存中才能运行程序</p>
+</blockquote>
+<h2 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h2><p>操作系统将物理内存分为很多个页，比如一个页可以是4k</p>
+<p>操作系统还会维护一张<strong>页表</strong>，用来记录每个页是不是被占用了</p>
+<p>在进程眼中，自己拥有整个内存的空间，它会维护一张页表，但是这个页表中存放的是当前页号向操作系统页表页号的映射，以及是否存在</p>
+<p>在CPU要访问内存时，先将逻辑地址送往MMU（内存管理单元）进行映射，得到物理地址，再通过物理地址访问内存</p>
+<p>如果只有一级映射关系的话，MMU所做的工作就是逻辑地址的页框号映射为物理地址的页框号，然后通过偏移去访问对应页框对应地址的内存</p>
+<h2 id="缺页中断"><a href="#缺页中断" class="headerlink" title="缺页中断"></a>缺页中断</h2><p>但是当MMU发现进程要访问的逻辑页没有映射到任何一个物理页时，就会引发一个缺页中断</p>
+<p>例如：</p>
+<p>这里MMU收到了一个逻辑页8，于是他去进程维护的页表中查询8位置对应的物理页，得到了24，但是24号页当前不在内存中，就会引起缺页中断</p>
+<p>这意味着在内存中现在不存在进程要访问的东西，需要从磁盘中读取这个数据。而磁盘IO是慢于CPU的，所以进程需要陷入内核进行IO</p>
+<h2 id="页表"><a href="#页表" class="headerlink" title="页表"></a>页表</h2><p>为了实现分页的功能，页表表项一般长成这样：</p>
+<p><img src="/image/memory_management/1688289818587.png" alt="1688289818587"></p>
+<p>这里我们只介绍其中几个</p>
+<ol>
+<li>Present &#x2F; 出现位<br>这个位告诉我们当前页表是否存在于内存当中</li>
+<li>ReadWrite &#x2F;  保护位<br>这个位用来约束rwx权限</li>
+<li>Dirty &#x2F; 脏位<br>这个位用来表示当前页是否被修改了，如果被修改了需要写回内存</li>
+<li>CacheDisabled &#x2F; 高速缓存禁止位<br>当我们希望读取的数据总是在内存中的最新值而不是从高速缓存中读取，就需要这个位</li>
+</ol>
+<h2 id="加速分页过程"><a href="#加速分页过程" class="headerlink" title="加速分页过程"></a>加速分页过程</h2><p>当内存逐渐增大时，页表会逐渐增大。例如32位机器中，以4k为一个页框的话就会有1m个表项，每个表项占用四个字节（如上图），就需要有4m内存来存放一个页表，而每个进程都需要一个页表，每个进程都至少需要4m来存放一个页表，这是不可接受的</p>
+<p>所以我们使用了两种方法加速分页的过程</p>
+<h3 id="多级页表"><a href="#多级页表" class="headerlink" title="多级页表"></a>多级页表</h3><p>多级页表就类似于看书的时候先通过章的名字大致定位节的位置，然后在某一章的范围内查找某一小节</p>
+<p>其中章的页表叫做<strong>页目录表</strong>，节的页表就叫页表（页项必须连续存储，否则查找次数过多性能太差）</p>
+<p>我们以二级页表为例：</p>
+<p>逻辑地址就不只需要一个逻辑页号了，而是需要一个页表号和一个页号，还有一个偏移</p>
+<p>我们先使用页表号去查找对应页表，然后再去对应页表中映射物理页号。</p>
+<p>假如这里的页表号和页号都是用10位表示，一共有三个页表，那么总共需要$2^{10}*3$&#x3D;16k的空间来存放页，远远小于之前的4m</p>
+<p>实际的系统中（64位），往往需要5~6级页表</p>
+<h3 id="TLB（快表）"><a href="#TLB（快表）" class="headerlink" title="TLB（快表）"></a>TLB（快表）</h3><p>虽然使用了多级页表减少了查找次数，但是依然需要查好几次内存，如果想进一步提升性能，就需要使用TLB</p>
+<p>TLB是一组寄存器，用来存放最近使用的页表映射，TLB可以<em>使用硬件</em>在O1的时间查找所有TLB寄存器</p>
+<p>如果TLB hit，直接去内存中查找即可，如果TLB miss就需要查多级页表，然后将这个页表放入TLB</p>
+<p>我们可以得到平均访问内存时间$t&#x3D;p*(mem+tlb)+(1-p)<em>(tlb+n</em>mem)$</p>
+<p>其中p是TLB hit的概率，mem是访问内存的时间，tlb是访问TLB寄存器的时间，n是多级页表的级数</p>
+<p>一般TLB hit的概率都比较高（局部性原理），所以有了TLB，访问目标的时间就能接近于访问一次内存的时间</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>综上所述，我们知道段是面向用户的，页是面向硬件的。</p>
+<p>将段和页结合起来，操作系统就可以实现对内存的管理</p>
+<p>首先，程序提供一个逻辑地址（段号+偏移），然后这个逻辑地址会映射到虚拟内存，得到虚拟地址，虚拟内存被分成了很多页，根据虚拟地址去查页表，得到页号和偏移，也就是物理地址，最后根据这个物理地址去物理内存中寻找目标。</p>
+<p><img src="/image/memory_management/1688301082288.png" alt="1688301082288"></p>
+<p>一个进程有一个段表和一个页表(但是如果段与段之间没有重合的话，也可以只需要一张页表)，只要建立好了页表和段表，MMU就可以帮助我们做好一切。</p>
+<p>在一个进程执行fork的时候，会将地址空间完全复制一份，包括段表和页表。也就是说，它们并没有开辟多个物理内存，只是复制了一份指针。</p>
+<p>当其中一个进程想要写某一个位置的时候，会发生<strong>写时复制</strong>，子进程在物理内存上映射一个新的页用来存放自己的这个修改的数据，同时也会修改自己的页表，将映射的页框号改为新申请的这个页。注意，这里段表并不会被修改，虽然父子进程映射在虚存的位置是相同的，但是由于页表不同，映射到物理内存的位置也不同。</p>
+<h1 id="内存交换"><a href="#内存交换" class="headerlink" title="内存交换"></a>内存交换</h1><p>由于虚拟内存的存在，每个进程看到的都是完整的线性物理内存，并且这些内存都是可以使用的。</p>
+<p>但是真正的物理内存中，我们知道一个进程绝对没有可能占据所有的物理内存，那这是怎么实现的呢？</p>
+<h2 id="内存换入"><a href="#内存换入" class="headerlink" title="内存换入"></a>内存换入</h2><p>实际上，每个进程将自己的所有资源都放在虚拟内存中，但是虚拟内存不一定都要映射在物理内存中，通常值映射一小部分。</p>
+<blockquote>
+<p>为什么发生缺页中断的时候选择调页而不是调段？</p>
+<p>当发生缺页中断时，通常选择调页（page replacement）而不是调段（segment replacement）的原因如下：</p>
+<ol>
+<li>虚拟内存管理：调页是虚拟内存管理的核心概念之一，而调段并不是常用的虚拟内存管理策略。虚拟内存管理的目标是将进程的地址空间划分为固定大小的页面，以便更高效地管理内存资源。调页是一种粒度较小的管理方式，可以灵活地将进程的页面加载到物理内存中。</li>
+<li>空间利用率：调页策略可以更好地利用物理内存资源。页面的大小通常较小（例如4KB），这使得可以在物理内存中更紧凑地组织页面，并更有效地利用可用的物理内存空间。调页可以实现细粒度的内存管理，按需加载和卸载页面，避免一次性加载整个段所需的大量内存。</li>
+<li>页面局部性：调页能够更好地利用页面局部性原理。页面局部性是指程序倾向于访问临近的内存地址，而不是随机访问内存。调页策略通过在缺页中断时选择置换最不可能被访问的页面，以期望较少发生未来的缺页中断，从而更好地利用页面局部性。</li>
+<li>简化管理：调页比调段更简化了内存管理的复杂性。段的大小可以变化，而且管理可变大小的段会更复杂。调页则可以采用相对固定的页面大小，更容易管理和实现。</li>
+</ol>
+<p>综上所述，调页作为一种常用的虚拟内存管理策略，更适合应对缺页中断和内存管理的需求。它可以更好地利用内存资源、适应页面局部性，并且相对于调段来说更简化内存管理的复杂性。</p>
+</blockquote>
+<p>这就会引出一个问题，当我们想访问的东西没有映射到物理内存应该怎么办呢？</p>
+<p>通常会发生如下过程：</p>
+<ol>
+<li>MMU发现某一个页没有映射，产生缺页中断</li>
+<li>通过中断向量跳转到缺页中断处理程序</li>
+<li>申请新页框，必要的话需要将旧页写回磁盘，这会造成上下文切换</li>
+<li>从磁盘中读入该页，放入新页框</li>
+<li>建立虚拟内存的映射关系，修改页表</li>
+<li>中断返回</li>
+</ol>
+<p>最重要的中断处理程序实际上就做了其中的第4，5，6步，就可以完成内存页的换入。</p>
+<p>在我们想访问任何虚拟内存地址的时候，都可以访问，只不过有一些需要等一会等待换入。</p>
+<h2 id="内存换出"><a href="#内存换出" class="headerlink" title="内存换出"></a>内存换出</h2><p>但是我们知道内存总是有限的，不可能总是开辟新的页，有时还需要将一个不怎么使用的页换出，用来给需要使用的页腾出空间，这就涉及到了内存换出。</p>
+<p>内存换出有如下几种算法：</p>
+<ol>
+<li>最优页面置换算法<br>选择当前所有页中最后被用到的页换出，但是操作系统不可能事先知道那些页在什么时候被用到，所以是不可能实现的</li>
+<li>NRU算法<br>每个页维护R&#x2F;W位，R位在每次时钟周期置为0，换页时随机选择一个RW位编号最小的页面</li>
+<li>FIFO算法<br>先放入的先换出，可能会换出重要页面</li>
+<li>第二次机会算法<br>FIFO的变种，每个页维护一个R位，如果R位被设置就放在页链表的末尾然后置为空，再检查下一个页。如果页R位没有被设置就换出</li>
+<li>时钟算法<br>第二次机会算法的改进，页链表变成了一个环，如果R被设置就置空然后指向下一个页</li>
+<li>LRU算法<br>维护页链表，将最近最多使用的放在前面，最近最少使用的放在后面，但是每次访问内存就要更新链表，很耗费时间，如果有硬件支持会很好</li>
+<li>NFU算法<br>每个页维护一个计数器，每次访问内存就将所有页的R位加到计数器上，每次选择计数器最小的页换出</li>
+<li>老化算法<br>NFU的改良，每个R位都有自己的权重，越久远的R位权重越低（比如可以每次右移然后将R位放到最高位）</li>
+<li>工作集算法<br>根据局部性原理，进程在运行的某个时间只会访问某一部分内存，这部分内存就是它的工作集。<br>如果为一个进程分配的页数不足以容纳它的工作集，就会每执行一小段时间就发生缺页中断，叫做<strong>颠簸</strong><br>工作集算法思路就是每次都换出一个不在工作集中的页，这就需要每个进程维护一个工作集，而这又需要使用一些求工作集的算法，总体开销较大，一种比较好的拟合办法就是设置一个工作集时间t，在t以内使用过的内存就是它的工作集，如果当前时间减去每个页维护的上次使用时间大于t，就说明他不在工作集内。</li>
+<li>工作集时钟算法<br>与时钟算法相似，如果W没有被设置并且生存时间大于t（工作集时间），就说明这个页面是干净的并且不在工作集，就可以换出，否则就检查下一个页。<br>当指针轮转一圈后，如果至少调度了一次写操作，就去调用那个干净的页。如果没有调用写操作，就随机置换一个干净的页，如果不存在干净的页，就将当前页写回磁盘。</li>
+</ol>
+<p>总结：</p>
+<p><img src="/image/memory_management/1688350340706.png" alt="1688350340706"></p>
+<p>总之，最好的算法是老化算法和工作集时钟算法，它们分别给予LRU和工作集。它们都有良好的页面调度能力和比较容易的实现。在实际应用中，这两种算法是重要的。</p>
+<p>为了使分页系统工作良好，仅选择算法是不够的，还要关注很多问题，比如工作集的确定，内存分配算法以及所需的页面大小等。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/alipay.png" alt="deltamaya 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>deltamaya
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://www.deltamaya.top/2023/07/02/memory_management/" title="内存管理">http://www.deltamaya.top/2023/07/02/memory_management/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/deltamaya55369">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://t.me/deltamaya">
+            <span class="icon">
+              <i class="fab fa-telegram"></i>
+            </span>
+
+            <span class="label">Telegram</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://space.bilibili.com/280642105">
+            <span class="icon">
+              <i class="fab fa-bilibili"></i>
+            </span>
+
+            <span class="label">Bilibili</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"><i class="fa fa-tag"></i> 操作系统</a>
+              <a href="/tags/%E5%86%85%E5%AD%98/" rel="tag"><i class="fa fa-tag"></i> 内存</a>
+              <a href="/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> 内存管理</a>
+              <a href="/tags/%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/" rel="tag"><i class="fa fa-tag"></i> 虚拟内存</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/07/02/assmbly_basics/" rel="prev" title="汇编语言基础">
+                  <i class="fa fa-chevron-left"></i> 汇编语言基础
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">deltamaya</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">53k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">48 分钟</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+
+
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>  Work Hard, Play Hard.
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("03/26/2023 20:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+setInterval("createtime()",250);
+</script>
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/deltamaya" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"deltamaya","repo":"blogComments","client_id":"95730dfc2d8326ee8856","client_secret":"50558ab8fe856f5fc5fe6eefd3ef1b981ad279d2","admin_user":"deltamaya","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"f603f312ae7d5c0970f01a98a4e59f75"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>
