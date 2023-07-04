@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic%7CRoboto+Slab:300,300italic,400,400italic,700,700italic%7CPT+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.deltamaya.top","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","width":280,"display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="linux tutorial">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux基础">
+<meta property="og:url" content="http://www.deltamaya.top/2023/07/04/linux_basics/index.html">
+<meta property="og:site_name" content="玛雅55369">
+<meta property="og:description" content="linux tutorial">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-07-04T06:04:11.036Z">
+<meta property="article:modified_time" content="2023-07-04T10:34:16.387Z">
+<meta property="article:author" content="deltamaya">
+<meta property="article:tag" content="操作系统">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://www.deltamaya.top/2023/07/04/linux_basics/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://www.deltamaya.top/2023/07/04/linux_basics/","path":"2023/07/04/linux_basics/","title":"linux基础"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>linux基础 | 玛雅55369</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="玛雅55369" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/uploads/custom-logo.jpg" alt="玛雅55369">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">玛雅55369</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">deltamaya</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#linux%E5%9F%BA%E6%9C%AC%E6%8C%87%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">linux基本指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ls"><span class="nav-number">1.1.</span> <span class="nav-text">ls</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pwd"><span class="nav-number">1.2.</span> <span class="nav-text">pwd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cd"><span class="nav-number">1.3.</span> <span class="nav-text">cd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stat"><span class="nav-number">1.4.</span> <span class="nav-text">stat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#touch"><span class="nav-number">1.5.</span> <span class="nav-text">touch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mkdir"><span class="nav-number">1.6.</span> <span class="nav-text">mkdir</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rmdir-amp-rm"><span class="nav-number">1.7.</span> <span class="nav-text">rmdir&amp;rm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#man"><span class="nav-number">1.8.</span> <span class="nav-text">man</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cp"><span class="nav-number">1.9.</span> <span class="nav-text">cp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mv"><span class="nav-number">1.10.</span> <span class="nav-text">mv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cat"><span class="nav-number">1.11.</span> <span class="nav-text">cat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#head-amp-tail"><span class="nav-number">1.12.</span> <span class="nav-text">head&amp;tail</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#less"><span class="nav-number">1.13.</span> <span class="nav-text">less</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find"><span class="nav-number">1.14.</span> <span class="nav-text">find</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#grep"><span class="nav-number">1.15.</span> <span class="nav-text">grep</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zip-amp-unzip"><span class="nav-number">1.16.</span> <span class="nav-text">zip&amp;unzip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tar"><span class="nav-number">1.17.</span> <span class="nav-text">tar</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#date"><span class="nav-number">1.18.</span> <span class="nav-text">date</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cal"><span class="nav-number">1.19.</span> <span class="nav-text">cal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#uname"><span class="nav-number">1.20.</span> <span class="nav-text">uname</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mount-amp-umount"><span class="nav-number">1.21.</span> <span class="nav-text">mount&amp;umount</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ifconfig"><span class="nav-number">1.22.</span> <span class="nav-text">ifconfig</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#top"><span class="nav-number">1.23.</span> <span class="nav-text">top</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#free"><span class="nav-number">1.24.</span> <span class="nav-text">free</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chmod"><span class="nav-number">1.25.</span> <span class="nav-text">chmod</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chgrp"><span class="nav-number">1.26.</span> <span class="nav-text">chgrp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#umask"><span class="nav-number">1.27.</span> <span class="nav-text">umask</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#su"><span class="nav-number">1.28.</span> <span class="nav-text">su</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rz-amp-sz"><span class="nav-number">1.29.</span> <span class="nav-text">rz&amp;sz</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">文件类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vim%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">vim基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.1.</span> <span class="nav-text">插入模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E5%85%89%E6%A0%87"><span class="nav-number">3.1.1.</span> <span class="nav-text">移动光标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%96%87%E5%AD%97"><span class="nav-number">3.1.2.</span> <span class="nav-text">删除文字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6"><span class="nav-number">3.1.3.</span> <span class="nav-text">复制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%BF%E6%8D%A2"><span class="nav-number">3.1.4.</span> <span class="nav-text">替换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%92%A4%E9%94%80%E4%B8%8A%E4%B8%80%E6%AC%A1%E6%93%8D%E4%BD%9C"><span class="nav-number">3.1.5.</span> <span class="nav-text">撤销上一次操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9"><span class="nav-number">3.1.6.</span> <span class="nav-text">更改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%B3%E8%87%B3%E6%8C%87%E5%AE%9A%E7%9A%84%E8%A1%8C"><span class="nav-number">3.1.7.</span> <span class="nav-text">跳至指定的行</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="deltamaya"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">deltamaya</p>
+  <div class="site-description" itemprop="description">好好干，好好活</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/deltamaya" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;deltamaya" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/deltamaya55369" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;deltamaya55369" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/deltamaya" title="Telegram → https:&#x2F;&#x2F;t.me&#x2F;deltamaya" rel="noopener me" target="_blank"><i class="fab fa-telegram fa-fw"></i>Telegram</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://discord.com/channels/deltamaya#1139" title="Discord → https:&#x2F;&#x2F;discord.com&#x2F;channels&#x2F;deltamaya#1139" rel="noopener me" target="_blank"><i class="fab fa-discord fa-fw"></i>Discord</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://steamcommunity.com/id/deltamaya/" title="Steam → https:&#x2F;&#x2F;steamcommunity.com&#x2F;id&#x2F;deltamaya&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-steam fa-fw"></i>Steam</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://openai.com/blog/chatgpt/" title="https:&#x2F;&#x2F;openai.com&#x2F;blog&#x2F;chatgpt&#x2F;" rel="noopener" target="_blank">ChatGPT</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.deltamaya.top/2023/07/04/linux_basics/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="deltamaya">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="玛雅55369">
+      <meta itemprop="description" content="好好干，好好活">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="linux基础 | 玛雅55369">
+      <meta itemprop="description" content="linux tutorial">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          linux基础
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-07-04 14:04:11 / 修改时间：18:34:16" itemprop="dateCreated datePublished" datetime="2023-07-04T14:04:11+08:00">2023-07-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">linux tutorial</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="linux基本指令"><a href="#linux基本指令" class="headerlink" title="linux基本指令"></a>linux基本指令</h2><h3 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h3><p>short for list</p>
+<p>ls [path] [options]</p>
+<p>打印某个目录（默认是工作目录）下的文件&#x2F;目录</p>
+<p>常用选项：</p>
+<ul>
+<li>-a 打印隐藏文件</li>
+<li>-l 打印更多信息（ls -l 可简写为ll）</li>
+<li>-d 将文件夹像文件一样显示</li>
+<li>-t 以时间排序</li>
+<li>-R 列出子目录下的文件</li>
+</ul>
+<h3 id="pwd"><a href="#pwd" class="headerlink" title="pwd"></a>pwd</h3><p>short for print working directory</p>
+<p>打印工作目录</p>
+<h3 id="cd"><a href="#cd" class="headerlink" title="cd"></a>cd</h3><p>short for change directory</p>
+<p>cd [path]</p>
+<p>更换工作目录</p>
+<p>linux中使用 <code>.</code>表示当前目录， <code>..</code>表示上级目录， <code>/</code>表示根目录</p>
+<p><code>cd ~</code>切换到用户目录</p>
+<p><code>cd -</code>切换到上一个工作目录</p>
+<h3 id="stat"><a href="#stat" class="headerlink" title="stat"></a>stat</h3><p>stat [file]</p>
+<p>用于展示文件属性(size&#x2F;access&#x2F;modify&#x2F;change&#x2F;uid&#x2F;gid)</p>
+<h3 id="touch"><a href="#touch" class="headerlink" title="touch"></a>touch</h3><p>用于更改文件的access&#x2F;modify&#x2F;change时间，也可以用于创建文件</p>
+<blockquote>
+<p>access时间是访问权限，理论上是最常被更改的，但是为了减少磁盘IO设置为了隔一段时间更改一次</p>
+<p>modify是修改文件内容的时间</p>
+<p>change是修改文件属性的时间（文件属性一般包括权限、大小等）</p>
+</blockquote>
+<p>touch [file] [options]</p>
+<p>常用选项:</p>
+<ul>
+<li>-a 更改access时间，同时也会修改change</li>
+<li>-t 使用特定的时间，不是当前时间（日期格式：）</li>
+</ul>
+<h3 id="mkdir"><a href="#mkdir" class="headerlink" title="mkdir"></a>mkdir</h3><p>mkdir [path&#x2F;name]</p>
+<p>在path路径下创建一个name名字的文件夹</p>
+<p>常用选项：</p>
+<ul>
+<li>-p（–parent）递归创建文件夹</li>
+</ul>
+<h3 id="rmdir-amp-rm"><a href="#rmdir-amp-rm" class="headerlink" title="rmdir&amp;rm"></a>rmdir&amp;rm</h3><p>rm [path&#x2F;name]</p>
+<p>删除文件&#x2F;目录</p>
+<p>常用选项：</p>
+<ul>
+<li>-r 递归删除</li>
+<li>-f 强制删除不询问</li>
+<li>-i 交互删除询问</li>
+</ul>
+<p>ps：rmdir只能删除空文件夹</p>
+<h3 id="man"><a href="#man" class="headerlink" title="man"></a>man</h3><p>short for manual</p>
+<p>大名鼎鼎的RTFM</p>
+<p>man [index] [command]</p>
+<p>常用目录：</p>
+<ul>
+<li>1 linux指令页</li>
+<li>2 系统调用页</li>
+<li>3 c库函数页</li>
+<li>8 系统管理指令页</li>
+</ul>
+<p>常用选项：</p>
+<ul>
+<li>-a 从所有目录中查找</li>
+</ul>
+<h3 id="cp"><a href="#cp" class="headerlink" title="cp"></a>cp</h3><p>short for copy</p>
+<p>copy [file] [path]</p>
+<p>复制文件file到路径path下</p>
+<p>常用选项：</p>
+<ul>
+<li>-r 递归处理子文件和目录</li>
+<li>-i 交互询问是否覆盖文件</li>
+<li>-f 强制拷贝并覆盖</li>
+</ul>
+<h3 id="mv"><a href="#mv" class="headerlink" title="mv"></a>mv</h3><p>short for move</p>
+<p>mv [source&#x2F;name] [destination&#x2F;name]</p>
+<p>从source路径移动到destination路径</p>
+<p>也可以用于文件改名</p>
+<p>常用选项与cp一致</p>
+<h3 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h3><p>cat [path&#x2F;name]</p>
+<p>常用选项：</p>
+<ul>
+<li>-b 对非空输出行编号</li>
+<li>-n 对输出的所有行编号</li>
+<li>-s 不输出多行空行</li>
+</ul>
+<h3 id="head-amp-tail"><a href="#head-amp-tail" class="headerlink" title="head&amp;tail"></a>head&amp;tail</h3><p>查看文件前&#x2F;后 n行</p>
+<p>head&#x2F;tail -number [file]</p>
+<h3 id="less"><a href="#less" class="headerlink" title="less"></a>less</h3><p>常用选项：</p>
+<ul>
+<li>-i  忽略搜索时的大小写</li>
+<li>-N  显示每行的行号</li>
+<li>&#x2F;字符串：向下搜索“字符串”的功能</li>
+<li>?字符串：向上搜索“字符串”的功能</li>
+<li>n：重复前一个搜索（与 &#x2F; 或 ? 有关）</li>
+<li>N：反向重复前一个搜索（与 &#x2F; 或 ? 有关）</li>
+<li>q:quit</li>
+</ul>
+<h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><p>find [path&#x2F;name] [options]</p>
+<p>在文件树中查找文件</p>
+<p>常用选项：</p>
+<ul>
+<li>-name 根据名字查找文件</li>
+</ul>
+<p>例如： <code>find /home/deltamaya -name test.c</code></p>
+<p>查找deltamaya家目录下名为test.c的文件</p>
+<h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><p>short for global regular expression</p>
+<p>grep [options] [target] [file]</p>
+<p>常用选项：</p>
+<ul>
+<li>-i ：忽略大小写的不同，所以大小写视为相同</li>
+<li>-n ：顺便输出行号</li>
+<li>-v ：反向选择，亦即显示出没有 ‘搜寻字符串’ 内容的那一行</li>
+</ul>
+<p>例如：<code>grep -n fork fork.cc</code></p>
+<p>在fork.cc文件中使用正则表达式搜索fork字符串，并且输出行号</p>
+<h3 id="zip-amp-unzip"><a href="#zip-amp-unzip" class="headerlink" title="zip&amp;unzip"></a>zip&amp;unzip</h3><p>例子：</p>
+<p><code>zip -r test.zip test.asm test.c test.o</code></p>
+<p><code>unzip -f test.zip</code></p>
+<h3 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h3><p>文件的压缩和解压</p>
+<p>常用选项：</p>
+<ul>
+<li>-c ：建立一个压缩文件的参数指令(create 的意思)；</li>
+<li>-x ：解开一个压缩文件的参数指令！</li>
+<li>-t ：查看 tarfile 里面的文件！</li>
+<li>-z ：是否同时具有 gzip 的属性？亦即是否需要用 gzip 压缩？</li>
+<li>-j ：是否同时具有 bzip2 的属性？亦即是否需要用 bzip2 压缩？</li>
+<li>-v ：压缩的过程中显示文件！这个常用，但不建议用在背景执行过程！</li>
+<li>-f ：使用档名，请留意，在 f 之后要立即接档名喔！不要再加参数！</li>
+<li>-C ： 解压到指定目录</li>
+</ul>
+<p>例子：</p>
+<p><code>tar -zcv test.c test.o -f test.tar.gz</code></p>
+<p>将test.c test.o打包并使用gz压缩为test.tar.gz</p>
+<p><code>tar -xvf test.tar.gz -C ./d1</code></p>
+<p>从test.tar.gz中解压放入d1目录中</p>
+<h3 id="date"><a href="#date" class="headerlink" title="date"></a>date</h3><p>date +[format]</p>
+<p>格式：</p>
+<ul>
+<li>%H : 小时(00..23)</li>
+<li>%M : 分钟(00..59)</li>
+<li>%S : 秒(00..61)</li>
+<li>%X : 相当于 %H:%M:%S</li>
+<li>%d : 日 (01..31)</li>
+<li>%m : 月份 (01..12)</li>
+<li>%Y : 完整年份 (0000..9999)</li>
+<li>%F : 相当于 %Y-%m-%d</li>
+</ul>
+<h3 id="cal"><a href="#cal" class="headerlink" title="cal"></a>cal</h3><p>cal [year]</p>
+<p>打印年year的日历</p>
+<h3 id="uname"><a href="#uname" class="headerlink" title="uname"></a>uname</h3><p>获取当前系统的信息</p>
+<p>常用选项：</p>
+<ul>
+<li>-a 展示全部信息</li>
+</ul>
+<h3 id="mount-amp-umount"><a href="#mount-amp-umount" class="headerlink" title="mount&amp;umount"></a>mount&amp;umount</h3><p>挂载&#x2F;卸载文件系统</p>
+<h3 id="ifconfig"><a href="#ifconfig" class="headerlink" title="ifconfig"></a>ifconfig</h3><p>展示网络信息</p>
+<h3 id="top"><a href="#top" class="headerlink" title="top"></a>top</h3><p>展示cpu占用</p>
+<h3 id="free"><a href="#free" class="headerlink" title="free"></a>free</h3><p>展示内存占用</p>
+<h3 id="chmod"><a href="#chmod" class="headerlink" title="chmod"></a>chmod</h3><p>chmod [options] [expression] [file]</p>
+<p>exp可以使用a&#x2F;u&#x2F;g&#x2F;o +&#x2F;- r&#x2F;w&#x2F;x</p>
+<p>或者只用三个八进制数字</p>
+<p>更改文件访问权限</p>
+<h3 id="chgrp"><a href="#chgrp" class="headerlink" title="chgrp"></a>chgrp</h3><p>更改文件所属组</p>
+<h3 id="umask"><a href="#umask" class="headerlink" title="umask"></a>umask</h3><p>查看权限掩码</p>
+<h3 id="su"><a href="#su" class="headerlink" title="su"></a>su</h3><p>切换用户</p>
+<h3 id="rz-amp-sz"><a href="#rz-amp-sz" class="headerlink" title="rz&amp;sz"></a>rz&amp;sz</h3><h2 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h2><ul>
+<li>d：文件夹</li>
+<li>-：普通文件</li>
+<li>l：软链接（类似Windows的快捷方式）</li>
+<li>b：块设备文件（例如硬盘、光驱等）</li>
+<li>p：管道文件</li>
+<li>c：字符设备文件（例如屏幕等串口设备）</li>
+<li>s：套接口文件</li>
+</ul>
+<h2 id="vim基本使用"><a href="#vim基本使用" class="headerlink" title="vim基本使用"></a>vim基本使用</h2><h3 id="插入模式"><a href="#插入模式" class="headerlink" title="插入模式"></a>插入模式</h3><ul>
+<li>按「i」切换进入插入模式「insert mode」，按“i”进入插入模式后是从光标当前位置开始输入文件；</li>
+<li>按「a」进入插入模式后，是从目前光标所在位置的下一个位置开始输入文字；</li>
+<li>按「o」进入插入模式后，是插入新的一行，从行首开始输入文字。<br>从插入模式切换为命令模式<br>按「ESC」键。</li>
+</ul>
+<h4 id="移动光标"><a href="#移动光标" class="headerlink" title="移动光标"></a>移动光标</h4><ul>
+<li>vim可以直接用键盘上的光标来上下左右移动，但正规的vim是用小写英文字母「h」、「j」、「k」、<br>「l」，分别控制光标左、下、上、右移一格</li>
+<li>按「G」：移动到文章的最后</li>
+<li>按「 $ 」：移动到光标所在行的“行尾”</li>
+<li>按「^」：移动到光标所在行的“行首”</li>
+<li>按「w」：光标跳到下个字的开头</li>
+<li>按「e」：光标跳到下个字的字尾</li>
+<li>按「b」：光标回到上个字的开头</li>
+<li>按「#l」：光标移到该行的第#个位置，如：5l,56l</li>
+<li>按［gg］：进入到文本开始</li>
+<li>按［shift＋g］：进入文本末端</li>
+<li>按「ctrl」+「b」：屏幕往“后”移动一页</li>
+<li>按「ctrl」+「f」：屏幕往“前”移动一页</li>
+<li>按「ctrl」+「u」：屏幕往“后”移动半页</li>
+<li>按「ctrl」+「d」：屏幕往“前”移动半页</li>
+</ul>
+<h4 id="删除文字"><a href="#删除文字" class="headerlink" title="删除文字"></a>删除文字</h4><p>「x」：每按一次，删除光标所在位置的一个字符<br>「#x」：例如，「6x」表示删除光标所在位置的“后面（包含自己在内）”6个字符<br>「X」：大写的X，每按一次，删除光标所在位置的“前面”一个字符<br>「#X」：例如，「20X」表示删除光标所在位置的“前面”20个字符<br>「dd」：删除光标所在行<br>「#dd」：从光标所在行开始删除#行</p>
+<h4 id="复制"><a href="#复制" class="headerlink" title="复制"></a>复制</h4><p>「yw」：将光标所在之处到字尾的字符复制到缓冲区中。<br>「#yw」：复制#个字到缓冲区<br>「yy」：复制光标所在行到缓冲区。<br>「#yy」：例如，「6yy」表示拷贝从光标所在的该行“往下数”6行文字。<br>「p」：将缓冲区内的字符贴到光标所在位置。注意：所有与“y”有关的复制命令都必须与“p”配合才能完<br>成复制与粘贴功能。</p>
+<h4 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h4><p>「r」：替换光标所在处的字符。<br>「R」：替换光标所到之处的字符，直到按下「ESC」键为止。</p>
+<h4 id="撤销上一次操作"><a href="#撤销上一次操作" class="headerlink" title="撤销上一次操作"></a>撤销上一次操作</h4><p>「u」：如果您误执行一个命令，可以马上按下「u」，回到上一个操作。按多次“u”可以执行多次回<br>复。<br>「ctrl + r」: 撤销的恢复</p>
+<h4 id="更改"><a href="#更改" class="headerlink" title="更改"></a>更改</h4><p>「cw」：更改光标所在处的字到字尾处<br>「c#w」：例如，「c3w」表示更改3个字</p>
+<h4 id="跳至指定的行"><a href="#跳至指定的行" class="headerlink" title="跳至指定的行"></a>跳至指定的行</h4><p>「ctrl」+「g」列出光标所在行的行号。<br>「#G」：例如，「15G」，表示移动光标至文章的第15行行首。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/alipay.png" alt="deltamaya 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>deltamaya
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://www.deltamaya.top/2023/07/04/linux_basics/" title="linux基础">http://www.deltamaya.top/2023/07/04/linux_basics/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/deltamaya55369">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://t.me/deltamaya">
+            <span class="icon">
+              <i class="fab fa-telegram"></i>
+            </span>
+
+            <span class="label">Telegram</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://space.bilibili.com/280642105">
+            <span class="icon">
+              <i class="fab fa-bilibili"></i>
+            </span>
+
+            <span class="label">Bilibili</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"><i class="fa fa-tag"></i> 操作系统</a>
+              <a href="/tags/linux/" rel="tag"><i class="fa fa-tag"></i> linux</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/07/04/file_system/" rel="prev" title="文件系统">
+                  <i class="fa fa-chevron-left"></i> 文件系统
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/07/04/makefile_tutorial/" rel="next" title="makefile入门">
+                  makefile入门 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">deltamaya</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">56k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">51 分钟</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+
+
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>  Work Hard, Play Hard.
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("03/26/2023 20:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+setInterval("createtime()",250);
+</script>
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/deltamaya" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"deltamaya","repo":"blogComments","client_id":"95730dfc2d8326ee8856","client_secret":"50558ab8fe856f5fc5fe6eefd3ef1b981ad279d2","admin_user":"deltamaya","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"5c572bb24bce316948457503459d9829"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>
