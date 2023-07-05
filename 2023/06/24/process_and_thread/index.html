@@ -28,13 +28,27 @@
 <meta property="og:site_name" content="玛雅55369">
 <meta property="og:description" content="简要介绍进程与线程">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.deltamaya.top/image/process_and_thread/1688553171955.png">
+<meta property="og:image" content="http://www.deltamaya.top/image/operating_system_intro/1688550603814.png">
+<meta property="og:image" content="http://www.deltamaya.top/image/operating_system_intro/1688551212736.png">
+<meta property="og:image" content="http://www.deltamaya.top/image/process_and_thread/1688551639905.png">
+<meta property="og:image" content="http://www.deltamaya.top/image/process_and_thread/1688553207017.png">
+<meta property="og:image" content="http://www.deltamaya.top/image/process_and_thread/1688553351031.png">
+<meta property="og:image" content="http://www.deltamaya.top/image/process_and_thread/1688553328943.png">
+<meta property="og:image" content="http://www.deltamaya.top/image/process_and_thread/1688553089909.png">
+<meta property="og:image" content="http://www.deltamaya.top/image/process_and_thread/1688554225634.png">
+<meta property="og:image" content="http://www.deltamaya.top/image/process_and_thread/1688554499757.png">
+<meta property="og:image" content="http://www.deltamaya.top/image/process_and_thread/1688554777394.png">
+<meta property="og:image" content="http://www.deltamaya.top/image/process_and_thread/1688555296730.png">
+<meta property="og:image" content="http://www.deltamaya.top/image/process_and_thread/1688555884892.png">
 <meta property="article:published_time" content="2023-06-24T01:53:37.813Z">
-<meta property="article:modified_time" content="2023-07-04T01:37:55.629Z">
+<meta property="article:modified_time" content="2023-07-05T12:15:01.225Z">
 <meta property="article:author" content="deltamaya">
 <meta property="article:tag" content="操作系统">
 <meta property="article:tag" content="进程">
 <meta property="article:tag" content="线程">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.deltamaya.top/image/process_and_thread/1688553171955.png">
 
 
 <link rel="canonical" href="http://www.deltamaya.top/2023/06/24/process_and_thread/">
@@ -146,7 +160,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="nav-number">1.1.</span> <span class="nav-text">进程的创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%88%E6%AD%A2"><span class="nav-number">1.2.</span> <span class="nav-text">进程的终止</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.</span> <span class="nav-text">进程的层次结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81"><span class="nav-number">1.4.</span> <span class="nav-text">进程的状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.5.</span> <span class="nav-text">进程的实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">线程的实现方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%A9%BA%E9%97%B4"><span class="nav-number">2.1.1.</span> <span class="nav-text">用户空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E6%A0%B8"><span class="nav-number">2.1.2.</span> <span class="nav-text">内核</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1"><span class="nav-number">3.</span> <span class="nav-text">进程间通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E4%BC%A0%E9%80%92%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%A6%81%E7%82%B9"><span class="nav-number">3.0.1.</span> <span class="nav-text">信息传递系统的要点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E7%AE%B1"><span class="nav-number">3.0.2.</span> <span class="nav-text">信箱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%8F%E9%9A%9C"><span class="nav-number">3.0.3.</span> <span class="nav-text">屏障</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6"><span class="nav-number">4.</span> <span class="nav-text">调度</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%95%E6%97%B6%E8%B0%83%E5%BA%A6"><span class="nav-number">4.1.</span> <span class="nav-text">何时调度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E6%8A%A2%E5%8D%A0%E5%BC%8F"><span class="nav-number">4.1.1.</span> <span class="nav-text">非抢占式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%A2%E5%8D%A0%E5%BC%8F"><span class="nav-number">4.1.2.</span> <span class="nav-text">抢占式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E5%88%86%E7%B1%BB"><span class="nav-number">4.2.</span> <span class="nav-text">调度算法分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%B9%E5%A4%84%E7%90%86"><span class="nav-number">4.2.1.</span> <span class="nav-text">批处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%88%E5%88%B0%E5%85%88%E6%9C%8D%E5%8A%A1"><span class="nav-number">4.2.1.1.</span> <span class="nav-text">先到先服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E7%9F%AD%E4%BD%9C%E4%B8%9A%E4%BC%98%E5%85%88"><span class="nav-number">4.2.1.2.</span> <span class="nav-text">最短作业优先</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E4%BA%92%E5%BC%8F%E7%B3%BB%E7%BB%9F"><span class="nav-number">4.2.2.</span> <span class="nav-text">交互式系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%AE%E8%BD%AC%E8%B0%83%E5%BA%A6"><span class="nav-number">4.2.2.1.</span> <span class="nav-text">轮转调度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%85%88%E7%BA%A7%E8%B0%83%E5%BA%A6"><span class="nav-number">4.2.2.2.</span> <span class="nav-text">优先级调度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E7%9F%AD%E8%BF%9B%E7%A8%8B%E4%BC%98%E5%85%88"><span class="nav-number">4.2.2.3.</span> <span class="nav-text">最短进程优先</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="nav-number">1.1.</span> <span class="nav-text">进程的创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD"><span class="nav-number">1.2.</span> <span class="nav-text">中断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%88%E6%AD%A2"><span class="nav-number">1.3.</span> <span class="nav-text">进程的终止</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="nav-number">1.4.</span> <span class="nav-text">进程的层次结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81"><span class="nav-number">1.5.</span> <span class="nav-text">进程的状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.6.</span> <span class="nav-text">进程的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%98%A0%E5%83%8F"><span class="nav-number">1.7.</span> <span class="nav-text">进程映像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6%E5%9D%97"><span class="nav-number">1.8.</span> <span class="nav-text">进程控制块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E5%99%A8%E7%8A%B6%E6%80%81%E4%BF%A1%E6%81%AF"><span class="nav-number">1.9.</span> <span class="nav-text">处理器状态信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%A2%E5%8D%A0"><span class="nav-number">1.10.</span> <span class="nav-text">抢占</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2"><span class="nav-number">1.11.</span> <span class="nav-text">交换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%89%A7%E8%A1%8C"><span class="nav-number">2.</span> <span class="nav-text">进程的执行</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text">运行模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%88%87%E6%8D%A2"><span class="nav-number">2.2.</span> <span class="nav-text">进程切换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%BC%8F%E5%88%87%E6%8D%A2"><span class="nav-number">2.3.</span> <span class="nav-text">模式切换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95"><span class="nav-number">3.1.</span> <span class="nav-text">线程的实现方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%A9%BA%E9%97%B4"><span class="nav-number">3.1.1.</span> <span class="nav-text">用户空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E6%A0%B8"><span class="nav-number">3.1.2.</span> <span class="nav-text">内核</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1"><span class="nav-number">4.</span> <span class="nav-text">进程间通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E4%BC%A0%E9%80%92%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%A6%81%E7%82%B9"><span class="nav-number">4.0.1.</span> <span class="nav-text">信息传递系统的要点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E7%AE%B1"><span class="nav-number">4.0.2.</span> <span class="nav-text">信箱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%8F%E9%9A%9C"><span class="nav-number">4.0.3.</span> <span class="nav-text">屏障</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6"><span class="nav-number">5.</span> <span class="nav-text">调度</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%95%E6%97%B6%E8%B0%83%E5%BA%A6"><span class="nav-number">5.1.</span> <span class="nav-text">何时调度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E6%8A%A2%E5%8D%A0%E5%BC%8F"><span class="nav-number">5.1.1.</span> <span class="nav-text">非抢占式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%A2%E5%8D%A0%E5%BC%8F"><span class="nav-number">5.1.2.</span> <span class="nav-text">抢占式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E5%88%86%E7%B1%BB"><span class="nav-number">5.2.</span> <span class="nav-text">调度算法分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%B9%E5%A4%84%E7%90%86"><span class="nav-number">5.2.1.</span> <span class="nav-text">批处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%88%E5%88%B0%E5%85%88%E6%9C%8D%E5%8A%A1"><span class="nav-number">5.2.1.1.</span> <span class="nav-text">先到先服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E7%9F%AD%E4%BD%9C%E4%B8%9A%E4%BC%98%E5%85%88"><span class="nav-number">5.2.1.2.</span> <span class="nav-text">最短作业优先</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E4%BA%92%E5%BC%8F%E7%B3%BB%E7%BB%9F"><span class="nav-number">5.2.2.</span> <span class="nav-text">交互式系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%AE%E8%BD%AC%E8%B0%83%E5%BA%A6"><span class="nav-number">5.2.2.1.</span> <span class="nav-text">轮转调度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%85%88%E7%BA%A7%E8%B0%83%E5%BA%A6"><span class="nav-number">5.2.2.2.</span> <span class="nav-text">优先级调度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E7%9F%AD%E8%BF%9B%E7%A8%8B%E4%BC%98%E5%85%88"><span class="nav-number">5.2.2.3.</span> <span class="nav-text">最短进程优先</span></a></li></ol></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -271,7 +285,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-07-04 09:37:55" itemprop="dateModified" datetime="2023-07-04T09:37:55+08:00">2023-07-04</time>
+      <time title="修改时间：2023-07-05 20:15:01" itemprop="dateModified" datetime="2023-07-05T20:15:01+08:00">2023-07-05</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -297,14 +311,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.6k</span>
+      <span>6.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>6 分钟</span>
     </span>
 </div>
 
@@ -322,31 +336,48 @@
 <p>进程在内存中一般有如下几个组成：</p>
 <p>地址空间、全局变量、打开文件、子进程、即将发生的定时器、信号与信号处理程序、账户信息</p>
 <h2 id="进程的创建"><a href="#进程的创建" class="headerlink" title="进程的创建"></a>进程的创建</h2><p>何时会发生进程创建？</p>
-<ol>
-<li>系统初始化</li>
-<li>正在运行的程序调用创建进程的系统调用</li>
-<li>用户请求创建一个进程</li>
-<li>一个批处理程序的初始化</li>
-</ol>
+<p><img src="/image/process_and_thread/1688553171955.png" alt="1688553171955"></p>
 <p>进程可以分为前台进程和后台进程。</p>
 <p>还有一种后台进程大部分时间都在睡眠，当某些请求到达时会被唤醒，叫做守护进程</p>
 <p>在UNIX中提供了 <code>fork()</code>系统调用用来创建一个子进程，给父进程返回子进程的pid，给子进程返回0</p>
 <p>进程创建之后，父进程和子进程拥有不同的地址空间</p>
-<h2 id="进程的终止"><a href="#进程的终止" class="headerlink" title="进程的终止"></a>进程的终止</h2><p>在以下情况进程会终止：</p>
+<p>当操作系统创建新进程时，会执行以下步骤：</p>
 <ol>
-<li>正常退出（自愿的）</li>
-<li>出错退出（自愿的</li>
-<li>严重错误（非自愿</li>
-<li>被其他进程杀死（非自愿</li>
+<li>分配进程控制块（Process Control Block，PCB）：操作系统为新进程分配一个数据结构，称为进程控制块（PCB）。PCB用于存储和管理进程的相关信息，包括进程状态、标识符、优先级、程序计数器、寄存器值、内存分配、打开文件列表等。</li>
+<li>分配虚拟地址空间：操作系统为新进程分配虚拟地址空间。虚拟地址空间是进程独立的内存空间，用于存储进程的代码、数据和堆栈。根据进程的需求和操作系统的内存管理策略，分配的虚拟地址空间可能是连续的或分散的。</li>
+<li>加载程序：操作系统根据新进程的可执行文件或程序映像，将程序的指令和数据加载到进程的虚拟地址空间中。这包括将程序的可执行代码加载到代码段、初始化数据加载到数据段，并为堆栈分配空间。</li>
+<li>初始化进程上下文：操作系统会初始化新进程的上下文，包括设置程序计数器（PC）指向程序的入口点，设置栈指针（SP）指向堆栈的起始位置，初始化寄存器等。这样，在执行新进程时，CPU将从程序的入口点开始执行。</li>
+<li>设置进程状态：操作系统将新进程的状态设置为就绪状态（Ready），表示它已准备好执行，并可以被调度。</li>
+<li>将新进程添加到进程调度队列：操作系统将新进程添加到适当的进程调度队列中，以便调度器可以选择合适的时间将处理器分配给该进程。</li>
+<li>返回到调用者：操作系统将控制权返回给创建新进程的调用者。通常，创建进程的系统调用在创建进程完成后会返回新进程的标识符或进程句柄，以便调用者可以继续执行其他任务。</li>
 </ol>
+<p>这些步骤可以根据操作系统的实现和特定需求有所不同，但通常包括了进程控制块的分配、地址空间的分配和加载、上下文初始化、状态设置和进程调度等关键操作，以确保新进程能够被操作系统正确管理和调度。</p>
+<h2 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h2><p>中断会打断当前程序的运行，中断发生时，将当前程序跳转到一个中断处理程序（interrupt service）中，用来处理这个中断的事件。例如IO完成时会调用IO中断，中断处理程序就会设置IO的各个属性，使之能够继续接受作业。</p>
+<p><img src="/image/operating_system_intro/1688550603814.png" alt="1688550603814"></p>
+<p>虽然为了实现中断需要在每个指令周期内去判断中断是否发生，看起来减慢了程序的执行速度，但实际上中断可以提高程序的实行效率</p>
+<p><img src="/image/operating_system_intro/1688551212736.png" alt="1688551212736"></p>
+<p>看这个图中，第一个IO操作开始时，IO设备会给处理器发送中断信号，打断处理器等待IO结束的过程，转而去执行2a操作，IO结束时也会发送中断信号，让处理器返回继续执行刚才的程序5</p>
+<p><img src="/image/process_and_thread/1688551639905.png" alt="1688551639905"></p>
+<p>我们可以看到，中断执行时处理器会将PSW和PC压入系统控制栈，这是在为进程切换做准备。</p>
+<p>图中，保存完PSW和PC之后会从中断向量装入这类中断对应的中断处理程序的地址，每类中断都有一个中断处理程序</p>
+<p>最后，我们应该为中断设置优先级，来实现高效的多级中断</p>
+<h2 id="进程的终止"><a href="#进程的终止" class="headerlink" title="进程的终止"></a>进程的终止</h2><p>在以下情况进程会终止：</p>
+<p><img src="/image/process_and_thread/1688553207017.png" alt="1688553207017"></p>
 <p>出错退出是指进程自己发现了非法操作，自己调用 <code>exit</code>退出程序</p>
 <p>严重错误是指进程没有发现的错误，比如除数是0，操作系统会自动结束这个出错进程</p>
 <h2 id="进程的层次结构"><a href="#进程的层次结构" class="headerlink" title="进程的层次结构"></a>进程的层次结构</h2><p>在UNIX中，进程和他的所有子进程成为一个<strong>进程组</strong></p>
 <p>UNIX在启动时，会初始化一个init进程，init被载入内存映像之后，接受一个说明终端数量的文件，接着，为每个终端创建一个新进程</p>
 <p>Windows中没有子进程的概念，唯一相似的概念是在进程创建一个新进程之后会返回一个<strong>进程句柄</strong>，父进程可以使用这个句柄对子进程进行控制</p>
 <h2 id="进程的状态"><a href="#进程的状态" class="headerlink" title="进程的状态"></a>进程的状态</h2><p>进程有运行态，就绪态和挂起态</p>
+<p><img src="/image/process_and_thread/1688553351031.png" alt="1688553351031"></p>
+<p>运行态就是正在处理器中运行的</p>
+<p>就绪态就是还处于内存中，但是正在等待CPU</p>
+<p>挂起态就是因为内存空间不够了，导致部分进程需要从内存转移到硬盘，挂起进程不能立即执行</p>
+<p>为了阻止某个进程执行，可以通过某个代理将这个进程挂起，这个代理可以是进程本身，也可以是父进程</p>
+<p><img src="/image/process_and_thread/1688553328943.png" alt="1688553328943"></p>
 <p>操作系统的最底层是调度程序，在它上面有许多进程。</p>
 <h2 id="进程的实现"><a href="#进程的实现" class="headerlink" title="进程的实现"></a>进程的实现</h2><p>操作系统维护了一张<strong>进程表</strong>，每个进程就是一个表项，也叫PCB（进程控制块）</p>
+<p><img src="/image/process_and_thread/1688553089909.png" alt="1688553089909"></p>
 <p>每个表项中有这些属性：</p>
 <ol>
 <li>进程管理<ol>
@@ -370,6 +401,11 @@
 </ol>
 </li>
 </ol>
+<p>此外，操作系统还维护了一张<strong>内存表</strong>、一张<strong>IO表</strong>和一张<strong>文件表</strong></p>
+<p><img src="/image/process_and_thread/1688554225634.png" alt="1688554225634"></p>
+<p>其中，内存表用来记录哪些内存，哪些外存分配给了进程，以及每个内存块的保护属性</p>
+<p>IO表用来记录每个IO设备和通道的属性，每个表项要么正在被使用，要么可以使用</p>
+<p>文件表，由文件系统维护和使用，记录每个文件是否存在、在外存中的位置、以及文件属性</p>
 <p>每一类中断都关联了一个中断向量的位置，它包含中断服务程序的入口</p>
 <p>所有的中断都从保存寄存器开始，如下是一个中断的大致过程：</p>
 <ol>
@@ -381,6 +417,65 @@
 <li>调度程序决定下一个运行的程序</li>
 <li>C过程返回值汇编代码</li>
 <li>汇编语言过程开始运行新的进程</li>
+</ol>
+<h2 id="进程映像"><a href="#进程映像" class="headerlink" title="进程映像"></a>进程映像</h2><p><img src="/image/process_and_thread/1688554499757.png" alt="1688554499757"></p>
+<p>进程的属性集叫做进程控制块PCB（也叫PCB）</p>
+<h2 id="进程控制块"><a href="#进程控制块" class="headerlink" title="进程控制块"></a>进程控制块</h2><p>进程控制块是操作系统中最重要的数据结构，它包含操作系统需要的所有的进程信息</p>
+<p>进程控制块信息分为：</p>
+<p>进程标识信息</p>
+<p>进程状态信息</p>
+<p>进程控制信息</p>
+<p><img src="/image/process_and_thread/1688554777394.png" alt="1688554777394"></p>
+<p>进程的代码、数据、栈和属性的集合叫做进程映像</p>
+<p>所以<strong>进程映像</strong>由进程的<strong>代码、数据、堆栈和进程的PCB</strong>组成</p>
+<h2 id="处理器状态信息"><a href="#处理器状态信息" class="headerlink" title="处理器状态信息"></a>处理器状态信息</h2><p>进程在运行的过程中，它的代码和数据一定会出现在寄存器中，所以中断发生的时候也需要保存进程的寄存器，等终端结束的时候用来恢复进程的执行状态。</p>
+<p>寄存器主要分为用户可见寄存器、控制和状态寄存器和栈指针</p>
+<p>每个处理器结构都维护一个或者一组程序状态字处理器（PSW），用来条件码和进程的状态</p>
+<p><img src="/image/process_and_thread/1688555296730.png" alt="1688555296730"></p>
+<h2 id="抢占"><a href="#抢占" class="headerlink" title="抢占"></a>抢占</h2><p>抢占一个进程是指操作系统中的调度器强制终止当前正在执行的进程，并将处理器（CPU）分配给另一个优先级更高的进程。这意味着正在执行的进程被中断，其当前状态被保存，并将处理器分配给具有更高优先级的进程，以确保系统能够及时响应重要的任务或事件。</p>
+<p>抢占通常是由操作系统内核中的调度算法控制的，该算法根据进程的优先级、时间片（每个进程被允许使用处理器的时间量）和其他调度策略来决定何时抢占一个进程。</p>
+<p>抢占可以发生在以下情况下：</p>
+<ol>
+<li>时间片用尽：当进程的时间片（时间配额）用尽时，操作系统会中断该进程，并将处理器分配给下一个进程。</li>
+<li>优先级提升：如果存在具有更高优先级的进程，并且操作系统决定将处理器分配给该进程，那么当前正在执行的进程将被抢占。</li>
+<li>中断处理：当系统接收到硬件中断（如计时器中断、输入&#x2F;输出中断等）或软件中断（如系统调用或异常）时，操作系统可能会抢占正在执行的进程，以处理中断事件。</li>
+</ol>
+<p>通过抢占，操作系统可以灵活地管理系统资源，并确保重要的任务或事件能够及时得到处理，提高系统的响应能力和效率。</p>
+<h2 id="交换"><a href="#交换" class="headerlink" title="交换"></a>交换</h2><p>在计算机操作系统中，交换（Swapping）是指将当前不活动的进程或进程的部分内容从主存（RAM）中移出，保存到辅助存储器（如硬盘）中，以释放主存空间给其他进程使用。当需要再次运行这些被交换出的进程时，可以将其重新调入主存，继续执行。</p>
+<p>交换的主要目的是优化系统资源的利用和管理，具有以下几个重要的意义：</p>
+<ol>
+<li>内存管理：通过交换，操作系统可以在有限的主存容量下同时运行更多的进程。当主存空间不足时，将不活动的进程交换到辅助存储器中，从而释放出宝贵的主存空间，以便其他活动进程能够继续执行。</li>
+<li>多任务处理：交换允许操作系统在多任务环境下有效地进行进程调度。当某个进程处于等待某些事件（如用户输入、磁盘读写等）而暂停执行时，可以将其交换出主存，执行其他就绪的进程，以提高系统的并发性和吞吐量。</li>
+<li>延展性：交换可以扩展系统的可用内存。辅助存储器通常比主存容量更大，通过将不活动的进程交换出主存，可以在需要时将其调入，实现对更多进程的支持。</li>
+<li>系统性能：通过交换，操作系统可以更好地管理进程的内存需求。将不活动的进程交换出主存可以减少主存的碎片化，提高内存利用率，并降低页面调度和页面替换的频率，从而提高系统的整体性能。</li>
+</ol>
+<p>需要注意的是，交换也会引入一定的开销，包括交换进程的时间和系统开销。因此，交换的决策需要综合考虑系统的性能需求、主存和辅助存储器的速度差异以及进程的活动程度等因素。</p>
+<h1 id="进程的执行"><a href="#进程的执行" class="headerlink" title="进程的执行"></a>进程的执行</h1><h2 id="运行模式"><a href="#运行模式" class="headerlink" title="运行模式"></a>运行模式</h2><p>进程可以运行在用户态和内核态</p>
+<p>用户进程往往运行在用户态，内核态指操作系统的内核</p>
+<p>在内核态下，进程可以完全控制指令、硬件、寄存器，这对用户程序来说是没有必要的。</p>
+<p>使用两种模式的原因是为了保护操作系统中的重要数据（比如进程表&#x2F;进程控制块）</p>
+<p>进程通过自己PSW中的模式位来判断自己的运行状态。这个位会因为事件而改变</p>
+<h2 id="进程切换"><a href="#进程切换" class="headerlink" title="进程切换"></a>进程切换</h2><p>进程切换可以发生在操作系统取得控制权的任意时刻</p>
+<p>首先考虑系统中断。</p>
+<p>系统中断可以分为中断和陷阱，前者与某种外部事件有关，比如完成IO，后者与进程本身执行的操作有关，比如文件非法访问</p>
+<p>对于普通中断，进程在保存完上下文之后，将控制权首先转移给中断处理器，中断处理器完成一些简单操作之后将控制权转移给与中断类型有关的特定的操作系统中断处理例程</p>
+<p><img src="/image/process_and_thread/1688555884892.png" alt="1688555884892"></p>
+<p>而对于陷阱，操作系统首先会判断是否致命，如果致命就结束进程。如果不致命，操作系统的行为取决于错误的类型和操作系统的设计，操作系统可能会尝试恢复进程，也可能会继续执行或者切换进程。</p>
+<p>最后，来自运行态的进程的系统调用也可以激活操作系统。比如一个进程调用了IO输入的命令，此时调用会转移到操作系统中代码的一个例程，之前的进程被置为阻塞态。</p>
+<h2 id="模式切换"><a href="#模式切换" class="headerlink" title="模式切换"></a>模式切换</h2><p>在中断检查的时候，如果没有中断，CPU会继续取指执行。</p>
+<p>而如果发生了中断，就需要将PC改为中断处理程序的起始地址，然后将用户态置为内核态（PSW中</p>
+<p>然后中断处理程序的第一条指令就是保存进程的上下文，也就是所有可能会被修改的数据，以及恢复进程时所需要的所有数据。这些数据包括寄存器，堆栈、和PCB</p>
+<p>模式切换可在不改变运行态进程状态的情况下发生，此时保存进程上下文和恢复进程开销很小</p>
+<p>中断不一定会造成进程切换</p>
+<p>完整的进程切换过程：</p>
+<ol>
+<li>保存进程上下文（寄存器、PC</li>
+<li>更新进程PCB，将运行态置为另一种状态。更新其他字段，比如退出运行态的原因和记账信息</li>
+<li>将PCB移到对应队列（就绪&#x2F;挂起&#x2F;阻塞在i处</li>
+<li>分配器选择另一个进程执行</li>
+<li>更新PCB，设置为运行态</li>
+<li>更新内存管理数据结构。是否需要更新取决于管理地址转换的方式（更新段表&#x2F;页表）</li>
+<li>载入新进程的上下文</li>
 </ol>
 <h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><p>线程在内存中主要有如下内容：</p>
 <p>PC、寄存器、堆栈、状态</p>
@@ -561,13 +656,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">56k</span>
+    <span title="站点总字数">60k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">51 分钟</span>
+    <span title="站点阅读时长">54 分钟</span>
   </span>
 </div>
 <div class="busuanzi-count">
