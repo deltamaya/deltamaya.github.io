@@ -6,7 +6,7 @@
   <link href="http://www.deltamaya.top/atom.xml" rel="self"/>
   
   <link href="http://www.deltamaya.top/"/>
-  <updated>2023-07-05T12:15:01.958Z</updated>
+  <updated>2023-07-04T10:34:16.387Z</updated>
   <id>http://www.deltamaya.top/</id>
   
   <author>
@@ -15,29 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>makefile入门</title>
-    <link href="http://www.deltamaya.top/2023/07/04/makefile_tutorial/"/>
-    <id>http://www.deltamaya.top/2023/07/04/makefile_tutorial/</id>
-    <published>2023-07-04T08:02:43.133Z</published>
-    <updated>2023-07-05T12:15:01.958Z</updated>
-    
-    
-    <summary type="html">makefile tutorial</summary>
-    
-    
-    
-    <category term="makefile" scheme="http://www.deltamaya.top/categories/makefile/"/>
-    
-    
-    <category term="gcc" scheme="http://www.deltamaya.top/tags/gcc/"/>
-    
-    <category term="linux" scheme="http://www.deltamaya.top/tags/linux/"/>
-    
-    <category term="makefile" scheme="http://www.deltamaya.top/tags/makefile/"/>
-    
-  </entry>
   
   <entry>
     <title>linux基础</title>
@@ -59,54 +36,6 @@
     <category term="操作系统" scheme="http://www.deltamaya.top/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
     <category term="linux" scheme="http://www.deltamaya.top/tags/linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>文件系统</title>
-    <link href="http://www.deltamaya.top/2023/07/04/file_system/"/>
-    <id>http://www.deltamaya.top/2023/07/04/file_system/</id>
-    <published>2023-07-04T04:23:10.947Z</published>
-    <updated>2023-07-04T04:23:40.979Z</updated>
-    
-    
-    <summary type="html">简要介绍文件系统的组成和使用</summary>
-    
-    
-    
-    <category term="操作系统" scheme="http://www.deltamaya.top/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-    <category term="操作系统" scheme="http://www.deltamaya.top/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-    <category term="文件" scheme="http://www.deltamaya.top/tags/%E6%96%87%E4%BB%B6/"/>
-    
-    <category term="文件系统" scheme="http://www.deltamaya.top/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>硬件驱动</title>
-    <link href="http://www.deltamaya.top/2023/07/04/device_driver/"/>
-    <id>http://www.deltamaya.top/2023/07/04/device_driver/</id>
-    <published>2023-07-04T04:03:48.963Z</published>
-    <updated>2023-07-04T04:04:43.434Z</updated>
-    
-    
-    <summary type="html">简要介绍操作系统中的硬件驱动过程</summary>
-    
-    
-    
-    <category term="操作系统" scheme="http://www.deltamaya.top/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-    <category term="操作系统" scheme="http://www.deltamaya.top/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-    <category term="驱动" scheme="http://www.deltamaya.top/tags/%E9%A9%B1%E5%8A%A8/"/>
-    
-    <category term="驱动程序" scheme="http://www.deltamaya.top/tags/%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F/"/>
-    
-    <category term="硬件" scheme="http://www.deltamaya.top/tags/%E7%A1%AC%E4%BB%B6/"/>
     
   </entry>
   
@@ -442,9 +371,9 @@
     
     <category term="计算机组成" scheme="http://www.deltamaya.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/"/>
     
-    <category term="布尔逻辑" scheme="http://www.deltamaya.top/tags/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91/"/>
-    
     <category term="位运算" scheme="http://www.deltamaya.top/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
+    
+    <category term="布尔逻辑" scheme="http://www.deltamaya.top/tags/%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91/"/>
     
   </entry>
   
@@ -465,9 +394,9 @@
     <category term="数据结构与算法" scheme="http://www.deltamaya.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-    <category term="C++" scheme="http://www.deltamaya.top/tags/C/"/>
-    
     <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="C++" scheme="http://www.deltamaya.top/tags/C/"/>
     
     <category term="搜索" scheme="http://www.deltamaya.top/tags/%E6%90%9C%E7%B4%A2/"/>
     
@@ -492,13 +421,94 @@
     <category term="数据结构与算法" scheme="http://www.deltamaya.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-    <category term="C++" scheme="http://www.deltamaya.top/tags/C/"/>
-    
     <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="C++" scheme="http://www.deltamaya.top/tags/C/"/>
     
     <category term="排序" scheme="http://www.deltamaya.top/tags/%E6%8E%92%E5%BA%8F/"/>
     
     <category term="数组" scheme="http://www.deltamaya.top/tags/%E6%95%B0%E7%BB%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>二叉树</title>
+    <link href="http://www.deltamaya.top/2023/03/30/binary_tree/"/>
+    <id>http://www.deltamaya.top/2023/03/30/binary_tree/</id>
+    <published>2023-03-30T09:15:00.178Z</published>
+    <updated>2023-04-23T03:24:16.598Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="树的概念"><a href="#树的概念" class="headerlink" title="树的概念"></a>树的概念</h1><p><img src="/../img/binary_tree_show.jpg" alt="树"></p><blockquote><p><strong>结点的度</strong>：一个结点含有的子树的个数称为该结点的度； 如上图：A的为6</p><p><strong>叶结点或终端结点</strong>：度为0的结点称为叶结点； 如上图：B、C、H、I…等结点为叶结点</p><p><strong>非终端结点或分支结点</strong>：度不为0的结点；  如上图：D、E、F、G…等结点为分支结点</p><p><strong>双亲结点或父结点</strong>：若一个结点含有子结点，则这个结点称为其子结点的父结点； 如上图：A是B的父结点</p><p><strong>孩子结点或子结点</strong>：一个结点含有的子树的根结点称为该结点的子结点；  如上图：B是A的孩子结点</p><p><strong>兄弟结点</strong>：具有相同父结点的结点互称为兄弟结点； 如上图：B、C是兄弟结点</p><p><strong>树的度</strong>：一棵树中，最大的结点的度称为树的度； 如上图：树的度为6</p><p><strong>结点的层次</strong>：从根开始定义起，根为第1层，根的子结点为第2层，以此类推； </p><p><strong>树的高度或深度</strong>：树中结点的最大层次；  如上图：树的高度为4</p><p><strong>堂兄弟结点</strong>：双亲在同一层的结点互为堂兄弟；如上图：H、I互为兄弟结点</p><p><strong>结点的祖先</strong>：从根到该结点所经分支上的所有结点；如上图：A是所有结点的祖先</p><p><strong>子孙</strong>：以某结点为根的子树中任一结点都称为该结点的子孙。如上图：所有结点都是A的子孙</p><p><strong>森林</strong>：由m（m&gt;0）棵互不相交的树的集合称为森林；  </p></blockquote><h1 id="二叉树的结构"><a href="#二叉树的结构" class="headerlink" title="二叉树的结构"></a>二叉树的结构</h1><p>一棵二叉树又三个部分组成：</p><ul><li>根节点</li><li>左子树</li><li>右子树</li></ul><p>我们将树的结构定义如下：</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TreeNode</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"><span class="type">int</span> val;</span><br><span class="line">TreeNode*left;</span><br><span class="line">TreeNode*right;</span><br><span class="line"><span class="type">int</span> height;</span><br><span class="line"><span class="built_in">TreeNode</span>(<span class="type">int</span> x):<span class="built_in">val</span>(x),<span class="built_in">left</span>(<span class="literal">nullptr</span>),<span class="built_in">right</span>(<span class="literal">nullptr</span>),<span class="built_in">height</span>(<span class="number">1</span>)&#123;&#125;;</span><br><span class="line"><span class="built_in">TreeNode</span>(): <span class="built_in">TreeNode</span> (<span class="number">0</span>)&#123;&#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>因此当我们需要遍历(Traversal)一棵二叉树时，有四种遍历方法：</p><ul><li>前序遍历</li><li>中序遍历</li><li>后序遍历</li><li>层序遍历</li></ul><h2 id="前序遍历"><a href="#前序遍历" class="headerlink" title="前序遍历"></a>前序遍历</h2><p>遍历顺序：<strong>根节点-&gt;左子树-&gt;右子树</strong></p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">preOrder</span><span class="params">(TreeNode*root)</span></span>&#123;</span><br><span class="line"><span class="keyword">if</span>(!root)<span class="keyword">return</span>;</span><br><span class="line"><span class="built_in">Process</span>(root);</span><br><span class="line"><span class="built_in">preOrder</span>(root-&gt;left);</span><br><span class="line"><span class="built_in">preOrder</span>(root-&gt;right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h2><p>遍历顺序：<strong>左子树-&gt;根节点-&gt;右子树</strong></p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">inOrder</span><span class="params">(TreeNode*root)</span></span>&#123;</span><br><span class="line"><span class="keyword">if</span>(!root)<span class="keyword">return</span>;</span><br><span class="line"><span class="built_in">inOrder</span>(root-&gt;left);</span><br><span class="line"><span class="built_in">Process</span>(root);</span><br><span class="line"><span class="built_in">inOrder</span>(root-&gt;right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h2><p>遍历顺序：<strong>左子树-&gt;右子树-&gt;根节点</strong></p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">latOrder</span><span class="params">(TreeNode*root)</span></span>&#123;</span><br><span class="line"><span class="keyword">if</span>(!root)<span class="keyword">return</span>;</span><br><span class="line"><span class="built_in">latOrder</span>(root-&gt;left);</span><br><span class="line"><span class="built_in">latOrder</span>(root-&gt;right);</span><br><span class="line"><span class="built_in">Process</span>(root);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="层序遍历"><a href="#层序遍历" class="headerlink" title="层序遍历"></a>层序遍历</h2><p>遍历顺序：<strong>逐层</strong><br>层序遍历相对比较复杂，我们需要用一个队列来记录<strong>所有同层的节点</strong>然后依次遍历</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">layerOrder</span><span class="params">(TreeNode*root)</span></span>&#123;</span><br><span class="line"><span class="keyword">if</span>(!root)<span class="keyword">return</span>;</span><br><span class="line">queue&lt;TreeNode*&gt;q;</span><br><span class="line">q.<span class="built_in">push</span>(root);</span><br><span class="line"><span class="keyword">while</span>(!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">TreeNode *f = q.<span class="built_in">front</span> ();</span><br><span class="line"><span class="keyword">if</span> ( f-&gt;left )q.<span class="built_in">push</span> (f-&gt;left);</span><br><span class="line"><span class="keyword">if</span> ( f-&gt;right )q.<span class="built_in">push</span> (f-&gt;right);</span><br><span class="line"><span class="built_in">Process</span> (f);</span><br><span class="line">q.<span class="built_in">pop</span> ();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><em>我们不难发现，所谓的 X序遍历 就是根节点在顺序中的位置</em></p><p>二叉树本身就是递归的定义的，所以我们可以得知，二叉树算法中最重要的一点就是递归。</p><h1 id="二叉树的性质"><a href="#二叉树的性质" class="headerlink" title="二叉树的性质"></a>二叉树的性质</h1><h2 id="满二叉树"><a href="#满二叉树" class="headerlink" title="满二叉树"></a>满二叉树</h2><p>一个二叉树，如果每一个层的结点数都达到最大值，则这个二叉树就是满二叉树。也就是说，如果一个二叉树的层数为K，且结点总数是$2^k -1$ ，则它就是满二叉树。</p><h2 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h2><p>完全二叉树是效率很高的数据结构，完全二叉树是由满二叉树而引出来的。对于深度为K的，有n个结点的二叉树，当且仅当其每一个结点都与深度为K的满二叉树中编号从1至n的结点一一对应时称之为完全二叉树。 要注意的是满二叉树是一种特殊的完全二叉树。</p><h2 id="一般二叉树"><a href="#一般二叉树" class="headerlink" title="一般二叉树"></a>一般二叉树</h2><p>对于深度为n的一棵二叉树，节点个数在n至2^n-1之间。<br>同理，对于节点个数为n的二叉树，深度在log(n+1)至n之间。</p><blockquote><ol><li>若规定根结点的层数为1，则一棵非空二叉树的<strong>第i层上最多有2^(i-1)</strong> 个结点.</li><li>若规定根结点的层数为1，则<strong>深度为h的二叉树的最大结点数是2^h-1</strong>.</li><li>对任何一棵二叉树, <strong>如果度为0其叶结点个数为 n_0, 度为2的分支结点个数为 n_2,则有n_0＝n_2＋1</strong></li><li>若规定根结点的层数为1，具有<strong>n个结点的满二叉树的深度</strong>，<strong>h&#x3D;log_2(n+1)</strong>.  (ps：log_2(n+1)是log以2为底，n+1为对数)</li><li>对于具有n个结点的完全二叉树，如果按照从上至下从左至右的数组顺序对所有结点从0开始编号，则对于序号为i的结点有：<ol><li><strong>若i&gt;0，i位置结点的双亲序号：(i-1)&#x2F;2</strong>；i&#x3D;0，i为根结点编号，无双亲结点</li><li><strong>若2i+1&lt;n，左孩子序号：2i+1，2i+1&gt;&#x3D;n否则无左孩子</strong></li><li><strong>若2i+2&lt;n，右孩子序号：2i+2，2i+2&gt;&#x3D;n否则无右孩子</strong></li></ol></li></ol></blockquote>]]></content>
+    
+    
+    <summary type="html">简要介绍二叉树的结构、性质</summary>
+    
+    
+    
+    <category term="数据结构与算法" scheme="http://www.deltamaya.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="C++" scheme="http://www.deltamaya.top/tags/C/"/>
+    
+    <category term="数据结构" scheme="http://www.deltamaya.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    <category term="树" scheme="http://www.deltamaya.top/tags/%E6%A0%91/"/>
+    
+    <category term="二叉树" scheme="http://www.deltamaya.top/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>二叉堆</title>
+    <link href="http://www.deltamaya.top/2023/03/28/binary_heap/"/>
+    <id>http://www.deltamaya.top/2023/03/28/binary_heap/</id>
+    <published>2023-03-28T03:55:33.737Z</published>
+    <updated>2023-05-10T03:36:17.572Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="二叉堆的结构"><a href="#二叉堆的结构" class="headerlink" title="二叉堆的结构"></a>二叉堆的结构</h1><p>二叉堆又称<strong>优先队列</strong>，其本质上就是一颗<strong>完全二叉树</strong>，并使用数组表示。<br>堆又分为<strong>大根堆与小根堆</strong>，<br>大根堆就是对于每个节点，它的值比左孩子的值和右孩子的值都大<br>小根堆即对于每个节点，它的值比左孩子和右孩子的值都小</p><p>以大根堆为例，堆的结构如下：</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Heap</span>&#123;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt;heap;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"><span class="type">int</span> sz;</span><br><span class="line"><span class="built_in">Heap</span>():<span class="built_in">heap</span>(),<span class="built_in">sz</span>(<span class="number">0</span>)&#123;&#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><h1 id="堆的性质（大根堆）"><a href="#堆的性质（大根堆）" class="headerlink" title="堆的性质（大根堆）"></a>堆的性质（大根堆）</h1><p>大根堆的性质就是对于每个节点，它的值比左孩子的值和右孩子的值都大。<br>为了维护这个性质，在每次插入和删除元素之后我们都要调整堆的结构。</p><h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><p>插入调整方式如图所示：<br><img src="/../img/heapPush.png" alt="堆插入"></p><p>当子节点还存在父节点时，若子节点大于父节点，则调换两者位置，然后更新父节点与子节点的位置，知道条件不成立或者子节点没有父节点。<br>具体实现如下：</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">push</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">heap.<span class="built_in">push_back</span> (x);</span><br><span class="line"><span class="comment">//每个节点的父节点都可以由(n-1)/2求得</span></span><br><span class="line"><span class="comment">//向上调整</span></span><br><span class="line"><span class="type">int</span> child=sz,father=(sz<span class="number">-1</span>)/<span class="number">2</span>;</span><br><span class="line"><span class="keyword">while</span>(child&amp;&amp;heap[child]&gt;heap[father])&#123;</span><br><span class="line"><span class="built_in">swap</span>(heap[child],heap[father]);</span><br><span class="line">child=father;</span><br><span class="line">father=(father<span class="number">-1</span>)/<span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line">++sz;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><p>删除时，我们需要注意需要把最后一个元素与堆顶元素进行交换，然后将堆顶元素向下调整。<br><img src="/../img/heapPop.png" alt="堆弹出"><br>实现如下：</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">pop</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="type">int</span> ret=heap[<span class="number">0</span>];</span><br><span class="line">--sz;</span><br><span class="line"><span class="built_in">swap</span>(heap[<span class="number">0</span>],heap[sz]);</span><br><span class="line"><span class="comment">//向下调整</span></span><br><span class="line"><span class="type">int</span> father=<span class="number">0</span>,child=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span>(child&lt;sz)&#123;</span><br><span class="line"><span class="comment">//选出子节点的最大值</span></span><br><span class="line"><span class="keyword">if</span>(child+<span class="number">1</span>&lt;sz&amp;&amp;heap[child+<span class="number">1</span>]&gt;heap[child]) &#123;</span><br><span class="line">++child;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(heap[child]&gt;heap[father])&#123;</span><br><span class="line"><span class="built_in">swap</span>(heap[child],heap[father]);</span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">father=child;</span><br><span class="line">child=child*<span class="number">2</span>+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="堆的应用"><a href="#堆的应用" class="headerlink" title="堆的应用"></a>堆的应用</h1><p>堆的性质可以帮助我们选出一组数据中<strong>权最大的那个元素</strong>（在这个例子中是数值最大的元素），因此我们可以使用其性质进行排序。</p><h2 id="堆排序："><a href="#堆排序：" class="headerlink" title="堆排序："></a>堆排序：</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">HeapSort</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; v)</span></span>&#123;</span><br><span class="line"><span class="comment">//向上调整建堆</span></span><br><span class="line"><span class="type">int</span> sz=v.<span class="built_in">size</span>();</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;sz;++i)&#123;</span><br><span class="line"><span class="type">int</span> child=i,father=(child<span class="number">-1</span>)/<span class="number">2</span>;</span><br><span class="line"><span class="keyword">while</span>(child&amp;&amp;v[child]&gt;v[father])&#123;</span><br><span class="line"><span class="built_in">swap</span>(v[child],v[father]);</span><br><span class="line">child=father;</span><br><span class="line">father=(father<span class="number">-1</span>)/<span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//开始排序</span></span><br><span class="line"><span class="keyword">while</span>(--sz)&#123;</span><br><span class="line"><span class="built_in">swap</span>(v[<span class="number">0</span>],v[sz]);</span><br><span class="line"><span class="type">int</span> child=<span class="number">1</span>,father=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(child&lt;sz)&#123;</span><br><span class="line"><span class="keyword">if</span>(child+<span class="number">1</span>&lt;sz&amp;&amp;v[child+<span class="number">1</span>]&gt;v[child])&#123;</span><br><span class="line">++child;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(v[child]&gt;v[father])&#123;</span><br><span class="line"><span class="built_in">swap</span>(v[child],v[father]);</span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">father=child;</span><br><span class="line">child=(child*<span class="number">2</span>)+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>最容易想到的方法是对一个数组向上调整建堆，就像逐个插入一样，但是这样做的时间复杂度是<strong>O(nlogn)<strong>，其实我们有更快的方法，那就是</strong>向下调整建堆</strong>。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">HeapSort</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; v)</span></span>&#123;</span><br><span class="line"><span class="comment">//向下调整建堆</span></span><br><span class="line"><span class="type">int</span> sz=v.<span class="built_in">size</span>();</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> tmp=(sz<span class="number">-1</span><span class="number">-1</span>)/<span class="number">2</span>;tmp&gt;<span class="number">0</span>;--tmp)&#123;</span><br><span class="line"><span class="type">int</span> father=tmp,child=father*<span class="number">2</span>+<span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span>(child&lt;sz)&#123;</span><br><span class="line"><span class="keyword">if</span>(child+<span class="number">1</span>&lt;sz&amp;&amp;v[child+<span class="number">1</span>]&gt;v[child])&#123;</span><br><span class="line">++child;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(v[child]&gt;v[father])&#123;</span><br><span class="line"><span class="built_in">swap</span>(v[child],v[father]);</span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">father=child;</span><br><span class="line">child=(child*<span class="number">2</span>)+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//开始排序</span></span><br><span class="line"><span class="keyword">while</span>(--sz)&#123;</span><br><span class="line"><span class="built_in">swap</span>(v[<span class="number">0</span>],v[sz]);</span><br><span class="line"><span class="type">int</span> child=<span class="number">1</span>,father=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(child&lt;sz)&#123;</span><br><span class="line"><span class="keyword">if</span>(child+<span class="number">1</span>&lt;sz&amp;&amp;v[child+<span class="number">1</span>]&gt;v[child])&#123;</span><br><span class="line">++child;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(v[child]&gt;v[father])&#123;</span><br><span class="line"><span class="built_in">swap</span>(v[child],v[father]);</span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">father=child;</span><br><span class="line">child=(child*<span class="number">2</span>)+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>我们可以从数学角度证明，向下调整建堆的时间复杂度是O(n)，优于向上建堆。<br>数学证明如下：<br><img src="/../img/upAdjustMath.png" alt="向上调整建堆"></p><p><img src="/../img/downAdjustMath.png" alt="向下调整建堆"></p><p>此外，我们要注意，建堆并不是排序的过程，因此升序需要建大堆，降序要建小堆</p><h2 id="TopK："><a href="#TopK：" class="headerlink" title="TopK："></a>TopK：</h2><p>由于二叉堆的性质，我们可以不断的选出一组数据中权最大数，这就是TopK问题：<br>例如：<br>我们可以通过小根堆选出100000个数中最大10个：</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">topK</span><span class="params">(ifstream&amp; fin,<span class="type">const</span> <span class="type">int</span>&amp; K)</span></span>&#123;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt;<span class="built_in">ret</span>(K);</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;K;++i)&#123;</span><br><span class="line">fin&gt;&gt;ret[i];</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//向下调整建堆(小根堆）</span></span><br><span class="line"><span class="type">int</span> sz=K;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> tmp=(sz<span class="number">-1</span><span class="number">-1</span>)/<span class="number">2</span>;tmp&gt;<span class="number">0</span>;--tmp)&#123;</span><br><span class="line"><span class="type">int</span> father=tmp,child=father*<span class="number">2</span>+<span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span>(child&lt;sz)&#123;</span><br><span class="line"><span class="keyword">if</span>(child+<span class="number">1</span>&lt;sz&amp;&amp;ret[child+<span class="number">1</span>]&lt;ret[child])&#123;</span><br><span class="line">++child;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(ret[child]&lt;ret[father])&#123;</span><br><span class="line"><span class="built_in">swap</span>(ret[child],ret[father]);</span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">father=child;</span><br><span class="line">child=(child*<span class="number">2</span>)+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> tmp;</span><br><span class="line"><span class="keyword">while</span>(fin&gt;&gt;tmp)&#123;</span><br><span class="line"><span class="comment">//比堆顶大就入堆</span></span><br><span class="line"><span class="keyword">if</span>(tmp&gt;ret[<span class="number">0</span>])&#123;</span><br><span class="line">ret[<span class="number">0</span>]=tmp;</span><br><span class="line"><span class="type">int</span> father=<span class="number">0</span>,child=<span class="number">1</span>;</span><br><span class="line"><span class="comment">//向下调整</span></span><br><span class="line"><span class="keyword">while</span>(child&lt;K)&#123;</span><br><span class="line"><span class="keyword">if</span>(child+<span class="number">1</span>&lt;sz&amp;&amp;ret[child+<span class="number">1</span>]&lt;ret[child])&#123;</span><br><span class="line">++child;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(ret[child]&lt;ret[father])&#123;</span><br><span class="line"><span class="built_in">swap</span>(ret[child],ret[father]);</span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">father=child;</span><br><span class="line">child=(child*<span class="number">2</span>)+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>要注意的是，与堆排序不同，<strong>topK要把目标权最小的元素放在堆顶</strong>，例如这里要选出最大的，就要把目前所遇到的最小的元素放在堆顶，使用小根堆</p>]]></content>
+    
+    
+    <summary type="html">简要介绍堆的结构、性质与简单应用</summary>
+    
+    
+    
+    <category term="数据结构与算法" scheme="http://www.deltamaya.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="算法" scheme="http://www.deltamaya.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="C++" scheme="http://www.deltamaya.top/tags/C/"/>
+    
+    <category term="数据结构" scheme="http://www.deltamaya.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    <category term="堆" scheme="http://www.deltamaya.top/tags/%E5%A0%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>IEEE754标准的浮点数表示</title>
+    <link href="http://www.deltamaya.top/2023/03/27/float_in_IEEE754/"/>
+    <id>http://www.deltamaya.top/2023/03/27/float_in_IEEE754/</id>
+    <published>2023-03-27T09:24:02.443Z</published>
+    <updated>2023-06-14T11:50:30.308Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="结构介绍"><a href="#结构介绍" class="headerlink" title="结构介绍"></a>结构介绍</h1><p>因为计算机中只能离散的保存数据，那么数据的最小位就决定了数据精度。<br>例如：</p><ul><li>表示整数(int)类型时，最小位是$2^0&#x3D;1$,因此精度就是1，int类型无法保存任何模1不等于0的数。</li></ul><p>而小数却不存在最小位（无穷小），因此IEEE协会制定了一种用于表示浮点数的存储方式。<br>已知：</p><blockquote><p>任何十进制的数都可以表示为$n&#x3D;(-1)^s<em>M</em>10^E$的形式</p></blockquote><p>其中s是符号位,n为负数时s为0，n为正数时s为1，m是一个尾数，位于1~10之间，e是幂次。例如：$12345&#x3D;(-1)^0<em>1.2345</em>10^4$.</p><p>同理：</p><blockquote><p>任何二进制数都可以表示为$n&#x3D;(-1)^s<em>M</em>2^E$的形式</p></blockquote><p>符号含义：</p><ul><li>s:符号(sign)</li><li>M:尾数(significand)</li><li>E:阶码(exponet)</li><li>同时，我们用m代表M中存储的值，e表示E中存储的值。</li></ul><p>所以，如果我们要存储2进制浮点数，只需要存储s、M、E的值即可。<br>由上述公式可知，m位于1~2之间，因此其最高位总是为1，我们将其省略。</p><p>此外，为了存储e为负数的浮点数，对于E有k位的浮点数，还存在一个<strong>偏置</strong> $Bias &#x3D; 2^{k-1}-1$,E最终的值要加上偏置后再进行存储。</p><p>以32位float为例：</p><p><img src="/../img/floatStructure.png" alt="float的具体结构"><br>这样，我们就有了表示浮点数的方法。</p><h1 id="值的表示"><a href="#值的表示" class="headerlink" title="值的表示"></a>值的表示</h1><p>这种表示浮点数的方式有三种情况：</p><ul><li><p><strong>规格化的值</strong><br>E中的位不全为0，也不全为1。<br>此时n可以由$(-1)^s*(1+m)*2^{e-Bias}$计算得出。</p></li><li><p><strong>非规格化的值</strong><br>因为我们假定M始终大于1，所以我们无法表示0.<br>而当<strong>阶码E全为0</strong>时，浮点数表示非规格化的值，它为我们提供了表示0的方法，此时<strong>阶数&#x3D;1-Bias</strong>。<br>例如：<br>0 00000000 0000000… 表示+0.0<br>1 00000000 0000000… 表示-0.0<br>根据IEEE的浮点格式，+0与-0在某些方面是不同的，而在其他方面是相同的。<br>非规格化数的另一种功能是表示非常接近于0的值。</p></li><li><p><strong>特殊值</strong><br>最后一类数值是当<strong>阶码E全为1</strong>是出现的。</p><p>当小数域全为0时，表示<strong>无穷</strong><br>当小数域不为0时，表示<strong>NaN</strong>（Not a Number）</p><p>例如当两个非常大的数相乘，或者除以0时，会产生无穷。<br>当一些运算不能是实数或者无穷时，例如无穷加无穷：返回NaN</p></li></ul>]]></content>
+    
+    
+    <summary type="html">简要介绍IEEE754标准下的浮点数结构与表示</summary>
+    
+    
+    
+    <category term="CSAPP" scheme="http://www.deltamaya.top/categories/CSAPP/"/>
+    
+    
+    <category term="信息的表示与处理" scheme="http://www.deltamaya.top/tags/%E4%BF%A1%E6%81%AF%E7%9A%84%E8%A1%A8%E7%A4%BA%E4%B8%8E%E5%A4%84%E7%90%86/"/>
+    
+    <category term="浮点数" scheme="http://www.deltamaya.top/tags/%E6%B5%AE%E7%82%B9%E6%95%B0/"/>
+    
+    <category term="浮点" scheme="http://www.deltamaya.top/tags/%E6%B5%AE%E7%82%B9/"/>
     
   </entry>
   
