@@ -29,7 +29,7 @@
 <meta property="og:description" content="简要介绍gcc&amp;gdb基本使用">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-06-14T04:23:24.276Z">
-<meta property="article:modified_time" content="2023-07-10T03:31:20.095Z">
+<meta property="article:modified_time" content="2023-07-12T06:23:18.720Z">
 <meta property="article:author" content="deltamaya">
 <meta property="article:tag" content="gdb">
 <meta property="article:tag" content="调试">
@@ -161,18 +161,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">36</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -271,7 +271,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-07-10 11:31:20" itemprop="dateModified" datetime="2023-07-10T11:31:20+08:00">2023-07-10</time>
+      <time title="修改时间：2023-07-12 14:23:18" itemprop="dateModified" datetime="2023-07-12T14:23:18+08:00">2023-07-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -297,7 +297,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.4k</span>
+      <span>1.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -329,7 +329,7 @@
 <p>此外，如果我们需要使用gdb对我们的程序进行调试，就需要使用 <code>gcc -g</code>显式的生成debug版文件，其中包含着可以供我们使用的调试信息</p>
 <p>使用 <code>gcc -ggdb</code>来产生gdb使用的调试信息</p>
 <h2 id="其他选项"><a href="#其他选项" class="headerlink" title="其他选项"></a>其他选项</h2><p>如果需要编译某一版本的代码，可以使用 <code>-std=...</code>来指定使用的那个c语言&#x2F;c++版本，例如-std&#x3D;c11、-std&#x3D;c++23</p>
-<p>如果需要链接某些库，就需要使用 <code>-l...(lib_name)</code>来链接指定名字的库，例如 -lthis_is_a_lib</p>
+<p>如果需要链接某些库，就需要使用 <code>-l...(lib_name)</code>来链接指定名字的库，例如 -lname意味着你在默认路径下面链接了名为libname.so的动态库</p>
 <p>如果你对自己的程序不是很有信心，你可以使用 <code>gcc -Wall</code>让编译器产生所有的警告信息来帮助你找bug</p>
 <p>而如果你是一个牛逼的程序员，那么你应该使用 <code>gcc -w</code>来无视所有的编译器警告</p>
 <h1 id="gdb的基本使用"><a href="#gdb的基本使用" class="headerlink" title="gdb的基本使用"></a>gdb的基本使用</h1><p> 使用gdb启动程序</p>
@@ -343,6 +343,8 @@
 <li>在（某一文件）某一行设置断点<br><code>break (file_name:)line_number</code></li>
 <li>在（某一文件）某一函数设置断点<br><code>break (file_name:)function_name</code></li>
 <li>同样的，我们可以删除断点<br><code>delete 1</code>(删除断点1)</li>
+<li>禁用断点<br><code>disable</code></li>
+<li>启用断点<br><code>enable</code></li>
 </ol>
 <h2 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h2><ol>
 <li>运行程序<br><code>run</code></li>
@@ -350,9 +352,12 @@
 <li>执行一步<br><code>step</code></li>
 <li>执行一句指令<br><code>stepi</code> + num（执行num条指令）</li>
 <li>执行至下个断点<br><code>continue</code></li>
+<li>执行至某一行<br><code>until</code></li>
+<li>执行直到函数结束<br><code>finish</code></li>
 </ol>
 <h2 id="打印值"><a href="#打印值" class="headerlink" title="打印值"></a>打印值</h2><ol>
 <li>打印表达式exp，单个变量也是一种表达式<br><code>print exp</code><br>这里我们可以使用任何东西作为这个exp，例如一个寄存器，内存引用，甚至是一个函数</li>
+<li>我们也可以直接对变量进行设置<br><code>set variable</code></li>
 <li>在每次执行停止的时候都打印exp的值<br><code>display exp</code></li>
 <li>解除打印<br><code>undisplay number</code></li>
 </ol>
@@ -360,7 +365,7 @@
 <p>tips: 使用 <code>/x</code>打印16进制，<code>/d</code>打印10进制，<code>/t</code>打印2进制<br>寄存器使用 <code>$</code>符号+寄存器名字 表示，e.g.  <code>$rax</code></p>
 </blockquote>
 <h2 id="查看调用栈"><a href="#查看调用栈" class="headerlink" title="查看调用栈"></a>查看调用栈</h2><p>使用 <code>traceback</code> 查看程序的调用栈</p>
-<h2 id="查看程序信息"><a href="#查看程序信息" class="headerlink" title="查看程序信息"></a>查看程序信息</h2><p>使用 <code>info</code>查看程序的状态信息，例如寄存器 <code>info registers</code>，函数 <code>info function</code></p>
+<h2 id="查看程序信息"><a href="#查看程序信息" class="headerlink" title="查看程序信息"></a>查看程序信息</h2><p>使用 <code>info</code>查看程序的状态信息，例如寄存器 <code>info registers</code>，函数 <code>info function</code>，断点信息 <code>info breakpoint</code></p>
 <h2 id="退出"><a href="#退出" class="headerlink" title="退出"></a>退出</h2><p>输入 <code>quit</code>退出gdb并杀死子进程</p>
 <h1 id="RTFM"><a href="#RTFM" class="headerlink" title="RTFM"></a>RTFM</h1><p>Read The Fucking Manual (</p>
 <p>使用 <code>man/help</code>指令获取gcc&#x2F;gdb手册</p>
@@ -490,13 +495,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">63k</span>
+    <span title="站点总字数">65k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">57 分钟</span>
+    <span title="站点阅读时长">59 分钟</span>
   </span>
 </div>
 <div class="busuanzi-count">
