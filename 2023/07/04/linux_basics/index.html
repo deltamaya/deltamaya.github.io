@@ -29,7 +29,7 @@
 <meta property="og:description" content="linux tutorial">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-07-04T06:04:11.036Z">
-<meta property="article:modified_time" content="2023-07-04T10:34:16.387Z">
+<meta property="article:modified_time" content="2023-07-13T09:42:40.952Z">
 <meta property="article:author" content="deltamaya">
 <meta property="article:tag" content="操作系统">
 <meta property="article:tag" content="linux">
@@ -160,18 +160,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -262,9 +262,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-07-04 14:04:11 / 修改时间：18:34:16" itemprop="dateCreated datePublished" datetime="2023-07-04T14:04:11+08:00">2023-07-04</time>
+      <time title="创建时间：2023-07-04 14:04:11" itemprop="dateCreated datePublished" datetime="2023-07-04T14:04:11+08:00">2023-07-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-07-13 17:42:40" itemprop="dateModified" datetime="2023-07-13T17:42:40+08:00">2023-07-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -320,16 +326,20 @@
 <li>-t 以时间排序</li>
 <li>-R 列出子目录下的文件</li>
 </ul>
+<hr>
 <h3 id="pwd"><a href="#pwd" class="headerlink" title="pwd"></a>pwd</h3><p>short for print working directory</p>
 <p>打印工作目录</p>
+<hr>
 <h3 id="cd"><a href="#cd" class="headerlink" title="cd"></a>cd</h3><p>short for change directory</p>
 <p>cd [path]</p>
 <p>更换工作目录</p>
 <p>linux中使用 <code>.</code>表示当前目录， <code>..</code>表示上级目录， <code>/</code>表示根目录</p>
 <p><code>cd ~</code>切换到用户目录</p>
 <p><code>cd -</code>切换到上一个工作目录</p>
+<hr>
 <h3 id="stat"><a href="#stat" class="headerlink" title="stat"></a>stat</h3><p>stat [file]</p>
 <p>用于展示文件属性(size&#x2F;access&#x2F;modify&#x2F;change&#x2F;uid&#x2F;gid)</p>
+<hr>
 <h3 id="touch"><a href="#touch" class="headerlink" title="touch"></a>touch</h3><p>用于更改文件的access&#x2F;modify&#x2F;change时间，也可以用于创建文件</p>
 <blockquote>
 <p>access时间是访问权限，理论上是最常被更改的，但是为了减少磁盘IO设置为了隔一段时间更改一次</p>
@@ -342,12 +352,14 @@
 <li>-a 更改access时间，同时也会修改change</li>
 <li>-t 使用特定的时间，不是当前时间（日期格式：）</li>
 </ul>
+<hr>
 <h3 id="mkdir"><a href="#mkdir" class="headerlink" title="mkdir"></a>mkdir</h3><p>mkdir [path&#x2F;name]</p>
 <p>在path路径下创建一个name名字的文件夹</p>
 <p>常用选项：</p>
 <ul>
 <li>-p（–parent）递归创建文件夹</li>
 </ul>
+<hr>
 <h3 id="rmdir-amp-rm"><a href="#rmdir-amp-rm" class="headerlink" title="rmdir&amp;rm"></a>rmdir&amp;rm</h3><p>rm [path&#x2F;name]</p>
 <p>删除文件&#x2F;目录</p>
 <p>常用选项：</p>
@@ -357,6 +369,7 @@
 <li>-i 交互删除询问</li>
 </ul>
 <p>ps：rmdir只能删除空文件夹</p>
+<hr>
 <h3 id="man"><a href="#man" class="headerlink" title="man"></a>man</h3><p>short for manual</p>
 <p>大名鼎鼎的RTFM</p>
 <p>man [index] [command]</p>
@@ -371,6 +384,7 @@
 <ul>
 <li>-a 从所有目录中查找</li>
 </ul>
+<hr>
 <h3 id="cp"><a href="#cp" class="headerlink" title="cp"></a>cp</h3><p>short for copy</p>
 <p>copy [file] [path]</p>
 <p>复制文件file到路径path下</p>
@@ -380,11 +394,13 @@
 <li>-i 交互询问是否覆盖文件</li>
 <li>-f 强制拷贝并覆盖</li>
 </ul>
+<hr>
 <h3 id="mv"><a href="#mv" class="headerlink" title="mv"></a>mv</h3><p>short for move</p>
 <p>mv [source&#x2F;name] [destination&#x2F;name]</p>
 <p>从source路径移动到destination路径</p>
 <p>也可以用于文件改名</p>
 <p>常用选项与cp一致</p>
+<hr>
 <h3 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h3><p>cat [path&#x2F;name]</p>
 <p>常用选项：</p>
 <ul>
@@ -392,8 +408,10 @@
 <li>-n 对输出的所有行编号</li>
 <li>-s 不输出多行空行</li>
 </ul>
+<hr>
 <h3 id="head-amp-tail"><a href="#head-amp-tail" class="headerlink" title="head&amp;tail"></a>head&amp;tail</h3><p>查看文件前&#x2F;后 n行</p>
 <p>head&#x2F;tail -number [file]</p>
+<hr>
 <h3 id="less"><a href="#less" class="headerlink" title="less"></a>less</h3><p>常用选项：</p>
 <ul>
 <li>-i  忽略搜索时的大小写</li>
@@ -404,6 +422,7 @@
 <li>N：反向重复前一个搜索（与 &#x2F; 或 ? 有关）</li>
 <li>q:quit</li>
 </ul>
+<hr>
 <h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><p>find [path&#x2F;name] [options]</p>
 <p>在文件树中查找文件</p>
 <p>常用选项：</p>
@@ -412,6 +431,7 @@
 </ul>
 <p>例如： <code>find /home/deltamaya -name test.c</code></p>
 <p>查找deltamaya家目录下名为test.c的文件</p>
+<hr>
 <h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><p>short for global regular expression</p>
 <p>grep [options] [target] [file]</p>
 <p>常用选项：</p>
@@ -422,9 +442,11 @@
 </ul>
 <p>例如：<code>grep -n fork fork.cc</code></p>
 <p>在fork.cc文件中使用正则表达式搜索fork字符串，并且输出行号</p>
+<hr>
 <h3 id="zip-amp-unzip"><a href="#zip-amp-unzip" class="headerlink" title="zip&amp;unzip"></a>zip&amp;unzip</h3><p>例子：</p>
 <p><code>zip -r test.zip test.asm test.c test.o</code></p>
 <p><code>unzip -f test.zip</code></p>
+<hr>
 <h3 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h3><p>文件的压缩和解压</p>
 <p>常用选项：</p>
 <ul>
@@ -442,6 +464,7 @@
 <p>将test.c test.o打包并使用gz压缩为test.tar.gz</p>
 <p><code>tar -xvf test.tar.gz -C ./d1</code></p>
 <p>从test.tar.gz中解压放入d1目录中</p>
+<hr>
 <h3 id="date"><a href="#date" class="headerlink" title="date"></a>date</h3><p>date +[format]</p>
 <p>格式：</p>
 <ul>
@@ -454,24 +477,35 @@
 <li>%Y : 完整年份 (0000..9999)</li>
 <li>%F : 相当于 %Y-%m-%d</li>
 </ul>
+<hr>
 <h3 id="cal"><a href="#cal" class="headerlink" title="cal"></a>cal</h3><p>cal [year]</p>
 <p>打印年year的日历</p>
+<hr>
 <h3 id="uname"><a href="#uname" class="headerlink" title="uname"></a>uname</h3><p>获取当前系统的信息</p>
 <p>常用选项：</p>
 <ul>
 <li>-a 展示全部信息</li>
 </ul>
+<hr>
 <h3 id="mount-amp-umount"><a href="#mount-amp-umount" class="headerlink" title="mount&amp;umount"></a>mount&amp;umount</h3><p>挂载&#x2F;卸载文件系统</p>
+<hr>
 <h3 id="ifconfig"><a href="#ifconfig" class="headerlink" title="ifconfig"></a>ifconfig</h3><p>展示网络信息</p>
+<hr>
 <h3 id="top"><a href="#top" class="headerlink" title="top"></a>top</h3><p>展示cpu占用</p>
+<hr>
 <h3 id="free"><a href="#free" class="headerlink" title="free"></a>free</h3><p>展示内存占用</p>
+<hr>
 <h3 id="chmod"><a href="#chmod" class="headerlink" title="chmod"></a>chmod</h3><p>chmod [options] [expression] [file]</p>
 <p>exp可以使用a&#x2F;u&#x2F;g&#x2F;o +&#x2F;- r&#x2F;w&#x2F;x</p>
 <p>或者只用三个八进制数字</p>
 <p>更改文件访问权限</p>
+<hr>
 <h3 id="chgrp"><a href="#chgrp" class="headerlink" title="chgrp"></a>chgrp</h3><p>更改文件所属组</p>
+<hr>
 <h3 id="umask"><a href="#umask" class="headerlink" title="umask"></a>umask</h3><p>查看权限掩码</p>
+<hr>
 <h3 id="su"><a href="#su" class="headerlink" title="su"></a>su</h3><p>切换用户</p>
+<hr>
 <h3 id="rz-amp-sz"><a href="#rz-amp-sz" class="headerlink" title="rz&amp;sz"></a>rz&amp;sz</h3><h2 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h2><ul>
 <li>d：文件夹</li>
 <li>-：普通文件</li>
@@ -633,13 +667,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">65k</span>
+    <span title="站点总字数">67k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">59 分钟</span>
+    <span title="站点阅读时长">1:01</span>
   </span>
 </div>
 <div class="busuanzi-count">
