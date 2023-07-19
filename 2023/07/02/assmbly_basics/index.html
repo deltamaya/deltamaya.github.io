@@ -29,7 +29,7 @@
 <meta property="og:description" content="简要介绍几个汇编语言的基础语法">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-07-02T02:06:12.556Z">
-<meta property="article:modified_time" content="2023-07-02T02:30:58.389Z">
+<meta property="article:modified_time" content="2023-07-19T14:20:55.840Z">
 <meta property="article:author" content="deltamaya">
 <meta property="article:tag" content="汇编">
 <meta property="article:tag" content="操作系统">
@@ -145,7 +145,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">汇编语言基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">操作数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A4"><span class="nav-number">1.2.</span> <span class="nav-text">数据传送指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MOV%E6%8C%87%E4%BB%A4%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">1.3.</span> <span class="nav-text">MOV指令的分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%95%B0%E9%80%BB%E8%BE%91%E6%93%8D%E4%BD%9C"><span class="nav-number">1.4.</span> <span class="nav-text">算数逻辑操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E7%A0%81"><span class="nav-number">1.5.</span> <span class="nav-text">条件码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JMP%E6%8C%87%E4%BB%A4"><span class="nav-number">1.6.</span> <span class="nav-text">JMP指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8"><span class="nav-number">1.7.</span> <span class="nav-text">函数调用</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">汇编语言基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#registers"><span class="nav-number">1.1.</span> <span class="nav-text">registers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">操作数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A4"><span class="nav-number">1.3.</span> <span class="nav-text">数据传送指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rep"><span class="nav-number">1.4.</span> <span class="nav-text">rep</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#db-amp-DUP"><span class="nav-number">1.5.</span> <span class="nav-text">db &amp; DUP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MOV%E6%8C%87%E4%BB%A4%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">1.6.</span> <span class="nav-text">MOV指令的分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%95%B0%E9%80%BB%E8%BE%91%E6%93%8D%E4%BD%9C"><span class="nav-number">1.7.</span> <span class="nav-text">算数逻辑操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E7%A0%81"><span class="nav-number">1.8.</span> <span class="nav-text">条件码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JMP%E6%8C%87%E4%BB%A4"><span class="nav-number">1.9.</span> <span class="nav-text">JMP指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8"><span class="nav-number">1.10.</span> <span class="nav-text">函数调用</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -262,9 +262,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-07-02 10:06:12 / 修改时间：10:30:58" itemprop="dateCreated datePublished" datetime="2023-07-02T10:06:12+08:00">2023-07-02</time>
+      <time title="创建时间：2023-07-02 10:06:12" itemprop="dateCreated datePublished" datetime="2023-07-02T10:06:12+08:00">2023-07-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-07-19 22:20:55" itemprop="dateModified" datetime="2023-07-19T22:20:55+08:00">2023-07-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -290,14 +296,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.3k</span>
+      <span>5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>5 分钟</span>
     </span>
 </div>
 
@@ -309,7 +315,22 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="汇编语言基础"><a href="#汇编语言基础" class="headerlink" title="汇编语言基础"></a>汇编语言基础</h1><h2 id="操作数"><a href="#操作数" class="headerlink" title="操作数"></a>操作数</h2><p>在汇编语言中有三种操作数：</p>
+        <h1 id="汇编语言基础"><a href="#汇编语言基础" class="headerlink" title="汇编语言基础"></a>汇编语言基础</h1><h2 id="registers"><a href="#registers" class="headerlink" title="registers"></a>registers</h2><p>Segment Registers:</p>
+<ol>
+<li>Code Segment (CS): The Code Segment register holds the base address of the code segment, which contains the instructions being executed.</li>
+<li>Data Segment (DS): The Data Segment register points to the base address of the data segment, which stores variables and data used by the program.</li>
+<li>Stack Segment (SS): The Stack Segment register holds the base address of the stack segment. The stack is used for storing temporary data and function call information.</li>
+<li>Extra Segment (ES): The Extra Segment register is an additional segment register that can be used for any purpose defined by the programmer.</li>
+<li>FS and GS: These are additional segment registers introduced in the later x86 architectures (386 and above). They provide extra segment descriptors for extended addressing capabilities.</li>
+</ol>
+<p>Offset Registers:</p>
+<ol>
+<li>Instruction Pointer (IP): The Instruction Pointer register holds the offset or the memory address within the code segment of the next instruction to be executed.</li>
+<li>Stack Pointer (SP): The Stack Pointer register points to the top of the stack. It is used to keep track of the current position in the stack segment.</li>
+<li>Base Pointer (BP): The Base Pointer register is typically used to reference parameters, local variables, and stack frames within functions.</li>
+<li>Source Index (SI) and Destination Index (DI): These are general-purpose registers that are commonly used for string and memory operations. They can also be used as offset registers in some cases.</li>
+</ol>
+<h2 id="操作数"><a href="#操作数" class="headerlink" title="操作数"></a>操作数</h2><p>在汇编语言中有三种操作数：</p>
 <ol>
 <li>立即数</li>
 <li>寄存器</li>
@@ -317,7 +338,29 @@
 </ol>
 <p>立即数使用 <code>$</code>符号开头，表示一个整数<br>寄存器使用 <code>%</code>符号开头，表示一个寄存器中存放的值<br>内存引用一般使用 <code>Imm(ra,rb,s)</code>表示，其中ra，rb是寄存器的名字，表示内存中（ra+s*rb）+Imm位置存放的值<br>其中ra叫做基址寄存器，rb叫做变址寄存器，s叫做比例因子，Imm叫做立即数偏移<br>注意，这里s必须是1，2，4，8。并且基址寄存器和变址寄存器必须都是64位寄存器</p>
 <h2 id="数据传送指令"><a href="#数据传送指令" class="headerlink" title="数据传送指令"></a>数据传送指令</h2><p>数据传送指令一般长 <code>MOV S,D</code>这个样子<br>它的作用是将S中的值放入到D中<br>注意，S和D不能同时为内存地址，如果需要就需要使用两条MOV指令，先将内存地址的值放入某个临时寄存器，然后将寄存器的值放到另一个内存地址</p>
+<h2 id="rep"><a href="#rep" class="headerlink" title="rep"></a>rep</h2><p>In assembly language programming, the “rep” instruction prefix is used in conjunction with certain string and memory operations to indicate repetitive execution. It stands for “repeat” and is primarily used with instructions like “movsb,” “movsw,” “stosb,” “stosw,” “cmpsb,” “cmpsw,” “scasb,” and “scasw.”</p>
+<p>When a string or memory operation is prefixed with “rep,” it instructs the CPU to repeat the operation a specified number of times, based on the value in the “CX” (count) register. The “CX” register is decremented with each iteration, and the operation is repeated until the “CX” register becomes zero.</p>
+<h2 id="db-amp-DUP"><a href="#db-amp-DUP" class="headerlink" title="db &amp; DUP"></a>db &amp; DUP</h2><p>In assembly language, “db” stands for “define byte,” and “DUP” stands for “duplicate.” They are directives used to define and initialize data in memory.</p>
+<ol>
+<li>“db” (Define Byte):<br>The “db” directive is used to define one or more bytes of data. It allows you to specify the values of individual bytes or a string of characters. Each value is typically represented by a hexadecimal or ASCII code.</li>
+</ol>
+<p>For example:</p>
+<ul>
+<li><code>db 65</code> defines a single byte with the value 65 (in decimal) or 0x41 (in hexadecimal), which corresponds to the ASCII character ‘A’.</li>
+<li><code>db &#39;Hello&#39;</code> defines a sequence of bytes that represent the ASCII characters ‘H’, ‘e’, ‘l’, ‘l’, ‘o’.</li>
+</ul>
+<ol start="2">
+<li>“DUP” (Duplicate):<br>The “DUP” directive is used to replicate a specified number of copies of a value or a sequence of values. It allows you to initialize a block of memory with repeated values.</li>
+</ol>
+<p>For example:</p>
+<ul>
+<li><code>db 10 DUP (0)</code> creates a block of 10 bytes, each initialized with the value 0.</li>
+<li><code>db 5 DUP (&#39;*&#39;)</code> creates a block of 5 bytes, each initialized with the ASCII value of the asterisk character (‘*’).</li>
+</ul>
+<p>The combination of “db” and “DUP” allows you to define and initialize data structures, such as strings, arrays, buffers, and more, in assembly language.</p>
+<p>It’s important to note that the syntax and usage of directives like “db” and “DUP” may vary slightly depending on the specific assembly language and assembler being used. The examples provided above are based on common usage in x86 assembly language.</p>
 <h2 id="MOV指令的分类"><a href="#MOV指令的分类" class="headerlink" title="MOV指令的分类"></a>MOV指令的分类</h2><p>MOV指令根据操作数的大小可以分为movb，movw，movl，movq四条指令<br>b表示的是字节，w表示的是字，表示两个字节，l表示双字，四个字节，q表示四字，八个字节<br>此外mov还支持扩展传送：<code>mov+ s/z+ b/w/l/q + b/w/l/q src dest</code><br>表示的是将第一个bwlq大小的数据扩展为第二个bwlq大小，然后传送进入dest处，其中z表示零扩展，s表示符号扩展<br>特殊的，movabsq表示绝对四字</p>
+<p>其中 <code>cmov&#123;condition&#125;</code>表示条件传送指令，当后面的condition满足条件时才会进行数据传送</p>
 <h2 id="算数逻辑操作"><a href="#算数逻辑操作" class="headerlink" title="算数逻辑操作"></a>算数逻辑操作</h2><p>大致有以下几种类型<br><code>INC D</code>表示D+&#x3D;1<br><code>DEC D</code>表示D-&#x3D;1<br><code>NEG D</code>表示D&#x3D;-D<br><code>ADD S,D</code>表示D+&#x3D;S<br><code>SAL k,D</code>表示D&lt;&lt;&#x3D;k<br><code>SHL k,D</code>同上<br><code>SAR k,D</code>算数右移D&gt;&gt;&#x3D;k<br><code>SHR k,D</code>逻辑右移D&gt;&gt;&#x3D;k<br>和 <code>lea S,D</code>，叫做加载有效地址load effective address<br>注意，lea与mov指令操作数是一样的，但是不会进行解引用操作，直接将左边的值放入右侧<br>lea也有时会被用于进行简单的计算</p>
 <h2 id="条件码"><a href="#条件码" class="headerlink" title="条件码"></a>条件码</h2><p>CPU中还维护着一组单个位的条件码寄存器，<br>最常用的条件码有：CF进位标志，ZF零标志，SF符号标志，OF溢出标志</p>
 <p>我们可以使用 <code>set</code>指令设置状态位</p>
@@ -329,9 +372,11 @@
 <p><code>jns dest</code>如果符号标志没有被设置则跳转至dest</p>
 <p><code>jae dest</code>&#x3D;<code>jnb dest</code>（用于无符号数比较）&gt;&#x3D; 则跳转</p>
 <p><code>jge dest</code>&#x3D;<code>jnl dest</code>（用于有符号数标胶）&gt;&#x3D; 则跳转</p>
+<p><code>jmpi</code> or <code>jmp *operand</code> 表示间接跳转，首先跳转到operand指定的内存位置，比如*rax就表示跳转到rax中存放的地址处</p>
 <h2 id="函数调用"><a href="#函数调用" class="headerlink" title="函数调用"></a>函数调用</h2><p>汇编语言中使用 <code>call func</code>指令来调用函数</p>
 <p>使用call指令之前，需要先将参数放入对应寄存器，函数的前六个参数分别使用 <code>%rdi %rsi %rdx %rcx %r8 %r9</code>这六个寄存器</p>
-<p>然后超出的部分放入调用函数的栈帧的栈顶，并且自顶向下分别是第7，第8……个参数</p>
+<p>函数调用时，首先会将返回地址压入栈中，然后再压入rbp，也就是帧指针</p>
+<p>然后超出的部分放入调用函数的栈帧的栈顶，并且自顶向下分别是第7，第8……个参数，也就是从后往前压入栈</p>
 <p>函数的返回值放在 <code>%rax</code>中</p>
 
     </div>
@@ -458,13 +503,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">68k</span>
+    <span title="站点总字数">73k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:02</span>
+    <span title="站点阅读时长">1:06</span>
   </span>
 </div>
 <div class="busuanzi-count">

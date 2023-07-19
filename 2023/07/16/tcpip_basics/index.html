@@ -30,8 +30,12 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://www.deltamaya.top/image/tcpip_basics/1689512210307.png">
 <meta property="og:image" content="http://www.deltamaya.top/image/tcpip_basics/1689520133360.png">
+<meta property="og:image" content="http://www.deltamaya.top/image/tcpip_basics/1689557594619.png">
+<meta property="og:image" content="http://www.deltamaya.top/image/tcpip_basics/1689558337565.png">
+<meta property="og:image" content="http://www.deltamaya.top/image/tcpip_basics/1689558446539.png">
+<meta property="og:image" content="http://www.deltamaya.top/image/tcpip_basics/1689559840617.png">
 <meta property="article:published_time" content="2023-07-16T12:55:20.840Z">
-<meta property="article:modified_time" content="2023-07-16T15:26:20.249Z">
+<meta property="article:modified_time" content="2023-07-17T02:33:59.351Z">
 <meta property="article:author" content="deltamaya">
 <meta property="article:tag" content="http">
 <meta property="article:tag" content="计算机网络">
@@ -151,7 +155,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%88%86%E5%B1%82"><span class="nav-number">1.</span> <span class="nav-text">网络分层</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%88%86%E5%B1%82"><span class="nav-number">1.</span> <span class="nav-text">网络分层</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="nav-number">2.</span> <span class="nav-text">数据链路层</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A5%E5%A4%AA%E7%BD%91"><span class="nav-number">3.</span> <span class="nav-text">以太网</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IP%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.</span> <span class="nav-text">IP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IP%E5%9C%B0%E5%9D%80"><span class="nav-number">4.1.</span> <span class="nav-text">IP地址</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -268,9 +272,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-07-16 20:55:20 / 修改时间：23:26:20" itemprop="dateCreated datePublished" datetime="2023-07-16T20:55:20+08:00">2023-07-16</time>
+      <time title="创建时间：2023-07-16 20:55:20" itemprop="dateCreated datePublished" datetime="2023-07-16T20:55:20+08:00">2023-07-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-07-17 10:33:59" itemprop="dateModified" datetime="2023-07-17T10:33:59+08:00">2023-07-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -296,7 +306,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>294</span>
+      <span>896</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -323,6 +333,26 @@
 <p>分组交换就是将要发送的数据分割成一个个的数据包，然后将这些数据包按一定顺序逐个发送到目标地址，实现了从而提高了能够同时上网的人数</p>
 <p><img src="/image/tcpip_basics/1689520133360.png" alt="1689520133360"></p>
 <p>上图就是一般来说一个数据包的结构，每经过一层都会额外包含一个首部，用来描述本层使用的发送端和接收端的地址，以及上层服务使用的协议，最后在报文的尾部安插一个校验端，用来判断文件是否损坏</p>
+<h1 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h1><p>数据链路层通过MAC地址进行通信，MAC地址有48比特，<code>xx:xx:xx:xx:xx:xx</code>的样式，每个x代表一个十六进制数</p>
+<p>此外，MAC地址不具有层次性，虽然它3 ~ 24位是厂商识别码，25 ~ 48位是每个厂商的标识符，但是确实不算是层次性</p>
+<p><img src="/image/tcpip_basics/1689557594619.png" alt="1689557594619"></p>
+<p>第一位是单播地址，第二位是全局地址</p>
+<p>MAC地址一般是唯一的，但是如果存在MAC相同的NIC也没关系，只要这两个NIC不属于同一个数据链路即可</p>
+<p>从通信介质来看，网络可以分为<strong>共享介质网络</strong>和<strong>非共享介质网络</strong></p>
+<p>交换机在进行数据链路层的转发的时候，需要通过自动生成的<strong>转发表</strong>实现</p>
+<h1 id="以太网"><a href="#以太网" class="headerlink" title="以太网"></a>以太网</h1><p>以太网通过时钟频率衡量传输速度，比如1k&#x3D;1000而不是1024.</p>
+<p>以太网前导码</p>
+<p><img src="/image/tcpip_basics/1689558337565.png" alt="1689558337565"></p>
+<p>注意，以太网中是最后两个bit是SDF，而IEEE8023中是最后8个bit</p>
+<p><img src="/image/tcpip_basics/1689558446539.png" alt="1689558446539"></p>
+<p>这是以太网的正文内容，</p>
+<p>FCS(Frame Check Sequence)是帧检测序列，FCS具有较强的检测能力，它可以检测到很多突发错误</p>
+<h1 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h1><p>IP协议主要分为IP的寻址，路由（转发）和IP的分包与组包</p>
+<p>所谓路由就是如何将IP的帧逐跳进行转发，当一个IP帧到达一个路由器时，路由器先检查帧的目标地址，判断这个帧接下来应该发往哪个路由器，然后将这个帧发往下一个路由器，以此类推直到到达目标地址</p>
+<p>IP为了简化和快速，使用了面向无连接的方式，来对数据传输层提供服务</p>
+<h2 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h2><p>IPv4：<code>xxx.xxx.xxx.xxx</code></p>
+<p>IPv4分为四个种类：</p>
+<p><img src="/image/tcpip_basics/1689559840617.png" alt="1689559840617"></p>
 
     </div>
 
@@ -448,13 +478,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">68k</span>
+    <span title="站点总字数">73k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:02</span>
+    <span title="站点阅读时长">1:06</span>
   </span>
 </div>
 <div class="busuanzi-count">
