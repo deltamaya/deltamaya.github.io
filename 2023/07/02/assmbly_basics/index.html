@@ -29,7 +29,7 @@
 <meta property="og:description" content="简要介绍几个汇编语言的基础语法">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-07-02T02:06:12.556Z">
-<meta property="article:modified_time" content="2023-07-19T14:20:55.840Z">
+<meta property="article:modified_time" content="2023-07-20T09:38:52.041Z">
 <meta property="article:author" content="deltamaya">
 <meta property="article:tag" content="汇编">
 <meta property="article:tag" content="操作系统">
@@ -145,7 +145,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">汇编语言基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#registers"><span class="nav-number">1.1.</span> <span class="nav-text">registers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">操作数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A4"><span class="nav-number">1.3.</span> <span class="nav-text">数据传送指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rep"><span class="nav-number">1.4.</span> <span class="nav-text">rep</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#db-amp-DUP"><span class="nav-number">1.5.</span> <span class="nav-text">db &amp; DUP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MOV%E6%8C%87%E4%BB%A4%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">1.6.</span> <span class="nav-text">MOV指令的分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%95%B0%E9%80%BB%E8%BE%91%E6%93%8D%E4%BD%9C"><span class="nav-number">1.7.</span> <span class="nav-text">算数逻辑操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E7%A0%81"><span class="nav-number">1.8.</span> <span class="nav-text">条件码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JMP%E6%8C%87%E4%BB%A4"><span class="nav-number">1.9.</span> <span class="nav-text">JMP指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8"><span class="nav-number">1.10.</span> <span class="nav-text">函数调用</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">汇编语言基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#registers"><span class="nav-number">1.1.</span> <span class="nav-text">registers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">操作数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A4"><span class="nav-number">1.3.</span> <span class="nav-text">数据传送指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rep"><span class="nav-number">1.4.</span> <span class="nav-text">rep</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#db-amp-DUP"><span class="nav-number">1.5.</span> <span class="nav-text">db &amp; DUP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MOV%E6%8C%87%E4%BB%A4%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">1.6.</span> <span class="nav-text">MOV指令的分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%95%B0%E9%80%BB%E8%BE%91%E6%93%8D%E4%BD%9C"><span class="nav-number">1.7.</span> <span class="nav-text">算数逻辑操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E7%A0%81"><span class="nav-number">1.8.</span> <span class="nav-text">条件码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JMP%E6%8C%87%E4%BB%A4"><span class="nav-number">1.9.</span> <span class="nav-text">JMP指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8"><span class="nav-number">1.10.</span> <span class="nav-text">函数调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%AA%E6%8C%87%E4%BB%A4"><span class="nav-number">1.11.</span> <span class="nav-text">伪指令</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -171,7 +171,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">41</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -270,7 +270,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-07-19 22:20:55" itemprop="dateModified" datetime="2023-07-19T22:20:55+08:00">2023-07-19</time>
+      <time title="修改时间：2023-07-20 17:38:52" itemprop="dateModified" datetime="2023-07-20T17:38:52+08:00">2023-07-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -296,7 +296,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>5k</span>
+      <span>5.9k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -361,7 +361,7 @@
 <p>It’s important to note that the syntax and usage of directives like “db” and “DUP” may vary slightly depending on the specific assembly language and assembler being used. The examples provided above are based on common usage in x86 assembly language.</p>
 <h2 id="MOV指令的分类"><a href="#MOV指令的分类" class="headerlink" title="MOV指令的分类"></a>MOV指令的分类</h2><p>MOV指令根据操作数的大小可以分为movb，movw，movl，movq四条指令<br>b表示的是字节，w表示的是字，表示两个字节，l表示双字，四个字节，q表示四字，八个字节<br>此外mov还支持扩展传送：<code>mov+ s/z+ b/w/l/q + b/w/l/q src dest</code><br>表示的是将第一个bwlq大小的数据扩展为第二个bwlq大小，然后传送进入dest处，其中z表示零扩展，s表示符号扩展<br>特殊的，movabsq表示绝对四字</p>
 <p>其中 <code>cmov&#123;condition&#125;</code>表示条件传送指令，当后面的condition满足条件时才会进行数据传送</p>
-<h2 id="算数逻辑操作"><a href="#算数逻辑操作" class="headerlink" title="算数逻辑操作"></a>算数逻辑操作</h2><p>大致有以下几种类型<br><code>INC D</code>表示D+&#x3D;1<br><code>DEC D</code>表示D-&#x3D;1<br><code>NEG D</code>表示D&#x3D;-D<br><code>ADD S,D</code>表示D+&#x3D;S<br><code>SAL k,D</code>表示D&lt;&lt;&#x3D;k<br><code>SHL k,D</code>同上<br><code>SAR k,D</code>算数右移D&gt;&gt;&#x3D;k<br><code>SHR k,D</code>逻辑右移D&gt;&gt;&#x3D;k<br>和 <code>lea S,D</code>，叫做加载有效地址load effective address<br>注意，lea与mov指令操作数是一样的，但是不会进行解引用操作，直接将左边的值放入右侧<br>lea也有时会被用于进行简单的计算</p>
+<h2 id="算数逻辑操作"><a href="#算数逻辑操作" class="headerlink" title="算数逻辑操作"></a>算数逻辑操作</h2><p>大致有以下几种类型<br><code>INC D</code>表示D+&#x3D;1<br><code>DEC D</code>表示D-&#x3D;1<br><code>NEG D</code>表示D&#x3D;-D<br><code>ADD S,D</code>表示D+&#x3D;S<br><code>SAL k,D</code>表示D&lt;&lt;&#x3D;k<br><code>SHL k,D</code>同上<br><code>SAR k,D</code>算数右移D&gt;&gt;&#x3D;k<br><code>SHR k,D</code>逻辑右移D&gt;&gt;&#x3D;k<br>和 <code>lea S,D</code>，叫做加载有效地址load effective address<br>注意，lea与mov指令操作数是一样的，但是不会进行解引用操作，直接将左边的值放入右侧，如果不带操作数，默认操作数是1<br>lea也有时会被用于进行简单的计算</p>
 <h2 id="条件码"><a href="#条件码" class="headerlink" title="条件码"></a>条件码</h2><p>CPU中还维护着一组单个位的条件码寄存器，<br>最常用的条件码有：CF进位标志，ZF零标志，SF符号标志，OF溢出标志</p>
 <p>我们可以使用 <code>set</code>指令设置状态位</p>
 <p>也可以通过 <code>test A,B</code> or <code>cmp A,B</code>设置状态位，其中test指令的含义就是根据A&amp;B得到的值来设置状态位，cmp指令是根据B-A得到的值来设置状态位</p>
@@ -378,6 +378,29 @@
 <p>函数调用时，首先会将返回地址压入栈中，然后再压入rbp，也就是帧指针</p>
 <p>然后超出的部分放入调用函数的栈帧的栈顶，并且自顶向下分别是第7，第8……个参数，也就是从后往前压入栈</p>
 <p>函数的返回值放在 <code>%rax</code>中</p>
+<h2 id="伪指令"><a href="#伪指令" class="headerlink" title="伪指令"></a>伪指令</h2><p>在x86汇编语言中，有一些常用的伪指令（pseudo-instructions），它们实际上不是真正的机器指令，而是由汇编器处理并转换成真正的机器指令。这些伪指令可以简化汇编程序的编写，提高可读性和可维护性。以下是几个常用的x86汇编语言中的伪指令：</p>
+<ol>
+<li><p><code>db</code> (Define Byte):<br>用于定义字节数据。可以将一个或多个字节的数值直接放入内存。</p>
+</li>
+<li><p><code>dw</code> (Define Word):<br>用于定义字（16位数据）。与 <code>db</code> 类似，但是每个数据项占用两个字节。</p>
+</li>
+<li><p><code>dd</code> (Define Doubleword):<br>用于定义双字（32位数据）。每个数据项占用四个字节。</p>
+</li>
+<li><p><code>dq</code> (Define Quadword):<br>   用于定义四字（64位数据）。每个数据项占用八个字节。</p>
+</li>
+<li><p><code>equ</code> (Equate):<br>   用于定义符号常量或者符号地址，类似于C语言中的宏定义。</p>
+</li>
+<li><p><code>section</code> (Section Directive):<br>   <code>section</code> 伪指令用于定义不同节（section）的属性。一个节是程序中一组相关的数据或代码的逻辑分组，例如代码段、数据段等。</p>
+</li>
+<li><p><code>resb</code>, <code>resw</code>, <code>resd</code>, <code>resq</code> (Reserve Space):<br>   这些伪指令用于在内存中预留一定大小的空间，用于存储数据或者堆栈空间。它们通常用于定义变量或数据结构的内存布局。</p>
+</li>
+<li><p><code>global</code> (Global Symbol Declaration):<br>   <code>global</code> 伪指令用于声明一个符号（标签或变量）是全局的，使得这个符号可以在不同的模块（文件）中共享。</p>
+</li>
+<li><p><code>extern</code> (External Symbol Declaration):<br>   <code>extern</code> 伪指令用于声明一个符号是在其他模块中定义的外部符号。这允许在当前模块中使用其他模块中定义的符号。</p>
+</li>
+<li><p><code>.pos</code> 指令通常用于在汇编程序中显式地设置代码或数据的地址，以便在特定的地址处放置代码或数据。这在一些特殊情况下是有用的，例如，为了确保特定的代码片段位于预定的内存位置。</p>
+</li>
+</ol>
 
     </div>
 
@@ -503,13 +526,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">73k</span>
+    <span title="站点总字数">80k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:06</span>
+    <span title="站点阅读时长">1:13</span>
   </span>
 </div>
 <div class="busuanzi-count">
