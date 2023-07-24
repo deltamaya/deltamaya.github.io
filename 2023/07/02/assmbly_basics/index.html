@@ -28,12 +28,14 @@
 <meta property="og:site_name" content="玛雅55369">
 <meta property="og:description" content="简要介绍几个汇编语言的基础语法">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.deltamaya.top/image/assmbly_basics/1690013626347.png">
 <meta property="article:published_time" content="2023-07-02T02:06:12.556Z">
-<meta property="article:modified_time" content="2023-07-20T09:38:52.041Z">
+<meta property="article:modified_time" content="2023-07-22T08:14:25.566Z">
 <meta property="article:author" content="deltamaya">
 <meta property="article:tag" content="汇编">
 <meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.deltamaya.top/image/assmbly_basics/1690013626347.png">
 
 
 <link rel="canonical" href="http://www.deltamaya.top/2023/07/02/assmbly_basics/">
@@ -160,7 +162,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -270,7 +272,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-07-20 17:38:52" itemprop="dateModified" datetime="2023-07-20T17:38:52+08:00">2023-07-20</time>
+      <time title="修改时间：2023-07-22 16:14:25" itemprop="dateModified" datetime="2023-07-22T16:14:25+08:00">2023-07-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -315,7 +317,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="汇编语言基础"><a href="#汇编语言基础" class="headerlink" title="汇编语言基础"></a>汇编语言基础</h1><h2 id="registers"><a href="#registers" class="headerlink" title="registers"></a>registers</h2><p>Segment Registers:</p>
+        <h1 id="汇编语言基础"><a href="#汇编语言基础" class="headerlink" title="汇编语言基础"></a>汇编语言基础</h1><p><img src="/image/assmbly_basics/1690013626347.png" alt="1690013626347"></p>
+<h2 id="registers"><a href="#registers" class="headerlink" title="registers"></a>registers</h2><p>Segment Registers:</p>
 <ol>
 <li>Code Segment (CS): The Code Segment register holds the base address of the code segment, which contains the instructions being executed.</li>
 <li>Data Segment (DS): The Data Segment register points to the base address of the data segment, which stores variables and data used by the program.</li>
@@ -380,26 +383,16 @@
 <p>函数的返回值放在 <code>%rax</code>中</p>
 <h2 id="伪指令"><a href="#伪指令" class="headerlink" title="伪指令"></a>伪指令</h2><p>在x86汇编语言中，有一些常用的伪指令（pseudo-instructions），它们实际上不是真正的机器指令，而是由汇编器处理并转换成真正的机器指令。这些伪指令可以简化汇编程序的编写，提高可读性和可维护性。以下是几个常用的x86汇编语言中的伪指令：</p>
 <ol>
-<li><p><code>db</code> (Define Byte):<br>用于定义字节数据。可以将一个或多个字节的数值直接放入内存。</p>
-</li>
-<li><p><code>dw</code> (Define Word):<br>用于定义字（16位数据）。与 <code>db</code> 类似，但是每个数据项占用两个字节。</p>
-</li>
-<li><p><code>dd</code> (Define Doubleword):<br>用于定义双字（32位数据）。每个数据项占用四个字节。</p>
-</li>
-<li><p><code>dq</code> (Define Quadword):<br>   用于定义四字（64位数据）。每个数据项占用八个字节。</p>
-</li>
-<li><p><code>equ</code> (Equate):<br>   用于定义符号常量或者符号地址，类似于C语言中的宏定义。</p>
-</li>
-<li><p><code>section</code> (Section Directive):<br>   <code>section</code> 伪指令用于定义不同节（section）的属性。一个节是程序中一组相关的数据或代码的逻辑分组，例如代码段、数据段等。</p>
-</li>
-<li><p><code>resb</code>, <code>resw</code>, <code>resd</code>, <code>resq</code> (Reserve Space):<br>   这些伪指令用于在内存中预留一定大小的空间，用于存储数据或者堆栈空间。它们通常用于定义变量或数据结构的内存布局。</p>
-</li>
-<li><p><code>global</code> (Global Symbol Declaration):<br>   <code>global</code> 伪指令用于声明一个符号（标签或变量）是全局的，使得这个符号可以在不同的模块（文件）中共享。</p>
-</li>
-<li><p><code>extern</code> (External Symbol Declaration):<br>   <code>extern</code> 伪指令用于声明一个符号是在其他模块中定义的外部符号。这允许在当前模块中使用其他模块中定义的符号。</p>
-</li>
-<li><p><code>.pos</code> 指令通常用于在汇编程序中显式地设置代码或数据的地址，以便在特定的地址处放置代码或数据。这在一些特殊情况下是有用的，例如，为了确保特定的代码片段位于预定的内存位置。</p>
-</li>
+<li><code>db</code> (Define Byte):<br>用于定义字节数据。可以将一个或多个字节的数值直接放入内存。</li>
+<li><code>dw</code> (Define Word):<br>用于定义字（16位数据）。与 <code>db</code> 类似，但是每个数据项占用两个字节。</li>
+<li><code>dd</code> (Define Doubleword):<br>用于定义双字（32位数据）。每个数据项占用四个字节。</li>
+<li><code>dq</code> (Define Quadword):<br>用于定义四字（64位数据）。每个数据项占用八个字节。</li>
+<li><code>equ</code> (Equate):<br>用于定义符号常量或者符号地址，类似于C语言中的宏定义。</li>
+<li><code>section</code> (Section Directive):<br><code>section</code> 伪指令用于定义不同节（section）的属性。一个节是程序中一组相关的数据或代码的逻辑分组，例如代码段、数据段等。</li>
+<li><code>resb</code>, <code>resw</code>, <code>resd</code>, <code>resq</code> (Reserve Space):<br>这些伪指令用于在内存中预留一定大小的空间，用于存储数据或者堆栈空间。它们通常用于定义变量或数据结构的内存布局。</li>
+<li><code>global</code> (Global Symbol Declaration):<br><code>global</code> 伪指令用于声明一个符号（标签或变量）是全局的，使得这个符号可以在不同的模块（文件）中共享。</li>
+<li><code>extern</code> (External Symbol Declaration):<br><code>extern</code> 伪指令用于声明一个符号是在其他模块中定义的外部符号。这允许在当前模块中使用其他模块中定义的符号。</li>
+<li><code>.pos</code> 指令通常用于在汇编程序中显式地设置代码或数据的地址，以便在特定的地址处放置代码或数据。这在一些特殊情况下是有用的，例如，为了确保特定的代码片段位于预定的内存位置。</li>
 </ol>
 
     </div>
@@ -526,13 +519,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">80k</span>
+    <span title="站点总字数">82k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:13</span>
+    <span title="站点阅读时长">1:15</span>
   </span>
 </div>
 <div class="busuanzi-count">
